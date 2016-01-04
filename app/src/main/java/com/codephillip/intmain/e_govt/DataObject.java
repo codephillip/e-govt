@@ -4,15 +4,19 @@ package com.codephillip.intmain.e_govt;
  * Created by codephillip on 1/4/16.
  */
 public class DataObject {
-    private int a;
-    private String b;
+    private String day;
+    private String lunch;
 
-    public DataObject(int a, String b) {
-        this.a = a;
-        this.b = b;
+    public DataObject(String a, String b) {
+        this.day = a;
+        this.lunch = b;
     }
 
-    public String toString() {
-        return "a = " +a+ ", b = " +b;
+//    public String toString() {
+//        return "day = " + day + ", lunch = " + lunch;
+//    }
+
+    public static String returnJson(){
+        return "{\"day\":\"thursdaycode\",\"lunch\":\"food\"}";
     }
 }
