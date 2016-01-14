@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.codephillip.intmain.e_govt.ChapterActivity;
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 
 
 /**
@@ -70,19 +71,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        dataCursor.moveToPosition(position);
-//
-//        String time = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.TIME));
+        dataCursor.moveToPosition(position);
+
+        String textData = dataCursor.getString(dataCursor.getColumnIndex(MinistriesColumns.MINISTRY_NAME));
 //        String date = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.DATE));
-//        String distance = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.DISTANCE));
-//
+
 //        holder.time.setText(time);
 //        holder.date.setText(date);
-//        holder.textView.setText(distance);
+        holder.textView.setText(textData);
     }
 
     @Override
     public int getItemCount() {
-        return (dataCursor == null) ? 15 : dataCursor.getCount();
+        return (dataCursor == null) ? 0 : dataCursor.getCount();
     }
 }

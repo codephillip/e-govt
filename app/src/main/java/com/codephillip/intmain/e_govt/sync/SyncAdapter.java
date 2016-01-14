@@ -8,11 +8,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SyncRequest;
 import android.content.SyncResult;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,35 +46,30 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d("SYNCADAPTER", "ONPERFORMSYNC");
 //        notifyWeather();
 
-//        try {
-//            int k;
-//            for (k=0; k<2 ; k++){
-//                if (k == 0){
-//                    getStretchesDataFromJson(connectToServer("http://192.168.56.1/lynda-php/stretchesapi.php"));
-//                } else if (k == 1){
-////                    getBbnFromJson(connectToServer("http://192.168.56.1/lynda-php/apibbn.php"));
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.d("URL BUG", e.toString());
-//        }
+        try {
+            int k;
+            for (k=0; k<2 ; k++){
+                if (k == 0){
+                    getMinistriesDataFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/ministries?transform=1"));
+                } else if (k == 1){
+//                    getBbnFromJson(connectToServer("http://192.168.56.1/lynda-php/apibbn.php"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("URL BUG", e.toString());
+        }
     }
 
 
-    private void getStretchesDataFromJson(String forecastJsonStr)
+    private void getMinistriesDataFromJson(String forecastJsonStr)
             throws JSONException {
 
         // These are the names of the JSON objects that need to be extracted.
         final String TAG_ID = "id";
-        final String TAG_WORKOUT = "workout";
-        final String TAG_STEPS = "steps";
-        final String TAG_VARIATIONS = "variations";
-        final String TAG_MUSCLES = "muscles";
-        final String TAG_EQUIPMENT = "equipment";
-        final String TAG_IMAGE1 = "image1";
-        final String TAG_IMAGE2 = "image2";
-        final String TAG_TITLE = "title";
+        final String TAG_MINISTRY_NAME = "ministry_name";
+        final String TAG_IMAGE = "image";
+        final String TAG_TITLE = "ministries";
 
         JSONObject forecastJson = new JSONObject(forecastJsonStr);
         JSONArray nutriArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
@@ -84,16 +81,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
             //extract individual items from the json object
             String id = c.getString(TAG_ID);
-            String workout = c.getString(TAG_WORKOUT);
-            String steps = c.getString(TAG_STEPS);
-            String variations = c.getString(TAG_VARIATIONS);
-            String muscles = c.getString(TAG_MUSCLES);
-            String equipment = c.getString(TAG_EQUIPMENT);
-            String image1 = c.getString(TAG_IMAGE1);
-            String image2 = c.getString(TAG_IMAGE2);
+            String image = c.getString(TAG_IMAGE);
+            String ministry = c.getString(TAG_MINISTRY_NAME);
 
-            Log.d("FEEDBA", id+ " "+workout + " "+steps+ " "+variations+ " "+muscles+ " "+equipment+ " "+image1+ " "+image2);
-//            storeInStretchesTable(id, workout, steps, variations, muscles, equipment, image1, image2);
+            Log.d("SYNC_DATA", id+" "+image+ " "+ministry);
+            storeInMinistriesTable(id, ministry, image);
         }
     }
 
@@ -138,19 +130,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //        }
 //    }
 
-//        private void storeInStretchesTable(String id,String workout, String steps, String variations, String muscle, String equipment, String image1, String image2){
-//            Log.d("INSERT: ", "starting");
-//            ContentValues values = new ContentValues();
-//            values.put(FitContract.StretchData.STEPS, steps);
-//            values.put(FitContract.StretchData.VARIATION,variations);
-//            values.put(FitContract.StretchData.WORKOUT, workout);
-//            values.put(FitContract.StretchData.MUSCLES, muscle);
-//            values.put(FitContract.StretchData.EQUIPMENT,equipment);
-//            values.put(FitContract.StretchData.IMAGE1, image1);
-//            values.put(FitContract.StretchData.IMAGE2, image2);
-//            Uri uri = getContext().getContentResolver().insert(FitContract.StretchData.CONTENT_URI, values);
-//            Log.d("INSERT: ", "inserting"+uri.toString());
-//        }
+        private void storeInMinistriesTable(String id, String ministry_name, String image){
+            Log.d("INSERT: ", "starting");
+            MinistriesContentValues values = new MinistriesContentValues();
+            values.putMinistryName(ministry_name);
+            values.putImage(image);
+            final Uri uri = values.insert(getContext().getContentResolver());
+            Log.d("INSERT: ", "inserting"+uri.toString());
+        }
 
 //        private void storeInFixtureTable(String date, String status, String homeTeamName, String awayTeamName, String goalsHomeTeam, String goalsAwayTeam, int leagueNo){
 //            Log.d("INSERT: ", "starting");

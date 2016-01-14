@@ -52,7 +52,7 @@
 
         <provider
             android:name="com.codephillip.intmain.e_govt.provider.MyContentProvider"
-            android:authorities="com.codephillip.intmain.e_govt"
+            android:authorities="com.codephillip.intmain.e_govt.provider"
             android:exported="false" />
 
         <service android:name=".sync.AuthenticatorService" >
