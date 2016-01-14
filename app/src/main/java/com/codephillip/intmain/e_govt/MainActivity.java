@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity
 //        CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
 //        Cursor cursor = cursorLoader.loadInBackground();
 //
+
+        //TESTING SYNC_ADAPTER
+//        SyncAdapter.syncImmediately(this);
+
 //        if (cursor.moveToFirst()){
 //            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT)));
 //        }

@@ -233,7 +233,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
              * here.
              */
 
-            onAccountCreated(newAccount, context);
+//            onAccountCreated(newAccount, context);
         }
         return newAccount;
     }
