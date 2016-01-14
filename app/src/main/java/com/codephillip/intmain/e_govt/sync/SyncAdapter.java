@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
+import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 
 import org.json.JSONArray;
@@ -48,11 +51,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             int k;
-            for (k=0; k<2 ; k++){
+            for (k=0; k<4 ; k++){
                 if (k == 0){
                     getMinistriesDataFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/ministries?transform=1"));
                 } else if (k == 1){
-//                    getBbnFromJson(connectToServer("http://192.168.56.1/lynda-php/apibbn.php"));
+                    getChaptersFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/chapters?transform=1"));
+                } else if (k == 2){
+                    getEventsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/events?transform=1"));
+                } else if (k == 3){
+                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
                 }
             }
         } catch (Exception e) {
@@ -61,8 +68,127 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
+    private void getDistrictsFromJson(String jsonStr) throws JSONException {
+        // These are the names of the JSON objects that need to be extracted.
+        final String TAG_ID = "id";
+        final String TAG_DISTRICT_NAME = "district_name";
+        final String TAG_IMAGE = "image";
+        final String TAG_TITLE = "districts";
 
-    private void getMinistriesDataFromJson(String forecastJsonStr)
+        JSONObject forecastJson = new JSONObject(jsonStr);
+        JSONArray nutriArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
+        int jsonLength = nutriArray.length();//get lenght of the jsonArray
+
+        for(int i = 0; i < jsonLength; i++) {
+
+            // Get the JSON object representing the day
+            JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
+            //extract individual items from the json object
+            String id = c.getString(TAG_ID);
+            String image = c.getString(TAG_IMAGE);
+            String district = c.getString(TAG_DISTRICT_NAME);
+
+            Log.d("SYNC_DATA", id+" "+image+ " "+district);
+            storeInDistrictTable(id, district, image);
+        }
+    }
+
+    private void storeInDistrictTable(String id, String district, String image) {
+        Log.d("INSERT: ", "starting");
+        DistrictsContentValues values = new DistrictsContentValues();
+        values.putDistrictName(district);
+        values.putImage(image);
+        values.insert(getContext().getContentResolver());
+    }
+
+    private void getEventsFromJson(String jsonStr) throws JSONException {
+        // These are the names of the JSON objects that need to be extracted.
+        final String TAG_ID = "id";
+        final String TAG_DATE = "date";
+        final String TAG_STORY = "story";
+        final String TAG_TITLE = "title";
+        final String TAG_EVENTS = "events";
+        final String TAG_IMAGE = "image";
+        final String TAG_MINISTRY = "ministry";
+        final String TAG_LOCATION = "location";
+
+        JSONObject forecastJson = new JSONObject(jsonStr);
+        JSONArray nutriArray = forecastJson.getJSONArray(TAG_EVENTS);//traverse down into the array
+        int jsonLength = nutriArray.length();//get length of the jsonArray
+
+        for(int i = 0; i < jsonLength; i++) {
+
+            // Get the JSON object representing the day
+            JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
+            //extract individual items from the json object
+            String id = c.getString(TAG_ID);
+            String image = c.getString(TAG_IMAGE);
+            String ministry = c.getString(TAG_MINISTRY);
+            String date = c.getString(TAG_DATE);
+            String title = c.getString(TAG_TITLE);
+            String story = c.getString(TAG_STORY);
+            String location = c.getString(TAG_LOCATION);
+
+            Log.d("SYNC_DATA", id+" "+image+ " "+ministry+ " "+date+ " "+story + " "+ location);
+            storeInEventsTable(id, ministry, image, date, story, location, title);
+        }
+    }
+
+    private void storeInEventsTable(String id, String ministry, String image, String date, String story, String location, String title) {
+        EventsContentValues values = new EventsContentValues();
+        values.putMinistry(ministry);
+        values.putImage(image);
+        values.putDate(date);
+        values.putTitle(title);
+        values.putStory(story);
+        values.putLocation(location);
+        values.insert(getContext().getContentResolver());
+    }
+
+    private void getChaptersFromJson(String jsonStr) throws JSONException {
+        // These are the names of the JSON objects that need to be extracted.
+        final String TAG_ID = "id";
+        final String TAG_DATE = "date";
+        final String TAG_STORY = "story";
+        final String TAG_TITLE = "title";
+        final String TAG_CHAPTERS = "chapters";
+        final String TAG_IMAGE = "image";
+        final String TAG_MINISTRY = "ministry";
+
+        JSONObject forecastJson = new JSONObject(jsonStr);
+        JSONArray nutriArray = forecastJson.getJSONArray(TAG_CHAPTERS);//traverse down into the array
+        int jsonLength = nutriArray.length();//get length of the jsonArray
+
+        for(int i = 0; i < jsonLength; i++) {
+
+            // Get the JSON object representing the day
+            JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
+            //extract individual items from the json object
+            String id = c.getString(TAG_ID);
+            String image = c.getString(TAG_IMAGE);
+            String ministry = c.getString(TAG_MINISTRY);
+            String title = c.getString(TAG_TITLE);
+            String date = c.getString(TAG_DATE);
+            String story = c.getString(TAG_STORY);
+
+            Log.d("SYNC_DATA", id+" "+image+ " "+ministry+ " "+date+ " "+story);
+            storeInChaptersTable(id, ministry, image, date, story, title);
+        }
+    }
+
+    private void storeInChaptersTable(String id, String ministry, String image, String date, String story, String title) {
+        Log.d("INSERT: ", "starting");
+        ChaptersContentValues values = new ChaptersContentValues();
+        values.putMinistry(ministry);
+        values.putDate(date);
+        values.putImage(image);
+        values.putTitle(title);
+        values.putStory(story);
+        values.insert(getContext().getContentResolver());
+    }
+
+
+    private void getMinistriesDataFromJson(String jsonStr)
             throws JSONException {
 
         // These are the names of the JSON objects that need to be extracted.
@@ -71,7 +197,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_IMAGE = "image";
         final String TAG_TITLE = "ministries";
 
-        JSONObject forecastJson = new JSONObject(forecastJsonStr);
+        JSONObject forecastJson = new JSONObject(jsonStr);
         JSONArray nutriArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
         int jsonLength = nutriArray.length();//get lenght of the jsonArray
 
@@ -99,59 +225,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         return jsonData;
     }
 
-//    private void getBbnFromJson(String BbnJsonString)  throws JSONException {
-//
-//        // These are the names of the JSON objects that need to be extracted.
-//        final String TAG_ID = "id";
-//        final String TAG_TIPS = "tips";
-//        final String TAG_BARCODE = "barcode";
-//        final String TAG_TITLE = "title";
-//        final String TAG_BC = "bc";
-//        final String TAG_URL = "url";
-//
-//        JSONObject forecastJson = new JSONObject(BbnJsonString);
-//        JSONArray nutriArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
-//        int jsonLength = nutriArray.length();//get length of the jsonArray
-//
-//        for(int i = 0; i < jsonLength; i++) {
-//
-//            // Get the JSON object representing the day
-//            JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
-//            //extract individual items from the json object
-//            String id = c.getString(TAG_ID);
-//            String tips = c.getString(TAG_TIPS);
-//            String barcode = c.getString(TAG_BARCODE);
-//            String bc = c.getString(TAG_BC);
-//            String url = c.getString(TAG_URL);
-//
-//            Log.d("FEEDBA", id+ " "+tips + " "+barcode+ " "+bc+ " "+url);
-//
-//            storeInBbnTable(tips, bc, barcode, url);
-//        }
-//    }
-
-        private void storeInMinistriesTable(String id, String ministry_name, String image){
-            Log.d("INSERT: ", "starting");
-            MinistriesContentValues values = new MinistriesContentValues();
-            values.putMinistryName(ministry_name);
-            values.putImage(image);
-            final Uri uri = values.insert(getContext().getContentResolver());
-            Log.d("INSERT: ", "inserting"+uri.toString());
-        }
-
-//        private void storeInFixtureTable(String date, String status, String homeTeamName, String awayTeamName, String goalsHomeTeam, String goalsAwayTeam, int leagueNo){
-//            Log.d("INSERT: ", "starting");
-//            ContentValues values = new ContentValues();
-//            values.put(SoccerContract.FixturesTable.TAG_HOME_TEAM_NAME, homeTeamName);
-//            values.put(SoccerContract.FixturesTable.TAG_AWAY_TEAM_NAME, awayTeamName);
-//            values.put(SoccerContract.FixturesTable.TAG_DATE, date);
-//            values.put(SoccerContract.FixturesTable.TAG_GOALS_HOME_TEAM, goalsHomeTeam);
-//            values.put(SoccerContract.FixturesTable.TAG_GOALS_AWAY_TEAM, goalsAwayTeam);
-//            values.put(SoccerContract.FixturesTable.TAG_STATUS, status);
-//            values.put(SoccerContract.FixturesTable.TAG_LEAGUE_NO, String.valueOf(leagueNo));
-//            Uri uri = getContext().getContentResolver().insert(SoccerContract.FixturesTable.CONTENT_URI, values);
-//            Log.d("INSERT: ", "inserting"+uri.toString());
-//        }
+    private void storeInMinistriesTable(String id, String ministry_name, String image){
+        Log.d("INSERT: ", "starting");
+        MinistriesContentValues values = new MinistriesContentValues();
+        values.putMinistryName(ministry_name);
+        values.putImage(image);
+        final Uri uri = values.insert(getContext().getContentResolver());
+        Log.d("INSERT: ", "inserting"+uri.toString());
+    }
 
 
     /**
