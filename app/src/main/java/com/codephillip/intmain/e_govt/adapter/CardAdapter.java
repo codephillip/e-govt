@@ -1,8 +1,6 @@
 package com.codephillip.intmain.e_govt.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,24 +10,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codephillip.intmain.e_govt.ChapterActivity;
 import com.codephillip.intmain.e_govt.R;
-
 
 /**
  * Created by codephillip on 12/26/15.
  */
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
-    Cursor dataCursor;
-//    Context context;
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private static Context context;
-
+    View cardview;
+    Cursor dataCursor;
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public View view;
+        public TextView topic;
         public ImageView imageView;
         public ViewHolder(View v) {
             super(v);
-            textView = (TextView) v.findViewById(R.id.textview);
+            view = v;
+            topic = (TextView) v.findViewById(R.id.topic);
             imageView = (ImageView) v.findViewById(R.id.image);
 
             v.setOnClickListener(new View.OnClickListener() {
@@ -37,22 +34,19 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
-                    context.startActivity(new Intent(context, ChapterActivity.class));
-//                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
+//                    context.startActivity(new Intent(context, StretchDetailActivity.class).putExtra(Intent.EXTRA_TEXT, topic.getText()));
                 }
             });
         }
     }
-
-    public RecordAdapter(Activity mContext, Cursor cursor) {
+    public CardAdapter(Context context, Cursor cursor) {
+        this.context = context;
         dataCursor = cursor;
-        context = mContext;
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View cardview = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.record_row, parent, false);
+        cardview = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.cardview, parent, false);
         return new ViewHolder(cardview);
     }
 
@@ -72,17 +66,19 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
 //        dataCursor.moveToPosition(position);
 //
-//        String time = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.TIME));
-//        String date = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.DATE));
-//        String distance = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.DISTANCE));
+//        String workout = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.WORKOUT));
+//        String muscles = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.MUSCLES));
+//        String equipment = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.EQUIPMENT));
+//        String image1 = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.IMAGE1));
+//        Log.d("STRETCH_ADAPTER", workout + "#" + muscles + "#" + equipment + "#" + image1);
 //
-//        holder.time.setText(time);
-//        holder.date.setText(date);
-//        holder.textView.setText(distance);
+//        holder.topic.setText(workout);
+//        holder.muscle.setText(muscles);
+//        holder.equip.setText(equipment);
+//        Utility.picassoLoader(context, holder.imageView, image1);
     }
-
     @Override
     public int getItemCount() {
-        return (dataCursor == null) ? 15 : dataCursor.getCount();
+        return (dataCursor == null) ? 10 : dataCursor.getCount();
     }
 }

@@ -37,8 +37,7 @@
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ministry of Health"
-        android:fontFamily="sans-serif-condensed"/>
+        android:text="Ministry of Health"/>
 
     <!--<TextView-->
         <!--android:id="@+id/distance"-->

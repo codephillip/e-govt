@@ -17,4 +17,5 @@ public class DistrictsFragment extends Fragment {
 
         return rootView;
     }
+
 }
