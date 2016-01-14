@@ -35,6 +35,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codephillip.intmain.e_govt.MainActivity"/>
         </activity>
+        <activity
+            android:name=".ChapterDetailsActivity"
+            android:label="@string/title_activity_chapter_details"
+            android:parentActivityName=".ChapterActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codephillip.intmain.e_govt.ChapterActivity"/>
+        </activity>
     </application>
 
 </manifest>

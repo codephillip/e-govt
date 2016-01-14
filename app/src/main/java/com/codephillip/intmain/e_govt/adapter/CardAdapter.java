@@ -1,6 +1,7 @@
 package com.codephillip.intmain.e_govt.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codephillip.intmain.e_govt.ChapterDetailsActivity;
 import com.codephillip.intmain.e_govt.R;
 
 /**
@@ -34,7 +36,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
-//                    context.startActivity(new Intent(context, StretchDetailActivity.class).putExtra(Intent.EXTRA_TEXT, topic.getText()));
+                    context.startActivity(new Intent(context, ChapterDetailsActivity.class).putExtra(Intent.EXTRA_TEXT, topic.getText()));
                 }
             });
         }
