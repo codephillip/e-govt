@@ -22,6 +22,21 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //TESTING DATA INSERTION
+//        ChaptersContentValues values = new ChaptersContentValues();
+//        values.putDate("3-4-2016");
+//        values.putDistrict("Kampala");
+//        final Uri uri = values.insert(getContentResolver());
+//        Log.d("CONTENT#", uri.toString());
+//
+
+        //TESTING DATA QUERYING
+//        CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
+//        Cursor cursor = cursorLoader.loadInBackground();
+//
+//        if (cursor.moveToFirst()){
+//            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT)));
+//        }
 
 //        startService(new Intent(MainActivity.this, MyIntentService.class));
 
