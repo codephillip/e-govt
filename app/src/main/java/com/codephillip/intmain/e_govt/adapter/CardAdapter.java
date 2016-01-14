@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.codephillip.intmain.e_govt.ChapterDetailsActivity;
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.Utility;
+import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 
 /**
  * Created by codephillip on 12/26/15.
@@ -23,12 +25,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     Cursor dataCursor;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
-        public TextView topic;
+        public TextView title;
         public ImageView imageView;
         public ViewHolder(View v) {
             super(v);
             view = v;
-            topic = (TextView) v.findViewById(R.id.topic);
+            title = (TextView) v.findViewById(R.id.topic);
             imageView = (ImageView) v.findViewById(R.id.image);
 
             v.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +38,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
-                    context.startActivity(new Intent(context, ChapterDetailsActivity.class).putExtra(Intent.EXTRA_TEXT, topic.getText()));
+                    context.startActivity(new Intent(context, ChapterDetailsActivity.class).putExtra(Intent.EXTRA_TEXT, title.getText()));
                 }
             });
         }
@@ -66,21 +68,21 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        dataCursor.moveToPosition(position);
-//
+        dataCursor.moveToPosition(position);
+
 //        String workout = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.WORKOUT));
 //        String muscles = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.MUSCLES));
-//        String equipment = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.EQUIPMENT));
-//        String image1 = dataCursor.getString(dataCursor.getColumnIndex(FitContract.StretchData.IMAGE1));
-//        Log.d("STRETCH_ADAPTER", workout + "#" + muscles + "#" + equipment + "#" + image1);
-//
-//        holder.topic.setText(workout);
+        String title = dataCursor.getString(dataCursor.getColumnIndex(ChaptersColumns.TITLE));
+        String image = dataCursor.getString(dataCursor.getColumnIndex(ChaptersColumns.IMAGE));
+        Log.d("STRETCH_ADAPTER", title + "#" + image);
+
+        holder.title.setText(title);
 //        holder.muscle.setText(muscles);
 //        holder.equip.setText(equipment);
-//        Utility.picassoLoader(context, holder.imageView, image1);
+        Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override
     public int getItemCount() {
-        return (dataCursor == null) ? 10 : dataCursor.getCount();
+        return (dataCursor == null) ? 0 : dataCursor.getCount();
     }
 }
