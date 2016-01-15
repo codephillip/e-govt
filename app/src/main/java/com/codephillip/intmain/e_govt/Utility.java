@@ -17,7 +17,7 @@ public class Utility {
     public static void picassoLoader(Context context, ImageView imageView, String url){
         Log.d("PICASSO", "loading image");
         Picasso.with(context)
-                .load(url)
+                .load("http://192.168.56.1/images/ahagzjsozh.jpg")
                         //.resize(30,30)
                 .placeholder(R.drawable.nav_image)
                 .error(R.drawable.nav_image)
