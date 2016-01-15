@@ -154,6 +154,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_CHAPTERS = "chapters";
         final String TAG_IMAGE = "image";
         final String TAG_MINISTRY = "ministry";
+        final String TAG_DISTRICT = "district";
 
         JSONObject forecastJson = new JSONObject(jsonStr);
         JSONArray nutriArray = forecastJson.getJSONArray(TAG_CHAPTERS);//traverse down into the array
@@ -170,13 +171,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             String title = c.getString(TAG_TITLE);
             String date = c.getString(TAG_DATE);
             String story = c.getString(TAG_STORY);
+            String district = c.getString(TAG_DISTRICT);
 
-            Log.d("SYNC_DATA", id+" "+image+ " "+ministry+ " "+date+ " "+story);
-            storeInChaptersTable(id, ministry, image, date, story, title);
+            Log.d("SYNC_DATA", id+" "+image+ " "+ministry+ " "+date+ " "+story+ " "+district );
+            storeInChaptersTable(id, ministry, image, date, story, title, district);
         }
     }
 
-    private void storeInChaptersTable(String id, String ministry, String image, String date, String story, String title) {
+    private void storeInChaptersTable(String id, String ministry, String image, String date, String story, String title, String district) {
         Log.d("INSERT: ", "starting");
         ChaptersContentValues values = new ChaptersContentValues();
         values.putMinistry(ministry);
@@ -184,6 +186,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         values.putImage(image);
         values.putTitle(title);
         values.putStory(story);
+        values.putDistrict(district);
         values.insert(getContext().getContentResolver());
     }
 

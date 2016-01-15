@@ -1,7 +1,9 @@
 package com.codephillip.intmain.e_govt;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -54,5 +56,16 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String FragString = "FragNo";
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(FragString, 1);
+        editor.commit();
     }
 }

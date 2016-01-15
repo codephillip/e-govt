@@ -67,6 +67,12 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
 //        }
 
         try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String key = "FragNo";
+            int fragPref = prefs.getInt(key, loaderPosition);
+            if (fragPref == 1) loaderPosition = fragPref;
+            else loaderPosition = fragPref;
+            Log.d("PREF#", String.valueOf(loaderPosition));
             getLoaderManager().initLoader(LOADER_ID, null, this);
         } catch (Exception e){
             e.printStackTrace();
@@ -75,26 +81,35 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             String key = "FragNo";
             int fragPref = prefs.getInt(key, loaderPosition);
-            if (loaderPosition == 1) intentString = "Ministry";
-            else intentString = "District";
-            Log.d("PREF#", intentString);
+            if (fragPref == 1) loaderPosition = fragPref;
+            else loaderPosition = fragPref;
+            Log.d("PREF#", String.valueOf(loaderPosition));
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d("LOADER", "on_create_loader");
         if (loaderPosition == 1){
+            Log.d("LOADER", "1");
+
             return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
                     ChaptersColumns.MINISTRY + " LIKE ?",
                     new String[] {intentString.concat("%")}, null);
         }
         else if (loaderPosition == 2){
+            Log.d("LOADER", "2");
+
             return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
                     ChaptersColumns.DISTRICT + " LIKE ?",
                     new String[] {intentString.concat("%")}, null);
         }
-        return null;
+        else {
+            Log.d("LOADER", "else");
+
+            return null;
+        }
     }
 
     @Override

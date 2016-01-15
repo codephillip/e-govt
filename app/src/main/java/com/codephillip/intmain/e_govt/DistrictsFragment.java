@@ -1,7 +1,9 @@
 package com.codephillip.intmain.e_govt;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -56,10 +58,10 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
     @Override
     public void onPause() {
         super.onPause();
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        String districtString = "District";
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString(districtString, district);
-//        editor.commit();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String FragString = "FragNo";
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(FragString, 2);
+        editor.commit();
     }
 }
