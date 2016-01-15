@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.codephillip.intmain.e_govt.ChapterActivity;
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 
 
@@ -74,11 +75,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         dataCursor.moveToPosition(position);
 
         String textData = dataCursor.getString(dataCursor.getColumnIndex(MinistriesColumns.MINISTRY_NAME));
-//        String date = dataCursor.getString(dataCursor.getColumnIndex(FitContract.RecordData.DATE));
+        String imageUrl = dataCursor.getString(dataCursor.getColumnIndex(MinistriesColumns.IMAGE));
 
 //        holder.time.setText(time);
 //        holder.date.setText(date);
         holder.textView.setText(textData);
+        Utility.picassoLoader(context, holder.imageView, imageUrl);
     }
 
     @Override

@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.codephillip.intmain.e_govt.sync.SyncAdapter;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity
 //
 
         //TESTING SYNC_ADAPTER
-//        SyncAdapter.syncImmediately(this);
+        SyncAdapter.syncImmediately(this);
 
 //        if (cursor.moveToFirst()){
 //            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT)));
