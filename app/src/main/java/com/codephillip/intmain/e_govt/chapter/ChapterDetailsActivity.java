@@ -50,11 +50,9 @@ public class ChapterDetailsActivity extends AppCompatActivity {
             Log.d("PREF#", intentString);
         }
 
-
         ImageView toolbarImage = (ImageView) findViewById(R.id.image_chapter_details);
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
         TextView bodyText = (TextView) findViewById(R.id.body_text);
-
 
         CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
         Cursor cursor = cursorLoader.loadInBackground();
@@ -88,8 +86,6 @@ public class ChapterDetailsActivity extends AppCompatActivity {
 
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /* Collapsing toolbar */
