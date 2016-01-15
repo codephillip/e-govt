@@ -30,6 +30,7 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
     private CardAdapter adapter;
     private final int LOADER_ID = 2;
     String intentString = "Ministry for Health";
+    int loaderPosition = 1;
 
     public ChapterActivityFragment() {
     }
@@ -72,9 +73,10 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
         }
         finally {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String lastKey = "Ministry";
-            String ministryPref = prefs.getString(lastKey, intentString);
-            intentString = ministryPref;
+            String key = "FragNo";
+            int fragPref = prefs.getInt(key, loaderPosition);
+            if (loaderPosition == 1) intentString = "Ministry";
+            else intentString = "District";
             Log.d("PREF#", intentString);
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
@@ -82,9 +84,17 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
-                ChaptersColumns.MINISTRY + " LIKE ?",
-                new String[] {intentString.concat("%")}, null);
+        if (loaderPosition == 1){
+            return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
+                    ChaptersColumns.MINISTRY + " LIKE ?",
+                    new String[] {intentString.concat("%")}, null);
+        }
+        else if (loaderPosition == 2){
+            return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
+                    ChaptersColumns.DISTRICT + " LIKE ?",
+                    new String[] {intentString.concat("%")}, null);
+        }
+        return null;
     }
 
     @Override

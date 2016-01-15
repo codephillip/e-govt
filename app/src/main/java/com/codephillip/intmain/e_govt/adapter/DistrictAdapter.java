@@ -3,7 +3,9 @@ package com.codephillip.intmain.e_govt.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,11 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                    String fragKey = "Frag";
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString(fragKey, "District");
+                    editor.commit();
                     context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, textView.getText()));
 //                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
                 }

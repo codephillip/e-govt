@@ -27,6 +27,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
     private CollapsingToolbarLayout ctb;
     private int default_code = 0x000000;
     String ministry;
+    String district;
     String intentString;
 
     @Override
@@ -66,6 +67,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                     String bodyTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.STORY));
                     String imageUrl = cursor.getString(cursor.getColumnIndex(ChaptersColumns.IMAGE));
                     ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
+                    district = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT));
                     Log.d("CONTENT_PROVIDER", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitle + "#" + imageUrl);
                     chapterText.setText(chapterTitleString);
                     bodyText.setText(bodyTextString);
@@ -122,10 +124,19 @@ public class ChapterDetailsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String chapterStrip = "Ministry";
+        String key = "Frag";
+        String fragPref = prefs.getString(key, "Ministry");
+        Log.d("PREF#", intentString);
 
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(chapterStrip, ministry);
+        String FragString = "FragNo";
+
+        if (fragPref.equals("Ministry")){
+            editor.putInt(FragString, 1);
+        }
+        else {
+            editor.putInt(FragString, 2);
+        }
         editor.commit();
     }
 }

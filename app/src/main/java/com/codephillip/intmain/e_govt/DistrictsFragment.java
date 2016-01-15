@@ -13,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codephillip.intmain.e_govt.adapter.RecordAdapter;
-import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.adapter.DistrictAdapter;
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 
 public class DistrictsFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView recyclerView;
-    RecordAdapter adapter;
+    DistrictAdapter adapter;
     private int LOADER_ID = 1;
 
     @Override
@@ -27,7 +27,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_record);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RecordAdapter(getActivity(), null);
+        adapter = new DistrictAdapter(getActivity(), null);
         recyclerView.setAdapter(adapter);
         return rootView;
     }
@@ -40,7 +40,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), MinistriesColumns.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(getContext(), DistrictsColumns.CONTENT_URI, null, null, null, null);
     }
 
     @Override
@@ -51,5 +51,15 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        String districtString = "District";
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putString(districtString, district);
+//        editor.commit();
     }
 }
