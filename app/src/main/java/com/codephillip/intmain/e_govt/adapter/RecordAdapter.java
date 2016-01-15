@@ -39,7 +39,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
-                    context.startActivity(new Intent(context, ChapterActivity.class));
+                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, textView.getText()));
 //                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
                 }
             });

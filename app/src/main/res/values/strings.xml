@@ -100,4 +100,5 @@
     <string name="content_authority">com.codephillip.intmain.e_govt.provider</string>
     <string name="sync_account_type">com.codephillip.e_govt</string>
     <string name="title_activity_feed_back">FeedBackActivity</string>
+    <string name="chapter_title">Chapter title</string>
 </resources>
