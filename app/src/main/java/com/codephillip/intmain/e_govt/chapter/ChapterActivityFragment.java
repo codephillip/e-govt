@@ -75,6 +75,7 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
             String lastKey = "Ministry";
             String ministryPref = prefs.getString(lastKey, intentString);
             intentString = ministryPref;
+            Log.d("PREF#", intentString);
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
     }
