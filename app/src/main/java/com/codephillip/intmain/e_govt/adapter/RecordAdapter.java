@@ -80,7 +80,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 //        holder.time.setText(time);
 //        holder.date.setText(date);
         holder.textView.setText(textData);
-        Utility.picassoLoader(context, holder.imageView, imageUrl);
+        Utility.picassoCircleLoader(context, holder.imageView, imageUrl);
     }
 
     @Override

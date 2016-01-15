@@ -14,16 +14,26 @@ public class Utility {
         return "{\"day\":\"thursdaycode\",\"lunch\":\"food\"}";
     }
 
+    public static void picassoCircleLoader(Context context, ImageView imageView, String url){
+        Log.d("PICASSO", "loading image");
+        Picasso.with(context)
+                .load(url)
+//                .load("http://192.168.56.1/images/ahagzjsozh.jpg")
+                .resize(150, 150)
+                .placeholder(R.drawable.nav_image)
+                .error(R.drawable.nav_image)
+//                .transform(new CircleTransform())
+                .transform(new ImageTrans_CircleTransform())
+                .into(imageView);
+    }
+
     public static void picassoLoader(Context context, ImageView imageView, String url){
         Log.d("PICASSO", "loading image");
         Picasso.with(context)
                 .load(url)
 //                .load("http://192.168.56.1/images/ahagzjsozh.jpg")
-                .resize(150,150)
                 .placeholder(R.drawable.nav_image)
                 .error(R.drawable.nav_image)
-                .transform(new CircleTransform())
-//                .transform(new ImageTrans_CircleTransform())
                 .into(imageView);
     }
 

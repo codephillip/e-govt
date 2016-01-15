@@ -10,8 +10,6 @@
     <FrameLayout
         android:layout_width="100dp"
         android:layout_marginLeft="@dimen/image_margin_left"
-        android:layout_marginTop="@dimen/image_margin"
-        android:layout_marginBottom="@dimen/image_margin"
         android:layout_height="100dp">
 
         <ImageView
