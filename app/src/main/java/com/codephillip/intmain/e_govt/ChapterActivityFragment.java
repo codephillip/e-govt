@@ -1,5 +1,6 @@
 package com.codephillip.intmain.e_govt;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
     private RecyclerView recyclerView;
     private CardAdapter adapter;
     private final int LOADER_ID = 2;
+    String intentString = "Ministry for Health";
 
     public ChapterActivityFragment() {
     }
@@ -38,19 +41,22 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-//        return inflater.inflate(R.layout.fragment_chapter, container, false);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        Log.d("INTENT", intentString);
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
+                ChaptersColumns.MINISTRY + " LIKE ?",
+                new String[] {intentString.concat("%")}, null);
     }
 
     @Override
