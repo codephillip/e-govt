@@ -18,7 +18,7 @@ public class ImageTrans_CircleTransform implements Transformation {
             return null;
         }
 
-        int borderwidth = 2;
+        int borderwidth = 4;
         final int width = source.getWidth() + borderwidth;
         final int height = source.getHeight() + borderwidth;
 
