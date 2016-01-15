@@ -19,9 +19,11 @@ public class Utility {
         Picasso.with(context)
                 .load(url)
 //                .load("http://192.168.56.1/images/ahagzjsozh.jpg")
-                        //.resize(30,30)
+                .resize(150,150)
                 .placeholder(R.drawable.nav_image)
                 .error(R.drawable.nav_image)
+                .transform(new CircleTransform())
+//                .transform(new ImageTrans_CircleTransform())
                 .into(imageView);
     }
 
