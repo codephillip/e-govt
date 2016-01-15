@@ -1,10 +1,12 @@
-package com.codephillip.intmain.e_govt;
+package com.codephillip.intmain.e_govt.chapter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.CursorLoader;
@@ -16,11 +18,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codephillip.intmain.e_govt.FeedBackActivity;
+import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 
 public class ChapterDetailsActivity extends AppCompatActivity {
     private CollapsingToolbarLayout ctb;
     private int default_code = 0x000000;
+    String ministry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                     String chapterTitleString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.TITLE));
                     String bodyTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.STORY));
                     String imageUrl = cursor.getString(cursor.getColumnIndex(ChaptersColumns.IMAGE));
+                    ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
                     Log.d("CONTENT_PROVIDER", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitle + "#" + imageUrl);
                     chapterText.setText(chapterTitleString);
                     bodyText.setText(bodyTextString);
@@ -99,5 +106,16 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String chapterStrip = "Ministry";
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(chapterStrip, ministry);
+        editor.commit();
     }
 }

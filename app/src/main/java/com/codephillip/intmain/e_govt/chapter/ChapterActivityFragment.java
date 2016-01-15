@@ -1,8 +1,10 @@
-package com.codephillip.intmain.e_govt;
+package com.codephillip.intmain.e_govt.chapter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.adapter.CardAdapter;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 
@@ -35,6 +38,14 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chapter, container, false);
+
+        try {
+            intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+            Log.d("INTENT", intentString);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         adapter = new CardAdapter(getContext(), null);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_stretch);
         recyclerView.setHasFixedSize(true);
@@ -47,9 +58,25 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-        Log.d("INTENT", intentString);
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+//        try {
+//            intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+//            Log.d("INTENT", intentString);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+        try {
+            getLoaderManager().initLoader(LOADER_ID, null, this);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String lastKey = "Ministry";
+            String ministryPref = prefs.getString(lastKey, intentString);
+            intentString = ministryPref;
+            getLoaderManager().initLoader(LOADER_ID, null, this);
+        }
     }
 
     @Override

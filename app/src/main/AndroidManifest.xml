@@ -32,7 +32,7 @@
         </service>
 
         <activity
-            android:name=".ChapterActivity"
+            android:name=".chapter.ChapterActivity"
             android:label="@string/title_activity_card"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -41,13 +41,13 @@
                 android:value="com.codephillip.intmain.e_govt.MainActivity"/>
         </activity>
         <activity
-            android:name=".ChapterDetailsActivity"
+            android:name=".chapter.ChapterDetailsActivity"
             android:label="@string/title_activity_chapter_details"
-            android:parentActivityName=".ChapterActivity"
+            android:parentActivityName=".chapter.ChapterActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.codephillip.intmain.e_govt.ChapterActivity"/>
+                android:value=".chapter.ChapterActivity"/>
         </activity>
 
         <provider
@@ -79,11 +79,11 @@
         <activity
             android:name=".FeedBackActivity"
             android:label="@string/title_activity_feed_back"
-            android:parentActivityName=".ChapterDetailsActivity"
+            android:parentActivityName=".chapter.ChapterDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.codephillip.intmain.e_govt.ChapterDetailsActivity"/>
+                android:value=".chapter.ChapterDetailsActivity"/>
         </activity>
     </application>
 

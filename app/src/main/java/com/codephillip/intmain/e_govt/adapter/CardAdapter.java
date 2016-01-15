@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codephillip.intmain.e_govt.ChapterDetailsActivity;
+import com.codephillip.intmain.e_govt.chapter.ChapterDetailsActivity;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;

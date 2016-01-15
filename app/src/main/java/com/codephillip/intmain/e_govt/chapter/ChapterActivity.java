@@ -1,8 +1,10 @@
-package com.codephillip.intmain.e_govt;
+package com.codephillip.intmain.e_govt.chapter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.codephillip.intmain.e_govt.R;
 
 public class ChapterActivity extends AppCompatActivity {
 
