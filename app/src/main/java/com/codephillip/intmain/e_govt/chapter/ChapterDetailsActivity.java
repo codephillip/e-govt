@@ -27,6 +27,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
     private CollapsingToolbarLayout ctb;
     private int default_code = 0x000000;
     String ministry;
+    String intentString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,20 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String intentString = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-        Log.d("INTENT", intentString);
+        try {
+            intentString = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+            Log.d("INTENT", intentString);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String lastKey = "Feedback";
+            String feedbackPref = prefs.getString(lastKey, intentString);
+            intentString = feedbackPref;
+            Log.d("PREF#", intentString);
+        }
+
 
         ImageView toolbarImage = (ImageView) findViewById(R.id.image_chapter_details);
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
@@ -65,12 +78,13 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final String finalChapterTitle = chapterTitle;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                startActivity(new Intent(getBaseContext(), FeedBackActivity.class));
+                startActivity(new Intent(getBaseContext(), FeedBackActivity.class).putExtra(Intent.EXTRA_TEXT, finalChapterTitle));
 
             }
         });
