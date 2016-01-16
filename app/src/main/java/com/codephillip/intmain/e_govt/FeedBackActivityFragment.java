@@ -1,11 +1,15 @@
 package com.codephillip.intmain.e_govt;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -64,10 +68,16 @@ public class FeedBackActivityFragment extends Fragment {
                     editTextError();
                 }
                 else {
-                    getActivity().startService(new Intent(getContext(), MyIntentService.class)
-                            .putExtra("Date", getTime())
-                            .putExtra("Topic", String.valueOf(editTopic.getText()))
-                            .putExtra("Message", String.valueOf(editMessage.getText())));
+                    if (isConnectedToInternet()){
+                        getActivity().startService(new Intent(getContext(), MyIntentService.class)
+                                .putExtra("Date", getTime())
+                                .putExtra("Topic", String.valueOf(editTopic.getText()))
+                                .putExtra("Message", String.valueOf(editMessage.getText())));
+                        Snackbar.make(v, "Thank you for your feedback", Snackbar.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Snackbar.make(v, "Please check your Internet connection", Snackbar.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -108,5 +118,21 @@ public class FeedBackActivityFragment extends Fragment {
         String pattern = "dd-MM-yyyy HH:mm:ss ";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(new Date());
+    }
+
+    private boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
     }
 }
