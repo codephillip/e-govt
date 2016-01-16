@@ -22,10 +22,11 @@ public class MyIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         try {
-//            String jsonString = Utility.returnJson(intent.getStringExtra("Topic").toString(), intent.getStringExtra("Message").toString());
-//            Log.d("JSON#", intent.getStringExtra("Topic").toString());
-            post("http://192.168.56.1/lynda-php/egovtapi.php/feedback", Utility.returnJson("firsttopic", "firstmessage"));
-//            post("http://192.168.56.1/lynda-php/egovtapi.php/feedback", Utility.returnJson(intent.getStringExtra("Topic"), intent.getStringExtra("Message")));
+            String jsonString = Utility.returnJson(intent.getStringExtra("Date"), intent.getStringExtra("Topic"), intent.getStringExtra("Message"));
+//            String jsonString = Utility.returnJson(intent.getStringExtra("Topic"), intent.getStringExtra("Message"));
+            Log.d("JSON#", jsonString);
+            jsonString = post("http://192.168.56.1/lynda-php/egovtapi.php/feedback", jsonString);
+            Log.d("JSON#", jsonString);
         } catch (Exception e) {
             e.printStackTrace();
         }

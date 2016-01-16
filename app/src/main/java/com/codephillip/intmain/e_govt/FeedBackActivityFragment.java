@@ -1,5 +1,6 @@
 package com.codephillip.intmain.e_govt;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -62,9 +65,9 @@ public class FeedBackActivityFragment extends Fragment {
                 }
                 else {
                     getActivity().startService(new Intent(getContext(), MyIntentService.class)
-                            .putExtra("Topic", editTopic.getText())
-                            .putExtra("Message", editMessage.getText()));
-                    Toast.makeText(getContext(), editTopic.getText() + "#" + editMessage.getText(), Toast.LENGTH_SHORT).show();
+                            .putExtra("Date", getTime())
+                            .putExtra("Topic", String.valueOf(editTopic.getText()))
+                            .putExtra("Message", String.valueOf(editMessage.getText())));
                 }
             }
         });
@@ -98,5 +101,12 @@ public class FeedBackActivityFragment extends Fragment {
         Resources res = getResources();
         textInputLayoutTopic.setError(res.getString(R.string.topic_required));
         textInputLayoutMessage.setError(res.getString(R.string.message_required));
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private static String getTime() {
+        String pattern = "dd-MM-yyyy HH:mm:ss ";
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.format(new Date());
     }
 }
