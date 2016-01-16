@@ -47,6 +47,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         ImageView toolbarImage = (ImageView) findViewById(R.id.image_chapter_details);
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
         TextView bodyText = (TextView) findViewById(R.id.body_text);
+        TextView dateText = (TextView) findViewById(R.id.dateText);
 
         CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
         Cursor cursor = cursorLoader.loadInBackground();
@@ -59,11 +60,13 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                     String chapterTitleString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.TITLE));
                     String bodyTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.STORY));
                     String imageUrl = cursor.getString(cursor.getColumnIndex(ChaptersColumns.IMAGE));
+                    String dateTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DATE));
                     ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
                     district = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT));
                     Log.d("CONTENT_PROVIDER", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitle + "#" + imageUrl);
                     chapterText.setText(chapterTitleString);
                     bodyText.setText(bodyTextString);
+                    dateText.setText(dateTextString);
                     Utility.picassoLoader(this, toolbarImage, imageUrl);
                     break;
                 }
