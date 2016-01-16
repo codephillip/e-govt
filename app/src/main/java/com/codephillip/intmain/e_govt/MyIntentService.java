@@ -22,7 +22,7 @@ public class MyIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         try {
-            String jsonString = post("http://192.168.56.1/lynda-php/api.php/api1", Utility.returnJson());
+            String jsonString = post("http://192.168.56.1/lynda-php/egovtapi.php/ministries", Utility.returnJson(intent.getStringExtra("Topic"), intent.getStringExtra("Message")));
             Log.d("JSON#", jsonString);
         } catch (Exception e) {
             e.printStackTrace();

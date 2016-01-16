@@ -10,8 +10,8 @@ import com.squareup.picasso.Picasso;
  * Created by codephillip on 1/4/16.
  */
 public class Utility {
-    public static String returnJson(){
-        return "{\"day\":\"thursdaycode\",\"lunch\":\"food\"}";
+    public static String returnJson(String topic, String message){
+        return "{\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
     }
 
     public static void picassoCircleLoader(Context context, ImageView imageView, String url){

@@ -61,6 +61,9 @@ public class FeedBackActivityFragment extends Fragment {
                     editTextError();
                 }
                 else {
+                    getActivity().startService(new Intent(getContext(), MyIntentService.class)
+                            .putExtra("Topic", editTopic.getText())
+                            .putExtra("Message", editMessage.getText()));
                     Toast.makeText(getContext(), editTopic.getText() + "#" + editMessage.getText(), Toast.LENGTH_SHORT).show();
                 }
             }
