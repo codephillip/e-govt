@@ -87,7 +87,7 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
 //        holder.time.setText(time);
 //        holder.date.setText(date);
         holder.textView.setText(textData);
-        Utility.picassoCircleLoader(context, holder.imageView, imageUrl);
+        Utility.picassoCircleLoader(context, holder.imageView, R.drawable.uganda_flag);
     }
 
     @Override
