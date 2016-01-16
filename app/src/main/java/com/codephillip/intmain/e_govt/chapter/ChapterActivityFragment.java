@@ -59,12 +59,6 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        try {
-//            intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-//            Log.d("INTENT", intentString);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
 
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -76,15 +70,6 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
             getLoaderManager().initLoader(LOADER_ID, null, this);
         } catch (Exception e){
             e.printStackTrace();
-        }
-        finally {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String key = "FragNo";
-            int fragPref = prefs.getInt(key, loaderPosition);
-            if (fragPref == 1) loaderPosition = fragPref;
-            else loaderPosition = fragPref;
-            Log.d("PREF#", String.valueOf(loaderPosition));
-            getLoaderManager().initLoader(LOADER_ID, null, this);
         }
     }
 
