@@ -20,7 +20,7 @@
             android:textColor="@color/colorAccent"
             android:id="@+id/chapter_text"
             android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:textAppearanceLarge"
+            android:textAppearance="?android:textAppearanceMedium"
             android:text="@string/chapter_title"/>
 
         <TextView
