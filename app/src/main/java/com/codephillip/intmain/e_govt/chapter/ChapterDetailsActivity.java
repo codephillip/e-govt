@@ -43,6 +43,13 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String lastKey = "Feedback";
+            String feedbackPref = prefs.getString(lastKey, intentString);
+            intentString = feedbackPref;
+            Log.d("PREF#", intentString);
+        }
 
         ImageView toolbarImage = (ImageView) findViewById(R.id.image_chapter_details);
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
