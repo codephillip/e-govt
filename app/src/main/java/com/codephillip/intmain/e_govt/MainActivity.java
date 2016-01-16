@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment = new MinistriesFragment();
+        getSupportActionBar().setTitle("Ministries");
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame,fragment);
         fragmentTransaction.commit();
@@ -111,10 +112,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_ministries) {
             fragment = new MinistriesFragment();
             currentFragmentId = R.id.nav_ministries;
+            getSupportActionBar().setTitle("Ministries");
         }
         else if (id == R.id.nav_districts) {
             fragment = new DistrictsFragment();
             currentFragmentId = R.id.nav_districts;
+            getSupportActionBar().setTitle("Districts");
         }
 
 
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_feedback) {
             fragment = new FeedBackActivityFragment();
             currentFragmentId = R.id.nav_feedback;
+            getSupportActionBar().setTitle("Feedback");
         }
 //
 // else if (id == R.id.nav_settings) {
