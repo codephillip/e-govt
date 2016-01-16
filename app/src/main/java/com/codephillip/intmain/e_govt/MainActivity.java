@@ -116,11 +116,20 @@ public class MainActivity extends AppCompatActivity
             fragment = new DistrictsFragment();
             currentFragmentId = R.id.nav_districts;
         }
+
+
 // else if (id == R.id.nav_events) {
 //
 //        } else if (id == R.id.nav_weather) {
 //
-//        } else if (id == R.id.nav_settings) {
+//        }
+//
+        else if (id == R.id.nav_feedback) {
+            fragment = new FeedBackActivityFragment();
+            currentFragmentId = R.id.nav_feedback;
+        }
+//
+// else if (id == R.id.nav_settings) {
 //
 //        } else if (id == R.id.nav_about) {
 //

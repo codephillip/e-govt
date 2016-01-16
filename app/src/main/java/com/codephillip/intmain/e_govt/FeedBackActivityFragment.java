@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 public class FeedBackActivityFragment extends Fragment {
 
     String intentString;
+    boolean intentReceived = false;
 
     public FeedBackActivityFragment() {
     }
@@ -28,6 +29,7 @@ public class FeedBackActivityFragment extends Fragment {
 
         try {
             intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+            intentReceived = true;
             Log.d("INTENT", intentString);
         } catch (Exception e){
             e.printStackTrace();
@@ -51,11 +53,13 @@ public class FeedBackActivityFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String chapterStrip = "Feedback";
+        if (intentReceived){
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String chapterStrip = "Feedback";
 
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(chapterStrip, intentString);
-        editor.commit();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(chapterStrip, intentString);
+            editor.commit();
+        }
     }
 }
