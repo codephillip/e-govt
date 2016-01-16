@@ -27,7 +27,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
     private CollapsingToolbarLayout ctb;
     private int default_code = 0x000000;
     String ministry;
-    String district;
+    String district = "Kampala";
     String intentString;
 
     @Override
@@ -42,14 +42,15 @@ public class ChapterDetailsActivity extends AppCompatActivity {
             Log.d("INTENT", intentString);
         }catch (Exception e){
             e.printStackTrace();
-        }
-        finally {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             String lastKey = "Feedback";
             String feedbackPref = prefs.getString(lastKey, intentString);
             intentString = feedbackPref;
             Log.d("PREF#", intentString);
         }
+//        finally {
+//
+//        }
 
         ImageView toolbarImage = (ImageView) findViewById(R.id.image_chapter_details);
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
@@ -60,7 +61,11 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         Cursor cursor = cursorLoader.loadInBackground();
         String chapterTitle = null;
 
+        Log.d("CHAPTERDETAILS#", "CURSORMOVING");
+
         if (cursor.moveToFirst()){
+            Log.d("CHAPTERDETAILS#", "CURSORMOVING###");
+
             do {
                 chapterTitle = cursor.getString(cursor.getColumnIndex(ChaptersColumns.TITLE));
                 if (chapterTitle.equals(intentString)){
@@ -70,7 +75,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                     String dateTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DATE));
                     ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
                     district = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT));
-                    Log.d("CONTENT_PROVIDER", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitle + "#" + imageUrl);
+                    Log.d("CONTENT", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitle + "#" + imageUrl+ "#" + district + "#" + ministry );
                     chapterText.setText(chapterTitleString);
                     bodyText.setText(bodyTextString);
                     dateText.setText(dateTextString);
@@ -133,12 +138,17 @@ public class ChapterDetailsActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = prefs.edit();
         String FragString = "FragNo";
+        String chapterStrip = "Details";
 
         if (fragPref.equals("Ministry")){
             editor.putInt(FragString, 1);
+            editor.putString(chapterStrip, ministry);
+            Log.d("DETAILS#", ministry);
         }
         else {
             editor.putInt(FragString, 2);
+            editor.putString(chapterStrip, district);
+            Log.d("DETAILS#", district);
         }
         editor.commit();
     }

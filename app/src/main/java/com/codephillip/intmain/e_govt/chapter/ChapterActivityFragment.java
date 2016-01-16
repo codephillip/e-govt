@@ -29,7 +29,7 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
     private RecyclerView recyclerView;
     private CardAdapter adapter;
     private final int LOADER_ID = 2;
-    String intentString = "Ministry for Health";
+    String intentString = "Jinja";
     int loaderPosition = 1;
 
     public ChapterActivityFragment() {
@@ -64,13 +64,38 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             String key = "FragNo";
             int fragPref = prefs.getInt(key, loaderPosition);
-            if (fragPref == 1) loaderPosition = fragPref;
-            else loaderPosition = fragPref;
+            if (fragPref == 1) {
+                loaderPosition = fragPref;
+            }
+            else {
+                loaderPosition = fragPref;
+            }
             Log.d("PREF#", String.valueOf(loaderPosition));
+
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+//            String lastKey = "Details";
+//            String detailsPref = prefs.getString(lastKey, intentString);
+//            intentString = detailsPref;
+//            Log.d("PREF#", intentString);
             getLoaderManager().initLoader(LOADER_ID, null, this);
         } catch (Exception e){
             e.printStackTrace();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String lastKey = "Details";
+            String detailsPref = prefs.getString(lastKey, intentString);
+            intentString = detailsPref;
+            Log.d("PREF#", intentString);
+            getLoaderManager().initLoader(LOADER_ID, null, this);
         }
+//        finally {
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+//            String lastKey = "Details";
+//            String detailsPref = prefs.getString(lastKey, intentString);
+//            intentString = detailsPref;
+//            intentString = "Kampala";
+//            Log.d("PREF#", intentString);
+//            getLoaderManager().initLoader(LOADER_ID, null, this);
+//        }
     }
 
     @Override
