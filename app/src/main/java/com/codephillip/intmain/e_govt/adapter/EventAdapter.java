@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codephillip.intmain.e_govt.chapter.ChapterDetailsActivity;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
-import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
+import com.codephillip.intmain.e_govt.chapter.ChapterDetailsActivity;
+import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 
 /**
  * Created by codephillip on 12/26/15.
  */
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     private static Context context;
     View cardview;
     Cursor dataCursor;
@@ -27,11 +27,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         public View view;
         public TextView title;
         public ImageView imageView;
+        public TextView date;
         public ViewHolder(View v) {
             super(v);
             view = v;
             title = (TextView) v.findViewById(R.id.topic);
             imageView = (ImageView) v.findViewById(R.id.image);
+            date = (TextView) v.findViewById(R.id.date);
 
             v.setOnClickListener(new View.OnClickListener() {
 
@@ -43,14 +45,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             });
         }
     }
-    public CardAdapter(Context context, Cursor cursor) {
+    public EventAdapter(Context context, Cursor cursor) {
         this.context = context;
         dataCursor = cursor;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         cardview = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview, parent, false);
+                .inflate(R.layout.event_cardview, parent, false);
         return new ViewHolder(cardview);
     }
 
@@ -70,11 +72,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         dataCursor.moveToPosition(position);
 
-        String title = dataCursor.getString(dataCursor.getColumnIndex(ChaptersColumns.TITLE));
-        String image = dataCursor.getString(dataCursor.getColumnIndex(ChaptersColumns.IMAGE));
-        Log.d("STRETCH_ADAPTER", title + "#" + image);
+        String title = dataCursor.getString(dataCursor.getColumnIndex(EventsColumns.TITLE));
+        String image = dataCursor.getString(dataCursor.getColumnIndex(EventsColumns.IMAGE));
+        String date = dataCursor.getString(dataCursor.getColumnIndex(EventsColumns.DATE));
+        Log.d("STRETCH_ADAPTER", title + "#" + image + "#" + date);
 
         holder.title.setText(title);
+        holder.date.setText(title);
         Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override

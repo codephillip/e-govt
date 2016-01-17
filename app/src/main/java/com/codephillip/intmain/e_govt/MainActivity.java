@@ -119,11 +119,13 @@ public class MainActivity extends AppCompatActivity
             currentFragmentId = R.id.nav_districts;
             getSupportActionBar().setTitle("Districts");
         }
-
-
-// else if (id == R.id.nav_events) {
+        else if (id == R.id.nav_events) {
+            fragment = new EventsFragment();
+            currentFragmentId = R.id.nav_events;
+            getSupportActionBar().setTitle("Events");
+        }
 //
-//        } else if (id == R.id.nav_weather) {
+// else if (id == R.id.nav_weather) {
 //
 //        }
 //
