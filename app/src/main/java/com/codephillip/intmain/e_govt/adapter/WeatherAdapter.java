@@ -48,7 +48,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         cardview = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.weather_cardview, parent, false);
+                .inflate(R.layout.weather_districts_row, parent, false);
+//                .inflate(R.layout.weather_cardview, parent, false);
         return new ViewHolder(cardview);
     }
 
@@ -79,6 +80,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     }
     @Override
     public int getItemCount() {
-        return (dataCursor == null) ? 10 : dataCursor.getCount();
+        return (dataCursor == null) ? 3 : dataCursor.getCount();
     }
 }

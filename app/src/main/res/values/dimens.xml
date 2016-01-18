@@ -17,4 +17,5 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="activity_vertical_weather_margin">80dp</dimen>
     <dimen name="weather_margin">95dp</dimen>
+    <dimen name="image_weather_margin_left">10dp</dimen>
 </resources>

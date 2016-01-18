@@ -62,7 +62,7 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View cardview = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.record_row, parent, false);
+                .inflate(R.layout.district_record_row, parent, false);
         return new ViewHolder(cardview);
     }
 
