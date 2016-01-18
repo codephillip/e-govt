@@ -25,29 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
-    <!--<TextView-->
-        <!--android:id="@+id/time"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="02:35"-->
-        <!--android:textColor="@color/colorAccent"-->
-        <!--android:textAppearance="?android:textAppearanceLarge"/>-->
 
-    <!--<TextView-->
-        <!--android:id="@+id/textview"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Ministry of Health"/>-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/distance"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="3.7 Km"-->
-        <!--android:textSize="40sp"-->
-        <!--android:fontFamily="sans-serif-condensed"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textAppearance="?android:textAppearanceMedium"/>-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -74,10 +52,27 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/distance"
+        android:id="@+id/temp_high"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="27 - 14"
+        android:text="27"
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-thin"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - "
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-thin"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/temp_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="14"
         android:textSize="35sp"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:fontFamily="sans-serif-thin"
