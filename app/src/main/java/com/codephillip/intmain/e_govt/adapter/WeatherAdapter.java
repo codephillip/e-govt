@@ -74,12 +74,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
         String district = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
         String weatherName = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAIN));
-        String temp = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
+        double temp = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
         Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + temp);
 
         holder.district.setText(district);
         holder.weatherName.setText(weatherName);
-        holder.temp.setText(temp);
+//        int tempInt = (int) temp;
+//        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + tempInt);
+
+        holder.temp.setText(String.valueOf((int) temp));
 //        Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override

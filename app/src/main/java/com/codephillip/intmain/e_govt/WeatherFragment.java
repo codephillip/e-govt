@@ -48,7 +48,7 @@ public class WeatherFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.d("LOADER", "on_create_loader");
-        return new CursorLoader(getContext(), TodayweatherColumns.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(getContext(), TodayweatherColumns.CONTENT_URI, null, null, null, TodayweatherColumns.NAME + " ASC");
     }
 
     @Override

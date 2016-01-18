@@ -9,7 +9,8 @@
 
     <FrameLayout
         android:layout_width="80dp"
-        android:layout_marginLeft="@dimen/image_weather_margin_left"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="@dimen/image_weather_margin_left"
         android:layout_height="100dp">
 
         <ImageView
@@ -36,10 +37,9 @@
                 android:id="@+id/district"
                 android:layout_width="wrap_content"
                 android:text="Kampala"
-                android:textColor="@color/black"
+                android:textAppearance="?android:textAppearanceLarge"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:textSize="20sp"/>
+                android:fontFamily="sans-serif-condensed"/>
 
             <TextView
                 android:id="@+id/weather_name"

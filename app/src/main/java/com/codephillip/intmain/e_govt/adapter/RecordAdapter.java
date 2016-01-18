@@ -61,7 +61,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View cardview = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.record_row, parent, false);
+                .inflate(R.layout.ministries_row, parent, false);
         return new ViewHolder(cardview);
     }
 

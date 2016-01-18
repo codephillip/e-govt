@@ -42,7 +42,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), TodayweatherColumns.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(getContext(), TodayweatherColumns.CONTENT_URI, null, null, null,  TodayweatherColumns.NAME + " ASC");
     }
 
     @Override
