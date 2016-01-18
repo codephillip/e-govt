@@ -124,11 +124,11 @@ public class MainActivity extends AppCompatActivity
             currentFragmentId = R.id.nav_events;
             getSupportActionBar().setTitle("Events");
         }
-//
-// else if (id == R.id.nav_weather) {
-//
-//        }
-//
+        else if (id == R.id.nav_weather) {
+            fragment = new EventsFragment();
+            currentFragmentId = R.id.nav_weather;
+            getSupportActionBar().setTitle("Weather");
+        }
         else if (id == R.id.nav_feedback) {
             fragment = new FeedBackActivityFragment();
             currentFragmentId = R.id.nav_feedback;
