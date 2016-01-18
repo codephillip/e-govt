@@ -40,7 +40,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
-                    context.startActivity(new Intent(context, ChapterDetailsActivity.class).putExtra(Intent.EXTRA_TEXT, title.getText()));
+                    context.startActivity(new Intent(context, ChapterDetailsActivity.class).putExtra("eventIntent", title.getText()));
                 }
             });
         }

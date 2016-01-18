@@ -1,8 +1,9 @@
 package com.codephillip.intmain.e_govt;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -18,16 +19,13 @@ import android.view.ViewGroup;
 import com.codephillip.intmain.e_govt.adapter.CardAdapter;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class EventsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private RecyclerView recyclerView;
     private CardAdapter adapter;
     private final int LOADER_ID = 2;
     String intentString = "Jinja";
-    int loaderPosition = 1;
+    boolean loaderBoolean = true;
 
     public EventsFragment() {
     }
@@ -37,12 +35,11 @@ public class EventsFragment extends Fragment implements LoaderManager.LoaderCall
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chapter, container, false);
 
-        try {
-            intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            Log.d("INTENT", intentString);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String fragKey = "Frag";
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(fragKey, "Event");
+        editor.apply();
 
         adapter = new CardAdapter(getContext(), null);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_stretch);
@@ -57,55 +54,25 @@ public class EventsFragment extends Fragment implements LoaderManager.LoaderCall
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        try {
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            String key = "FragNo";
-//            int fragPref = prefs.getInt(key, loaderPosition);
-//            if (fragPref == 1) {
-//                loaderPosition = fragPref;
-//            }
-//            else {
-//                loaderPosition = fragPref;
-//            }
-//            Log.d("PREF#", String.valueOf(loaderPosition));
-//
-////            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-////            String lastKey = "Details";
-////            String detailsPref = prefs.getString(lastKey, intentString);
-////            intentString = detailsPref;
-////            Log.d("PREF#", intentString);
-//            getLoaderManager().initLoader(LOADER_ID, null, this);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            String lastKey = "Details";
-//            String detailsPref = prefs.getString(lastKey, intentString);
-//            intentString = detailsPref;
-//            Log.d("PREF#", intentString);
-//            getLoaderManager().initLoader(LOADER_ID, null, this);
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+//        String key = "FragNo";
+//        int fragPref = prefs.getInt(key, 0);
+//        if (fragPref == 4) {
+//            loaderBoolean = true;
 //        }
+//        else {
+//            loaderBoolean = false;
+//        }
+//        Log.d("PREF#", String.valueOf(loaderBoolean));
 
         getLoaderManager().initLoader(LOADER_ID, null, this);
-
-//        finally {
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            String lastKey = "Details";
-//            String detailsPref = prefs.getString(lastKey, intentString);
-//            intentString = detailsPref;
-//            intentString = "Kampala";
-//            Log.d("PREF#", intentString);
-//            getLoaderManager().initLoader(LOADER_ID, null, this);
-//        }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.d("LOADER", "on_create_loader");
-//            return new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,
-//                    ChaptersColumns.MINISTRY + " LIKE ?",
-//                    new String[] {intentString.concat("%")}, null);
-
-        return new CursorLoader(getContext(), EventsColumns.CONTENT_URI, null, null, null, null);
+        if (loaderBoolean) return new CursorLoader(getContext(), EventsColumns.CONTENT_URI, null, null, null, null);
+        else return null;
     }
 
     @Override

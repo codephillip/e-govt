@@ -45,7 +45,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                     String fragKey = "Frag";
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString(fragKey, "Ministry");
-                    editor.commit();
+                    editor.apply();
                     context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, textView.getText()));
 //                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
                 }

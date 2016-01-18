@@ -45,7 +45,7 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
                     String fragKey = "Frag";
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString(fragKey, "District");
-                    editor.commit();
+                    editor.apply();
                     context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, textView.getText()));
 //                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
                 }

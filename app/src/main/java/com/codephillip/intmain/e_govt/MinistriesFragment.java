@@ -66,6 +66,6 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
         String FragString = "FragNo";
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(FragString, 1);
-        editor.commit();
+        editor.apply();
     }
 }

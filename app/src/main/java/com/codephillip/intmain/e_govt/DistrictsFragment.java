@@ -62,6 +62,6 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
         String FragString = "FragNo";
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(FragString, 2);
-        editor.commit();
+        editor.apply();
     }
 }
