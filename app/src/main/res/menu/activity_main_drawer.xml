@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_ministries"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_account_balance_black_24dp"
             android:title="Ministries"/>
         <item
             android:id="@+id/nav_districts"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_business_black_24dp"
             android:title="Districts"/>
         <item
             android:id="@+id/nav_events"
@@ -16,7 +16,7 @@
             android:title="Events"/>
         <item
             android:id="@+id/nav_weather"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_rain"
             android:title="Weather"/>
         <item
             android:id="@+id/nav_feedback"
@@ -32,7 +32,7 @@
                 android:title="@string/action_settings"/>
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_copyright_black_24dp"
                 android:title="About"/>
         </menu>
     </item>
