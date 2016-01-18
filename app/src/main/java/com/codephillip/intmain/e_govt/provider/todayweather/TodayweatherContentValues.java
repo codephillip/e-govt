@@ -38,6 +38,12 @@ public class TodayweatherContentValues extends AbstractContentValues {
         return this;
     }
 
+    public TodayweatherContentValues putWeatherId(int value) {
+        mContentValues.put(TodayweatherColumns.WEATHER_ID, value);
+        return this;
+    }
+
+
     public TodayweatherContentValues putName(@Nullable String value) {
         mContentValues.put(TodayweatherColumns.NAME, value);
         return this;

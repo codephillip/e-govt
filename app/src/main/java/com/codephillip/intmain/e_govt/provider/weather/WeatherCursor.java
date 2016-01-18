@@ -37,6 +37,16 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
     }
 
     /**
+     * Get the {@code weather_id} value.
+     */
+    public int getWeatherId() {
+        Integer res = getIntegerOrNull(WeatherColumns.WEATHER_ID);
+        if (res == null)
+            throw new NullPointerException("The value of 'weather_id' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
      * Get the {@code name} value.
      * Can be {@code null}.
      */

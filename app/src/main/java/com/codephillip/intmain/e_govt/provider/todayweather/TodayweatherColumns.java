@@ -4,6 +4,12 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import com.codephillip.intmain.e_govt.provider.MyContentProvider;
+import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
+import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
+import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 
 /**
  * Columns for the {@code todayweather} table.
@@ -18,6 +24,8 @@ public class TodayweatherColumns implements BaseColumns {
     public static final String _ID = BaseColumns._ID;
 
     public static final String DATE = "date";
+
+    public static final String WEATHER_ID = "weather_id";
 
     public static final String NAME = "name";
 
@@ -34,6 +42,7 @@ public class TodayweatherColumns implements BaseColumns {
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
             DATE,
+            WEATHER_ID,
             NAME,
             MAIN,
             MAX_TEMP,
@@ -45,6 +54,7 @@ public class TodayweatherColumns implements BaseColumns {
         if (projection == null) return true;
         for (String c : projection) {
             if (c.equals(DATE) || c.contains("." + DATE)) return true;
+            if (c.equals(WEATHER_ID) || c.contains("." + WEATHER_ID)) return true;
             if (c.equals(NAME) || c.contains("." + NAME)) return true;
             if (c.equals(MAIN) || c.contains("." + MAIN)) return true;
             if (c.equals(MAX_TEMP) || c.contains("." + MAX_TEMP)) return true;

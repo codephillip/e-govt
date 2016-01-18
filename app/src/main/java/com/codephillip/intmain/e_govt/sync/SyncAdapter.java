@@ -108,6 +108,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             JSONObject weatherObject = c.getJSONArray(TAG_WEATHER).getJSONObject(0);
             String main = weatherObject.getString(TAG_MAIN);
+            int weatherId = weatherObject.getInt(TAG_ID);
 
             long dateTime = dayTime.setJulianDay(julianStartDay + i);
 
@@ -115,17 +116,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             double high = temperatureObject.getDouble(TAG_MAX_TEMP);
             double low = temperatureObject.getDouble(TAG_MIN_TEMP);
 
-            Log.d("SYNC_DATA", date+" "+name+ " "+main+ " "+high+ " "+low );
-            storeInTodayWeatherTable(dateTime, name, main, high, low);
+            Log.d("SYNC_DATA", date+" "+name+ " "+main+ " "+high+ " "+low+ " "+weatherId);
+            storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId);
         }
     }
 
-    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low) {
+    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId) {
         Log.d("INSERT: ", "starting");
         TodayweatherContentValues values = new TodayweatherContentValues();
         values.putDate((int) date);
         values.putName(name);
         values.putMain(main);
+        values.putWeatherId(weatherId);
         values.putMaxTemp((float) high);
         values.putMinTemp((float) low);
         Uri uri = values.insert(getContext().getContentResolver());

@@ -82,6 +82,36 @@ public class WeatherSelection extends AbstractSelection<WeatherSelection> {
         return this;
     }
 
+    public WeatherSelection weatherId(int... value) {
+        addEquals(WeatherColumns.WEATHER_ID, toObjectArray(value));
+        return this;
+    }
+
+    public WeatherSelection weatherIdNot(int... value) {
+        addNotEquals(WeatherColumns.WEATHER_ID, toObjectArray(value));
+        return this;
+    }
+
+    public WeatherSelection weatherIdGt(int value) {
+        addGreaterThan(WeatherColumns.WEATHER_ID, value);
+        return this;
+    }
+
+    public WeatherSelection weatherIdGtEq(int value) {
+        addGreaterThanOrEquals(WeatherColumns.WEATHER_ID, value);
+        return this;
+    }
+
+    public WeatherSelection weatherIdLt(int value) {
+        addLessThan(WeatherColumns.WEATHER_ID, value);
+        return this;
+    }
+
+    public WeatherSelection weatherIdLtEq(int value) {
+        addLessThanOrEquals(WeatherColumns.WEATHER_ID, value);
+        return this;
+    }
+
     public WeatherSelection name(String... value) {
         addEquals(WeatherColumns.NAME, value);
         return this;

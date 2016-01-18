@@ -20,6 +20,11 @@ public interface WeatherModel extends BaseModel {
     Integer getDate();
 
     /**
+     * Get the {@code weather_id} value.
+     */
+    int getWeatherId();
+
+    /**
      * Get the {@code name} value.
      * Can be {@code null}.
      */
