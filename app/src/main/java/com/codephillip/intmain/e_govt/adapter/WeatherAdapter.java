@@ -82,8 +82,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.weatherName.setText(weatherName);
 //        int tempInt = (int) temp;
 //        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + tempInt);
-
         holder.temp.setText(Utility.formatTemperature(context,temp));
+        holder.imageView.setImageResource(Utility.getArtResourceForWeatherCondition(
+                dataCursor.getInt(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID))));
 //        Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override
