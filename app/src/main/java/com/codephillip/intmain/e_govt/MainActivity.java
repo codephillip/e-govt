@@ -29,9 +29,17 @@ public class MainActivity extends AppCompatActivity
 //        final Uri uri = values.insert(getContentResolver());
 //        Log.d("CONTENT#", uri.toString());
 //
+//        TodayweatherContentValues values = new TodayweatherContentValues();
+//        values.putName("Jinja");
+//        values.putDate("Monday");
+//        final Uri uri = values.insert(getContentResolver());
+//        Log.d("CONTENT#", uri.toString());
 
         //TESTING DATA QUERYING
 //        CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
+//        Cursor cursor = cursorLoader.loadInBackground();
+
+//        CursorLoader cursorLoader = new CursorLoader(this, TodayweatherColumns.CONTENT_URI, null, null, null, null);
 //        Cursor cursor = cursorLoader.loadInBackground();
 //
 
@@ -41,6 +49,14 @@ public class MainActivity extends AppCompatActivity
 //        if (cursor.moveToFirst()){
 //            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT)));
 //        }
+
+//        if (cursor.moveToFirst()){
+//            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(TodayweatherColumns.NAME)));
+//        }
+//
+//        long deleted = getContentResolver().delete(TodayweatherColumns.CONTENT_URI, null, null);
+//        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+
 
 //        startService(new Intent(MainActivity.this, MyIntentService.class));
 
