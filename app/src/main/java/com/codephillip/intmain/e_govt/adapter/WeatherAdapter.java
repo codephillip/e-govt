@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 
 /**
  * Created by codephillip on 12/26/15.
@@ -21,15 +22,17 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     Cursor dataCursor;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
-        public TextView title;
+        public TextView district;
+        public TextView weatherName;
+        public TextView temp;
         public ImageView imageView;
-        public TextView date;
         public ViewHolder(View v) {
             super(v);
             view = v;
-            title = (TextView) v.findViewById(R.id.topic);
+            district = (TextView) v.findViewById(R.id.district);
+            weatherName = (TextView) v.findViewById(R.id.weather_name);
+            temp = (TextView) v.findViewById(R.id.temp);
             imageView = (ImageView) v.findViewById(R.id.image);
-            date = (TextView) v.findViewById(R.id.date);
 
             v.setOnClickListener(new View.OnClickListener() {
 
@@ -67,19 +70,20 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        dataCursor.moveToPosition(position);
-//
-//        String title = dataCursor.getString(dataCursor.getColumnIndex(EventsColumns.TITLE));
-//        String image = dataCursor.getString(dataCursor.getColumnIndex(EventsColumns.IMAGE));
-//        String date = dataCursor.getString(dataCursor.getColumnIndex(EventsColumns.DATE));
-//        Log.d("STRETCH_ADAPTER", title + "#" + image + "#" + date);
-//
-//        holder.title.setText(title);
-//        holder.date.setText(date);
+        dataCursor.moveToPosition(position);
+
+        String district = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
+        String weatherName = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAIN));
+        String temp = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
+        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + temp);
+
+        holder.district.setText(district);
+        holder.weatherName.setText(weatherName);
+        holder.temp.setText(temp);
 //        Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override
     public int getItemCount() {
-        return (dataCursor == null) ? 3 : dataCursor.getCount();
+        return (dataCursor == null) ? 0 : dataCursor.getCount();
     }
 }

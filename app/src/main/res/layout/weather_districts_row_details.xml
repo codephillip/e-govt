@@ -33,16 +33,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/district"
+                android:id="@+id/list_item_date_textview"
                 android:layout_width="wrap_content"
                 android:text="Kampala"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:textSize="20sp"/>
 
             <TextView
-                android:id="@+id/weather_name"
+                android:id="@+id/list_item_forecast_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
@@ -53,11 +52,29 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/temp"
+        android:id="@+id/temp_high"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="27"
-        android:textSize="60sp"
-        android:fontFamily="sans-serif-thin"/>
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-thin"
+        android:textAppearance="?android:textAppearanceMedium"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - "
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-thin"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/temp_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="14"
+        android:textSize="35sp"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:fontFamily="sans-serif-thin"
+        android:textAppearance="?android:textAppearanceMedium"/>
 </LinearLayout>

@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codephillip.intmain.e_govt.adapter.WeatherAdapter;
-import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 
 public class WeatherFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -42,13 +42,13 @@ public class WeatherFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        getLoaderManager().initLoader(LOADER_ID, null, this);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.d("LOADER", "on_create_loader");
-        return new CursorLoader(getContext(), EventsColumns.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(getContext(), TodayweatherColumns.CONTENT_URI, null, null, null, null);
     }
 
     @Override
