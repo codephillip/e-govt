@@ -14,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.codephillip.intmain.e_govt.R;
-import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.chapter.ChapterActivity;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 
@@ -87,7 +88,26 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
 //        holder.time.setText(time);
 //        holder.date.setText(date);
         holder.textView.setText(textData);
-        Utility.picassoCircleLoader(context, holder.imageView, R.drawable.uganda_flag);
+
+        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
+// generate random color
+        int color1 = generator.getRandomColor();
+// generate color based on a key (same key returns the same color), useful for list/grid views
+//        int color2 = generator.getColor("user@gmail.com")
+
+        TextDrawable drawable = TextDrawable.builder()
+                .beginConfig()
+                .width(140)  // width in px
+                .height(140) // height in px
+                .endConfig()
+                .buildRound(textData.substring(0,1), color1);
+//                .buildRound("A", Color.RED);
+//        TextDrawable drawable = TextDrawable.builder()
+//                .buildRect("A", R.color.colorAccent);
+//                .buildRound("A", Color.RED);
+        holder.imageView.setImageDrawable(drawable);
+
+//        Utility.picassoCircleLoader(context, holder.imageView, R.drawable.uganda_flag);
     }
 
     @Override
