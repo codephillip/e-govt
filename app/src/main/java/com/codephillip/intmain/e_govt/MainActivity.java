@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Events");
         }
         else if (id == R.id.nav_weather) {
-            fragment = new EventsFragment();
+            fragment = new WeatherFragment();
             currentFragmentId = R.id.nav_weather;
             getSupportActionBar().setTitle("Weather");
         }
