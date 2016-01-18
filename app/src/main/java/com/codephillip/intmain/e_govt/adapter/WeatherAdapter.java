@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 
 /**
@@ -82,7 +83,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 //        int tempInt = (int) temp;
 //        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + tempInt);
 
-        holder.temp.setText(String.valueOf((int) temp));
+        holder.temp.setText(Utility.formatTemperature(context,temp));
 //        Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override
