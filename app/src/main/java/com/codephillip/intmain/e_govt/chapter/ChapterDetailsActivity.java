@@ -95,9 +95,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                         chapterText.setText(chapterTitleString);
                         bodyText.setText(bodyTextString);
                         dateText.setText(dateTextString);
-//                        Utility.picassoLoader(this, toolbarImage, imageUrl);
-                        /////////////debug
-                        Utility.picassoLoader(this, toolbarImage, null);
+                        Utility.picassoLoader(this, toolbarImage, imageUrl);
                         break;
                     }
                 }while (cursor.moveToNext());
