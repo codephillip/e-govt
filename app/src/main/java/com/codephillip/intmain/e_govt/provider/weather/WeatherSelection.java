@@ -52,33 +52,33 @@ public class WeatherSelection extends AbstractSelection<WeatherSelection> {
         return this;
     }
 
-    public WeatherSelection date(String... value) {
+    public WeatherSelection date(Integer... value) {
         addEquals(WeatherColumns.DATE, value);
         return this;
     }
 
-    public WeatherSelection dateNot(String... value) {
+    public WeatherSelection dateNot(Integer... value) {
         addNotEquals(WeatherColumns.DATE, value);
         return this;
     }
 
-    public WeatherSelection dateLike(String... value) {
-        addLike(WeatherColumns.DATE, value);
+    public WeatherSelection dateGt(int value) {
+        addGreaterThan(WeatherColumns.DATE, value);
         return this;
     }
 
-    public WeatherSelection dateContains(String... value) {
-        addContains(WeatherColumns.DATE, value);
+    public WeatherSelection dateGtEq(int value) {
+        addGreaterThanOrEquals(WeatherColumns.DATE, value);
         return this;
     }
 
-    public WeatherSelection dateStartsWith(String... value) {
-        addStartsWith(WeatherColumns.DATE, value);
+    public WeatherSelection dateLt(int value) {
+        addLessThan(WeatherColumns.DATE, value);
         return this;
     }
 
-    public WeatherSelection dateEndsWith(String... value) {
-        addEndsWith(WeatherColumns.DATE, value);
+    public WeatherSelection dateLtEq(int value) {
+        addLessThanOrEquals(WeatherColumns.DATE, value);
         return this;
     }
 

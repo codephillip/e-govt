@@ -1,10 +1,7 @@
 package com.codephillip.intmain.e_govt.provider.weather;
 
-import java.util.Date;
-
 import android.content.ContentResolver;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.codephillip.intmain.e_govt.provider.base.AbstractContentValues;
@@ -28,7 +25,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
-    public WeatherContentValues putDate(@Nullable String value) {
+    public WeatherContentValues putDate(@Nullable Integer value) {
         mContentValues.put(WeatherColumns.DATE, value);
         return this;
     }

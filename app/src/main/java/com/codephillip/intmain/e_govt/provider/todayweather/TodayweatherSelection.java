@@ -52,33 +52,33 @@ public class TodayweatherSelection extends AbstractSelection<TodayweatherSelecti
         return this;
     }
 
-    public TodayweatherSelection date(String... value) {
+    public TodayweatherSelection date(Integer... value) {
         addEquals(TodayweatherColumns.DATE, value);
         return this;
     }
 
-    public TodayweatherSelection dateNot(String... value) {
+    public TodayweatherSelection dateNot(Integer... value) {
         addNotEquals(TodayweatherColumns.DATE, value);
         return this;
     }
 
-    public TodayweatherSelection dateLike(String... value) {
-        addLike(TodayweatherColumns.DATE, value);
+    public TodayweatherSelection dateGt(int value) {
+        addGreaterThan(TodayweatherColumns.DATE, value);
         return this;
     }
 
-    public TodayweatherSelection dateContains(String... value) {
-        addContains(TodayweatherColumns.DATE, value);
+    public TodayweatherSelection dateGtEq(int value) {
+        addGreaterThanOrEquals(TodayweatherColumns.DATE, value);
         return this;
     }
 
-    public TodayweatherSelection dateStartsWith(String... value) {
-        addStartsWith(TodayweatherColumns.DATE, value);
+    public TodayweatherSelection dateLt(int value) {
+        addLessThan(TodayweatherColumns.DATE, value);
         return this;
     }
 
-    public TodayweatherSelection dateEndsWith(String... value) {
-        addEndsWith(TodayweatherColumns.DATE, value);
+    public TodayweatherSelection dateLtEq(int value) {
+        addLessThanOrEquals(TodayweatherColumns.DATE, value);
         return this;
     }
 

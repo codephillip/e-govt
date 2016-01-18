@@ -28,7 +28,7 @@ public class TodayweatherContentValues extends AbstractContentValues {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
-    public TodayweatherContentValues putDate(@Nullable String value) {
+    public TodayweatherContentValues putDate(@Nullable Integer value) {
         mContentValues.put(TodayweatherColumns.DATE, value);
         return this;
     }

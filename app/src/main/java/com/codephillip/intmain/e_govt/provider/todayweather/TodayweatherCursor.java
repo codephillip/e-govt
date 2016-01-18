@@ -31,8 +31,8 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      * Can be {@code null}.
      */
     @Nullable
-    public String getDate() {
-        String res = getStringOrNull(TodayweatherColumns.DATE);
+    public Integer getDate() {
+        Integer res = getIntegerOrNull(TodayweatherColumns.DATE);
         return res;
     }
 

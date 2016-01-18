@@ -17,7 +17,7 @@ public interface WeatherModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    String getDate();
+    Integer getDate();
 
     /**
      * Get the {@code name} value.

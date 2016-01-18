@@ -31,8 +31,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public String getDate() {
-        String res = getStringOrNull(WeatherColumns.DATE);
+    public Integer getDate() {
+        Integer res = getIntegerOrNull(WeatherColumns.DATE);
         return res;
     }
 

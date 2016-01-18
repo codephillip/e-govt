@@ -11,6 +11,7 @@ import android.content.SyncResult;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 
 import com.codephillip.intmain.e_govt.R;
@@ -18,6 +19,7 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +53,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             int k;
-            for (k=0; k<4 ; k++){
+            for (k=0; k<5 ; k++){
                 if (k == 0){
                     getMinistriesDataFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/ministries?transform=1"));
                 } else if (k == 1){
@@ -60,12 +62,74 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     getEventsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/events?transform=1"));
                 } else if (k == 3){
                     getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
+                } else if (k == 4){
+                    getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,225835,225858,225964,226823,226853,227592,227812,227904,228227,228853,228971,229059,229139,229268,229911,230299,230617,230893,231139,231696,232066,232371,232422,233070,233275,233312,233346,233476,233730,233886,234077,234092,234178,234565,235039,235489,226267226361,226600,226866,228418,229112,229292,229361,229599,230256,230584,230993,231250,231426,231550,231617,232235,232287,232397,232713,232834,233725,233738,234578,235130,448227,448232&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("URL BUG", e.toString());
         }
+    }
+
+    private void getTodayWeatherFromJson(String jsonStr) throws JSONException {
+        // These are the names of the JSON objects that need to be extracted.
+        final String TAG_ID = "id";
+        final String TAG_DATE = "dt";
+        final String TAG_NAME = "name";
+        final String TAG_MAIN = "main";
+        final String TAG_MAX_TEMP = "temp_max";
+        final String TAG_MIN_TEMP = "temp_min";
+
+        final String TAG_LIST = "list";
+        final String TAG_WEATHER = "weather";
+
+        JSONObject forecastJson = new JSONObject(jsonStr);
+        JSONArray LIST_ARRAY = forecastJson.getJSONArray(TAG_LIST);//traverse down into the array
+        int jsonLength = LIST_ARRAY.length();//get length of the jsonArray
+
+        Time dayTime = new Time();
+        dayTime.setToNow();
+
+        // we start at the day returned by local time. Otherwise this is a mess.
+        int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
+        // now we work exclusively in UTC
+        dayTime = new Time();
+
+        for(int i = 0; i < jsonLength; i++) {
+
+            // Get the JSON object representing the day
+            JSONObject c = LIST_ARRAY.getJSONObject(i);//point to a single row in the jsonArray
+            //extract individual items from the json object
+//            String id = c.getString(TAG_ID);
+            String name = c.getString(TAG_NAME);
+            String date = c.getString(TAG_DATE);
+
+            JSONObject weatherObject = c.getJSONArray(TAG_WEATHER).getJSONObject(0);
+            String main = weatherObject.getString(TAG_MAIN);
+
+            long dateTime = dayTime.setJulianDay(julianStartDay + i);
+
+            JSONObject temperatureObject = c.getJSONObject(TAG_MAIN);
+            double high = temperatureObject.getDouble(TAG_MAX_TEMP);
+            double low = temperatureObject.getDouble(TAG_MIN_TEMP);
+
+            Log.d("SYNC_DATA", date+" "+name+ " "+main+ " "+high+ " "+low );
+            storeInTodayWeatherTable(dateTime, name, main, high, low);
+        }
+    }
+
+    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low) {
+        Log.d("INSERT: ", "starting");
+        TodayweatherContentValues values = new TodayweatherContentValues();
+        values.putDate((int) date);
+        values.putName(name);
+        values.putMain(main);
+        values.putMaxTemp((float) high);
+        values.putMinTemp((float) low);
+        Uri uri = values.insert(getContext().getContentResolver());
+        Log.d("INSERT: ", uri.toString());
     }
 
     private void getDistrictsFromJson(String jsonStr) throws JSONException {
