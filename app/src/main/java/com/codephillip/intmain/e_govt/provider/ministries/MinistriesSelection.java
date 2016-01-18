@@ -1,5 +1,7 @@
 package com.codephillip.intmain.e_govt.provider.ministries;
 
+import java.util.Date;
+
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;

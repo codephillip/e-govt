@@ -8,6 +8,8 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 
 /**
  * Columns for the {@code events} table.

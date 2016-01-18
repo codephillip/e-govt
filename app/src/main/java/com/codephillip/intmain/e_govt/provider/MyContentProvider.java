@@ -1,10 +1,13 @@
 package com.codephillip.intmain.e_govt.provider;
 
+import java.util.Arrays;
+
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.codephillip.intmain.e_govt.BuildConfig;
@@ -13,8 +16,8 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
-
-import java.util.Arrays;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 
 public class MyContentProvider extends BaseContentProvider {
     private static final String TAG = MyContentProvider.class.getSimpleName();
@@ -39,6 +42,12 @@ public class MyContentProvider extends BaseContentProvider {
     private static final int URI_TYPE_MINISTRIES = 6;
     private static final int URI_TYPE_MINISTRIES_ID = 7;
 
+    private static final int URI_TYPE_TODAYWEATHER = 8;
+    private static final int URI_TYPE_TODAYWEATHER_ID = 9;
+
+    private static final int URI_TYPE_WEATHER = 10;
+    private static final int URI_TYPE_WEATHER_ID = 11;
+
 
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
@@ -52,6 +61,10 @@ public class MyContentProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, EventsColumns.TABLE_NAME + "/#", URI_TYPE_EVENTS_ID);
         URI_MATCHER.addURI(AUTHORITY, MinistriesColumns.TABLE_NAME, URI_TYPE_MINISTRIES);
         URI_MATCHER.addURI(AUTHORITY, MinistriesColumns.TABLE_NAME + "/#", URI_TYPE_MINISTRIES_ID);
+        URI_MATCHER.addURI(AUTHORITY, TodayweatherColumns.TABLE_NAME, URI_TYPE_TODAYWEATHER);
+        URI_MATCHER.addURI(AUTHORITY, TodayweatherColumns.TABLE_NAME + "/#", URI_TYPE_TODAYWEATHER_ID);
+        URI_MATCHER.addURI(AUTHORITY, WeatherColumns.TABLE_NAME, URI_TYPE_WEATHER);
+        URI_MATCHER.addURI(AUTHORITY, WeatherColumns.TABLE_NAME + "/#", URI_TYPE_WEATHER_ID);
     }
 
     @Override
@@ -87,6 +100,16 @@ public class MyContentProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + MinistriesColumns.TABLE_NAME;
             case URI_TYPE_MINISTRIES_ID:
                 return TYPE_CURSOR_ITEM + MinistriesColumns.TABLE_NAME;
+
+            case URI_TYPE_TODAYWEATHER:
+                return TYPE_CURSOR_DIR + TodayweatherColumns.TABLE_NAME;
+            case URI_TYPE_TODAYWEATHER_ID:
+                return TYPE_CURSOR_ITEM + TodayweatherColumns.TABLE_NAME;
+
+            case URI_TYPE_WEATHER:
+                return TYPE_CURSOR_DIR + WeatherColumns.TABLE_NAME;
+            case URI_TYPE_WEATHER_ID:
+                return TYPE_CURSOR_ITEM + WeatherColumns.TABLE_NAME;
 
         }
         return null;
@@ -162,6 +185,22 @@ public class MyContentProvider extends BaseContentProvider {
                 res.orderBy = MinistriesColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_TODAYWEATHER:
+            case URI_TYPE_TODAYWEATHER_ID:
+                res.table = TodayweatherColumns.TABLE_NAME;
+                res.idColumn = TodayweatherColumns._ID;
+                res.tablesWithJoins = TodayweatherColumns.TABLE_NAME;
+                res.orderBy = TodayweatherColumns.DEFAULT_ORDER;
+                break;
+
+            case URI_TYPE_WEATHER:
+            case URI_TYPE_WEATHER_ID:
+                res.table = WeatherColumns.TABLE_NAME;
+                res.idColumn = WeatherColumns._ID;
+                res.tablesWithJoins = WeatherColumns.TABLE_NAME;
+                res.orderBy = WeatherColumns.DEFAULT_ORDER;
+                break;
+
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
@@ -171,6 +210,8 @@ public class MyContentProvider extends BaseContentProvider {
             case URI_TYPE_DISTRICTS_ID:
             case URI_TYPE_EVENTS_ID:
             case URI_TYPE_MINISTRIES_ID:
+            case URI_TYPE_TODAYWEATHER_ID:
+            case URI_TYPE_WEATHER_ID:
                 id = uri.getLastPathSegment();
         }
         if (id != null) {

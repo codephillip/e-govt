@@ -14,6 +14,8 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = MySQLiteOpenHelper.class.getSimpleName();
@@ -63,6 +65,30 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             + MinistriesColumns.ID_MINISTRIES + " INTEGER, "
             + MinistriesColumns.MINISTRY_NAME + " TEXT, "
             + MinistriesColumns.IMAGE + " TEXT "
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_TODAYWEATHER = "CREATE TABLE IF NOT EXISTS "
+            + TodayweatherColumns.TABLE_NAME + " ( "
+            + TodayweatherColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TodayweatherColumns.DATE + " TEXT, "
+            + TodayweatherColumns.NAME + " TEXT, "
+            + TodayweatherColumns.MAIN + " TEXT, "
+            + TodayweatherColumns.MAX_TEMP + " REAL, "
+            + TodayweatherColumns.MIN_TEMP + " REAL "
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_WEATHER = "CREATE TABLE IF NOT EXISTS "
+            + WeatherColumns.TABLE_NAME + " ( "
+            + WeatherColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + WeatherColumns.DATE + " TEXT, "
+            + WeatherColumns.NAME + " TEXT, "
+            + WeatherColumns.MAIN + " TEXT, "
+            + WeatherColumns.HUMIDITY + " REAL, "
+            + WeatherColumns.WIND_SPEED + " REAL, "
+            + WeatherColumns.MAX_TEMP + " REAL, "
+            + WeatherColumns.MIN_TEMP + " REAL, "
+            + WeatherColumns.PRESSURE + " REAL, "
+            + WeatherColumns.DEG + " REAL "
             + " );";
 
     // @formatter:on
@@ -123,6 +149,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_DISTRICTS);
         db.execSQL(SQL_CREATE_TABLE_EVENTS);
         db.execSQL(SQL_CREATE_TABLE_MINISTRIES);
+        db.execSQL(SQL_CREATE_TABLE_TODAYWEATHER);
+        db.execSQL(SQL_CREATE_TABLE_WEATHER);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

@@ -1,7 +1,10 @@
 package com.codephillip.intmain.e_govt.provider.districts;
 
+import java.util.Date;
+
 import android.content.ContentResolver;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.codephillip.intmain.e_govt.provider.base.AbstractContentValues;
