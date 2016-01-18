@@ -22,14 +22,16 @@ import com.codephillip.intmain.e_govt.FeedBackActivity;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
+import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 
 public class ChapterDetailsActivity extends AppCompatActivity {
-    private CollapsingToolbarLayout ctb;
+    public CollapsingToolbarLayout ctb;
     private int default_code = 0x000000;
     String ministry;
     String district = "Kampala";
-    String event;
+    String location = "Serena Hotel";
     String intentString;
+    public boolean eventBoolean = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,88 +40,105 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ctb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+
         try {
             intentString = getIntent().getStringExtra(Intent.EXTRA_TEXT);
             Log.d("INTENT", intentString);
         }catch (Exception e){
             e.printStackTrace();
             try {
+                eventBoolean = true;
                 intentString = getIntent().getStringExtra("eventIntent");
-//                event = "event";
+                Log.d("BOOLEAN", String.valueOf(eventBoolean));
                 Log.d("INTENT", intentString);
             }catch (Exception e1){
                 e1.printStackTrace();
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 String lastKey = "Feedback";
-                String feedbackPref = prefs.getString(lastKey, intentString);
-                intentString = feedbackPref;
+                intentString = prefs.getString(lastKey, intentString);
                 Log.d("PREF#", intentString);
             }
 
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//            String lastKey = "Feedback";
-//            String feedbackPref = prefs.getString(lastKey, intentString);
-//            intentString = feedbackPref;
-//            Log.d("PREF#", intentString);
         }
-//        finally {
-//
-//        }
 
         ImageView toolbarImage = (ImageView) findViewById(R.id.image_chapter_details);
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
         TextView bodyText = (TextView) findViewById(R.id.body_text);
         TextView dateText = (TextView) findViewById(R.id.dateText);
 
-        CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
+        CursorLoader cursorLoader;
+        if (eventBoolean) cursorLoader = new CursorLoader(this, EventsColumns.CONTENT_URI, null, null, null, null);
+        else cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
+
+//        CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
         Cursor cursor = cursorLoader.loadInBackground();
-        String chapterTitle = null;
+        String chapterTitleString = null;
 
         Log.d("CHAPTERDETAILS#", "CURSORMOVING");
 
-        if (cursor.moveToFirst()){
-            Log.d("CHAPTERDETAILS#", "CURSORMOVING###");
+        if (eventBoolean){
+            Log.d("CHAPTERDETAILS#", "EVENT_QUERY");
 
-            do {
-                chapterTitle = cursor.getString(cursor.getColumnIndex(ChaptersColumns.TITLE));
-                if (chapterTitle.equals(intentString)){
-                    String chapterTitleString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.TITLE));
-                    String bodyTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.STORY));
-                    String imageUrl = cursor.getString(cursor.getColumnIndex(ChaptersColumns.IMAGE));
-                    String dateTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DATE));
-                    ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
-                    district = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT));
-                    Log.d("CONTENT", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitle + "#" + imageUrl + "#" + district + "#" + ministry);
-                    chapterText.setText(chapterTitleString);
-                    bodyText.setText(bodyTextString);
-                    dateText.setText(dateTextString);
-                    Utility.picassoLoader(this, toolbarImage, imageUrl);
-                    break;
-                }
-            }while (cursor.moveToNext());
+            ctb.setTitle("Event Details");
+            if (cursor.moveToFirst()){
+                Log.d("CHAPTERDETAILS#", "CURSORMOVING###");
+                do {
+                    chapterTitleString = cursor.getString(cursor.getColumnIndex(EventsColumns.TITLE));
+                    if (chapterTitleString.equals(intentString)){
+                        String bodyTextString = cursor.getString(cursor.getColumnIndex(EventsColumns.STORY));
+                        String imageUrl = cursor.getString(cursor.getColumnIndex(EventsColumns.IMAGE));
+                        String dateTextString = cursor.getString(cursor.getColumnIndex(EventsColumns.DATE));
+                        ministry = cursor.getString(cursor.getColumnIndex(EventsColumns.MINISTRY));
+                        location = cursor.getString(cursor.getColumnIndex(EventsColumns.LOCATION));
+                        Log.d("CONTENT", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitleString + "#" + imageUrl + "#" + location + "#" + ministry);
+                        chapterText.setText(chapterTitleString);
+                        bodyText.setText(bodyTextString);
+                        dateText.setText(dateTextString);
+//                        Utility.picassoLoader(this, toolbarImage, imageUrl);
+                        /////////////debug
+                        Utility.picassoLoader(this, toolbarImage, null);
+                        break;
+                    }
+                }while (cursor.moveToNext());
+            }
         }
-        ///////////////debug
-        Utility.picassoLoader(this, toolbarImage, null);
+
+        else {
+
+            if (cursor.moveToFirst()){
+                Log.d("CHAPTERDETAILS#", "CURSORMOVING###");
+                do {
+                    chapterTitleString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.TITLE));
+                    if (chapterTitleString.equals(intentString)){
+                        String bodyTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.STORY));
+                        String imageUrl = cursor.getString(cursor.getColumnIndex(ChaptersColumns.IMAGE));
+                        String dateTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DATE));
+                        ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
+                        district = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT));
+                        Log.d("CONTENT", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitleString + "#" + imageUrl + "#" + district + "#" + ministry);
+                        chapterText.setText(chapterTitleString);
+                        bodyText.setText(bodyTextString);
+                        dateText.setText(dateTextString);
+                        Utility.picassoLoader(this, toolbarImage, imageUrl);
+                        break;
+                    }
+                }while (cursor.moveToNext());
+            }
+        }
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        final String finalChapterTitle = chapterTitle;
+        final String finalChapterTitle = chapterTitleString;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 startActivity(new Intent(getBaseContext(), FeedBackActivity.class).putExtra(Intent.EXTRA_TEXT, finalChapterTitle));
 
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /* Collapsing toolbar */
-        ctb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-//        ctb.setTitle(intentString);
-        /* Decode bitmap from the image */
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pushup1);/* Generate palette from the image bitmap */
         Bitmap bitmap = ((BitmapDrawable) toolbarImage.getDrawable()).getBitmap();
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
@@ -167,10 +186,6 @@ public class ChapterDetailsActivity extends AppCompatActivity {
             editor.putString(chapterStrip, district);
             Log.d("DETAILS#", district);
         }
-//        else {
-//            editor.putInt(FragString, 3);
-//            Log.d("DETAILS#", event);
-//        }
         editor.apply();
     }
 }

@@ -78,7 +78,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         Log.d("STRETCH_ADAPTER", title + "#" + image + "#" + date);
 
         holder.title.setText(title);
-        holder.date.setText(title);
+        holder.date.setText(date);
         Utility.picassoLoader(context, holder.imageView, image);
     }
     @Override
