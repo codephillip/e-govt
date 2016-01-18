@@ -28,6 +28,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
     public CollapsingToolbarLayout ctb;
     private int default_code = 0x000000;
     String ministry;
+    String tableName;
     String district = "Kampala";
     String location = "Serena Hotel";
     String intentString;
@@ -48,16 +49,22 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
             try {
-                eventBoolean = true;
                 intentString = getIntent().getStringExtra("eventIntent");
-                Log.d("BOOLEAN", String.valueOf(eventBoolean));
                 Log.d("INTENT", intentString);
+                eventBoolean = true;
+                Log.d("BOOLEAN", String.valueOf(eventBoolean));
             }catch (Exception e1){
                 e1.printStackTrace();
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 String lastKey = "Feedback";
+                String tableKey = "Feedback_tablename";
                 intentString = prefs.getString(lastKey, intentString);
                 Log.d("PREF#", intentString);
+
+                String tableName = prefs.getString(tableKey, "events");
+
+                if (tableName.equals("events")) eventBoolean = true;
+                else eventBoolean = false;
             }
 
         }
@@ -82,7 +89,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
 
             ctb.setTitle("Event Details");
             if (cursor.moveToFirst()){
-                Log.d("CHAPTERDETAILS#", "CURSORMOVING###");
+                Log.d("CHAPTERDETAILS#", "CURSORMOVING###event");
                 do {
                     chapterTitleString = cursor.getString(cursor.getColumnIndex(EventsColumns.TITLE));
                     if (chapterTitleString.equals(intentString)){
@@ -91,6 +98,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                         String dateTextString = cursor.getString(cursor.getColumnIndex(EventsColumns.DATE));
                         ministry = cursor.getString(cursor.getColumnIndex(EventsColumns.MINISTRY));
                         location = cursor.getString(cursor.getColumnIndex(EventsColumns.LOCATION));
+                        tableName = "events";
                         Log.d("CONTENT", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitleString + "#" + imageUrl + "#" + location + "#" + ministry);
                         chapterText.setText(chapterTitleString);
                         bodyText.setText(bodyTextString);
@@ -114,6 +122,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                         String dateTextString = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DATE));
                         ministry = cursor.getString(cursor.getColumnIndex(ChaptersColumns.MINISTRY));
                         district = cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT));
+                        tableName = "chapters";
                         Log.d("CONTENT", "RESULTS: " + chapterTitleString + "#" + bodyTextString + "#" + chapterTitleString + "#" + imageUrl + "#" + district + "#" + ministry);
                         chapterText.setText(chapterTitleString);
                         bodyText.setText(bodyTextString);
@@ -131,7 +140,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), FeedBackActivity.class).putExtra(Intent.EXTRA_TEXT, finalChapterTitle));
+                startActivity(new Intent(getBaseContext(), FeedBackActivity.class).putExtra(Intent.EXTRA_TEXT, finalChapterTitle).putExtra("tableName", tableName));
 
             }
         });
@@ -185,5 +194,6 @@ public class ChapterDetailsActivity extends AppCompatActivity {
             Log.d("DETAILS#", district);
         }
         editor.apply();
+        eventBoolean = false;
     }
 }

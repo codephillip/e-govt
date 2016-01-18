@@ -100,10 +100,12 @@ public class FeedBackActivityFragment extends Fragment {
         if (intentReceived){
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             String chapterStrip = "Feedback";
+            String tablename = "Feedback_tablename";
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString(chapterStrip, intentString);
-            editor.commit();
+            editor.putString(tablename, getActivity().getIntent().getStringExtra("tableName"));
+            editor.apply();
         }
     }
 
