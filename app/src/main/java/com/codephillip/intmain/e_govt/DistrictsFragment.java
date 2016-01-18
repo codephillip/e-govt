@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codephillip.intmain.e_govt.adapter.DistrictAdapter;
-import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 
 public class DistrictsFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView recyclerView;
@@ -42,7 +42,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), DistrictsColumns.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(getContext(), TodayweatherColumns.CONTENT_URI, null, null, null, null);
     }
 
     @Override

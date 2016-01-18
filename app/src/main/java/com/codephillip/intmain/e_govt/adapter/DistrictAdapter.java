@@ -18,7 +18,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.chapter.ChapterActivity;
-import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 
 
 /**
@@ -82,8 +82,8 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         dataCursor.moveToPosition(position);
 
-        String textData = dataCursor.getString(dataCursor.getColumnIndex(DistrictsColumns.DISTRICT_NAME));
-        String imageUrl = dataCursor.getString(dataCursor.getColumnIndex(DistrictsColumns.IMAGE));
+        String textData = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
+//        String imageUrl = dataCursor.getString(dataCursor.getColumnIndex(DistrictsColumns.IMAGE));
 
 //        holder.time.setText(time);
 //        holder.date.setText(date);
