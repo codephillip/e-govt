@@ -32,7 +32,8 @@ public class DistrictsCursor extends AbstractCursor implements DistrictsModel {
      */
     @Nullable
     public Integer getIdDistricts() {
-        return getIntegerOrNull(DistrictsColumns.ID_DISTRICTS);
+        Integer res = getIntegerOrNull(DistrictsColumns.ID_DISTRICTS);
+        return res;
     }
 
     /**
@@ -41,7 +42,8 @@ public class DistrictsCursor extends AbstractCursor implements DistrictsModel {
      */
     @Nullable
     public String getDistrictName() {
-        return getStringOrNull(DistrictsColumns.DISTRICT_NAME);
+        String res = getStringOrNull(DistrictsColumns.DISTRICT_NAME);
+        return res;
     }
 
     /**
@@ -50,6 +52,7 @@ public class DistrictsCursor extends AbstractCursor implements DistrictsModel {
      */
     @Nullable
     public String getImage() {
-        return getStringOrNull(DistrictsColumns.IMAGE);
+        String res = getStringOrNull(DistrictsColumns.IMAGE);
+        return res;
     }
 }

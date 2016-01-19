@@ -32,7 +32,8 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public Integer getIdEvents() {
-        return getIntegerOrNull(EventsColumns.ID_EVENTS);
+        Integer res = getIntegerOrNull(EventsColumns.ID_EVENTS);
+        return res;
     }
 
     /**
@@ -41,7 +42,8 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getDate() {
-        return getStringOrNull(EventsColumns.DATE);
+        String res = getStringOrNull(EventsColumns.DATE);
+        return res;
     }
 
     /**
@@ -50,7 +52,8 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getTitle() {
-        return getStringOrNull(EventsColumns.TITLE);
+        String res = getStringOrNull(EventsColumns.TITLE);
+        return res;
     }
 
     /**
@@ -59,7 +62,8 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getStory() {
-        return getStringOrNull(EventsColumns.STORY);
+        String res = getStringOrNull(EventsColumns.STORY);
+        return res;
     }
 
     /**
@@ -68,7 +72,8 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getImage() {
-        return getStringOrNull(EventsColumns.IMAGE);
+        String res = getStringOrNull(EventsColumns.IMAGE);
+        return res;
     }
 
     /**
@@ -77,7 +82,8 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getMinistry() {
-        return getStringOrNull(EventsColumns.MINISTRY);
+        String res = getStringOrNull(EventsColumns.MINISTRY);
+        return res;
     }
 
     /**
@@ -86,6 +92,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getLocation() {
-        return getStringOrNull(EventsColumns.LOCATION);
+        String res = getStringOrNull(EventsColumns.LOCATION);
+        return res;
     }
 }

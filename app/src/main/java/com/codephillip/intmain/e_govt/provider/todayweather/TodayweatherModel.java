@@ -25,6 +25,11 @@ public interface TodayweatherModel extends BaseModel {
     int getWeatherId();
 
     /**
+     * Get the {@code city_id} value.
+     */
+    int getCityId();
+
+    /**
      * Get the {@code name} value.
      * Can be {@code null}.
      */

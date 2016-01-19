@@ -32,7 +32,8 @@ public class MinistriesCursor extends AbstractCursor implements MinistriesModel 
      */
     @Nullable
     public Integer getIdMinistries() {
-        return getIntegerOrNull(MinistriesColumns.ID_MINISTRIES);
+        Integer res = getIntegerOrNull(MinistriesColumns.ID_MINISTRIES);
+        return res;
     }
 
     /**
@@ -41,7 +42,8 @@ public class MinistriesCursor extends AbstractCursor implements MinistriesModel 
      */
     @Nullable
     public String getMinistryName() {
-        return getStringOrNull(MinistriesColumns.MINISTRY_NAME);
+        String res = getStringOrNull(MinistriesColumns.MINISTRY_NAME);
+        return res;
     }
 
     /**
@@ -50,6 +52,7 @@ public class MinistriesCursor extends AbstractCursor implements MinistriesModel 
      */
     @Nullable
     public String getImage() {
-        return getStringOrNull(MinistriesColumns.IMAGE);
+        String res = getStringOrNull(MinistriesColumns.IMAGE);
+        return res;
     }
 }

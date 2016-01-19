@@ -72,6 +72,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             + TodayweatherColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TodayweatherColumns.DATE + " INTEGER, "
             + TodayweatherColumns.WEATHER_ID + " INTEGER NOT NULL, "
+            + TodayweatherColumns.CITY_ID + " INTEGER NOT NULL, "
             + TodayweatherColumns.NAME + " TEXT, "
             + TodayweatherColumns.MAIN + " TEXT, "
             + TodayweatherColumns.MAX_TEMP + " REAL, "

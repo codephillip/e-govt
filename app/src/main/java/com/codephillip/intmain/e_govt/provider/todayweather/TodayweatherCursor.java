@@ -32,7 +32,8 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public Integer getDate() {
-        return getIntegerOrNull(TodayweatherColumns.DATE);
+        Integer res = getIntegerOrNull(TodayweatherColumns.DATE);
+        return res;
     }
 
     /**
@@ -46,12 +47,23 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
     }
 
     /**
+     * Get the {@code city_id} value.
+     */
+    public int getCityId() {
+        Integer res = getIntegerOrNull(TodayweatherColumns.CITY_ID);
+        if (res == null)
+            throw new NullPointerException("The value of 'city_id' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
      * Get the {@code name} value.
      * Can be {@code null}.
      */
     @Nullable
     public String getName() {
-        return getStringOrNull(TodayweatherColumns.NAME);
+        String res = getStringOrNull(TodayweatherColumns.NAME);
+        return res;
     }
 
     /**
@@ -60,7 +72,8 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public String getMain() {
-        return getStringOrNull(TodayweatherColumns.MAIN);
+        String res = getStringOrNull(TodayweatherColumns.MAIN);
+        return res;
     }
 
     /**
@@ -69,7 +82,8 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public Float getMaxTemp() {
-        return getFloatOrNull(TodayweatherColumns.MAX_TEMP);
+        Float res = getFloatOrNull(TodayweatherColumns.MAX_TEMP);
+        return res;
     }
 
     /**
@@ -78,6 +92,7 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public Float getMinTemp() {
-        return getFloatOrNull(TodayweatherColumns.MIN_TEMP);
+        Float res = getFloatOrNull(TodayweatherColumns.MIN_TEMP);
+        return res;
     }
 }

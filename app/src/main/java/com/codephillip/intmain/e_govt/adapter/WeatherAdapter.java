@@ -80,10 +80,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         final String district = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
         final String weatherName = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAIN));
         final double temp = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
-        final double weatherId = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
-
-//      TODO  make cityId and then replace weatherId///////$$$$$$$$$$$################??????$$$$$$$$%%%%%%%%@@@@@@
-        final double cityId = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
+        final int weatherId = dataCursor.getInt(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
+        final int cityId = dataCursor.getInt(dataCursor.getColumnIndex(TodayweatherColumns.CITY_ID));
         Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + temp + "#" + weatherId  + "#" + cityId);
 
         holder.district.setText(district);

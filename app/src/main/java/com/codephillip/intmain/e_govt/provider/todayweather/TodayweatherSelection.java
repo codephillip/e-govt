@@ -112,6 +112,36 @@ public class TodayweatherSelection extends AbstractSelection<TodayweatherSelecti
         return this;
     }
 
+    public TodayweatherSelection cityId(int... value) {
+        addEquals(TodayweatherColumns.CITY_ID, toObjectArray(value));
+        return this;
+    }
+
+    public TodayweatherSelection cityIdNot(int... value) {
+        addNotEquals(TodayweatherColumns.CITY_ID, toObjectArray(value));
+        return this;
+    }
+
+    public TodayweatherSelection cityIdGt(int value) {
+        addGreaterThan(TodayweatherColumns.CITY_ID, value);
+        return this;
+    }
+
+    public TodayweatherSelection cityIdGtEq(int value) {
+        addGreaterThanOrEquals(TodayweatherColumns.CITY_ID, value);
+        return this;
+    }
+
+    public TodayweatherSelection cityIdLt(int value) {
+        addLessThan(TodayweatherColumns.CITY_ID, value);
+        return this;
+    }
+
+    public TodayweatherSelection cityIdLtEq(int value) {
+        addLessThanOrEquals(TodayweatherColumns.CITY_ID, value);
+        return this;
+    }
+
     public TodayweatherSelection name(String... value) {
         addEquals(TodayweatherColumns.NAME, value);
         return this;
