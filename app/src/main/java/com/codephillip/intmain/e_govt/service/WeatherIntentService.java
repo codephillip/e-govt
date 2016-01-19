@@ -24,7 +24,7 @@ import okhttp3.Response;
 
 public class WeatherIntentService extends IntentService {
 
-    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 12;
+    private static final long HALF_DAY_IN_MILLIS = 1000 * 60 * 60 * 12;
     //    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     String district = "Jinja";
 
@@ -54,7 +54,7 @@ public class WeatherIntentService extends IntentService {
             lastSync = 0;
         }
 
-        if (System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
+        if (System.currentTimeMillis() - lastSync >= HALF_DAY_IN_MILLIS) {
 
             long deleted = getContentResolver().delete(WeatherColumns.CONTENT_URI, null, null);
             Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
