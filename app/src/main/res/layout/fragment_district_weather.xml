@@ -9,11 +9,14 @@
                 tools:context="com.codephillip.intmain.e_govt.weather.DistrictWeatherActivityFragment"
                 tools:showIn="@layout/activity_district_weather">
 
-    <Button android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button1"
-            android:text="@string/done_button"
-        />
-
+    <!--<Button android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/button1"-->
+            <!--android:text="@string/done_button"/>-->
+    <ListView
+        android:id="@+id/listview_forecast"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null" />
 
 </RelativeLayout>
