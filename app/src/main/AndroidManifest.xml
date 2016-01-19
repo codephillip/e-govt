@@ -14,8 +14,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
@@ -86,6 +86,20 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".chapter.ChapterDetailsActivity"/>
+        </activity>
+        <activity
+            android:name=".weather.DistrictWeatherActivity"
+            android:label="@string/title_activity_district_weather"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codephillip.intmain.e_govt.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".weather.DetailedWeatherActivity"
+            android:label="@string/title_activity_detailed_weather"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

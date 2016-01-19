@@ -1,4 +1,4 @@
-package com.codephillip.intmain.e_govt;
+package com.codephillip.intmain.e_govt.weather;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.adapter.WeatherAdapter;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 

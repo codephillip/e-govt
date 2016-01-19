@@ -21,5 +21,8 @@
     <string name="message_required">Message required</string>
     <string name="reset">reset</string>
     <!-- Temperature format [CHAR LIMIT=5 -->
-    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
+    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0
+    </string>
+    <string name="title_activity_district_weather">DistrictWeatherActivity</string>
+    <string name="title_activity_detailed_weather">DetailedWeatherActivity</string>
 </resources>

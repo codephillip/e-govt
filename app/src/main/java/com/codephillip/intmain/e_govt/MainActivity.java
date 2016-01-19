@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
+import com.codephillip.intmain.e_govt.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
