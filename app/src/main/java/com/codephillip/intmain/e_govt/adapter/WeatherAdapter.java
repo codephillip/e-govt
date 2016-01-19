@@ -1,6 +1,7 @@
 package com.codephillip.intmain.e_govt.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.weather.DistrictWeatherActivity;
 
 /**
  * Created by codephillip on 12/26/15.
@@ -40,7 +42,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     Log.d("RECYCLER", "CLICK");
-//                    context.startActivity(new Intent(context, ChapterDetailsActivity.class).putExtra("eventIntent", title.getText()));
+                    context.startActivity(new Intent(context, DistrictWeatherActivity.class).putExtra("districtWeatherIntent", district.getText()));
                 }
             });
         }

@@ -9,5 +9,11 @@
                 tools:context="com.codephillip.intmain.e_govt.weather.DistrictWeatherActivityFragment"
                 tools:showIn="@layout/activity_district_weather">
 
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button1"
+            android:text="@string/done_button"
+        />
+
 
 </RelativeLayout>

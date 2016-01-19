@@ -26,6 +26,8 @@ public class DetailedWeatherActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }
