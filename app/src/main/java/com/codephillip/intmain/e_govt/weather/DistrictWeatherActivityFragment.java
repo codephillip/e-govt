@@ -81,7 +81,7 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
 //                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
 //                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
 //                            ));
-                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class));
+                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", "monday"));
 //                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("date", view.getId()));
 
                 }

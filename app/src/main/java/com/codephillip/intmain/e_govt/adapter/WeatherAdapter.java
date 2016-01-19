@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.service.WeatherIntentService;
 import com.codephillip.intmain.e_govt.weather.DistrictWeatherActivity;
 
 /**
@@ -37,14 +38,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             temp = (TextView) v.findViewById(R.id.temp);
             imageView = (ImageView) v.findViewById(R.id.image);
 
-            v.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Log.d("RECYCLER", "CLICK");
-                    context.startActivity(new Intent(context, DistrictWeatherActivity.class).putExtra("districtWeatherIntent", district.getText()));
-                }
-            });
+//            v.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d("RECYCLER", "CLICK");
+//                    context.startService(new Intent(context, WeatherIntentService.class).putExtra("cityId", ));
+//                    context.startActivity(new Intent(context, DistrictWeatherActivity.class).putExtra("districtWeatherIntent", district.getText()));
+//                }
+//            });
         }
     }
     public WeatherAdapter(Context context, Cursor cursor) {
@@ -75,10 +77,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         dataCursor.moveToPosition(position);
 
-        String district = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
-        String weatherName = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAIN));
-        double temp = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
-        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + temp);
+        final String district = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
+        final String weatherName = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.MAIN));
+        final double temp = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
+        final double weatherId = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
+
+//      TODO  make cityId and then replace weatherId///////$$$$$$$$$$$################??????$$$$$$$$%%%%%%%%@@@@@@
+        final double cityId = dataCursor.getDouble(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
+        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + temp + "#" + weatherId  + "#" + cityId);
 
         holder.district.setText(district);
         holder.weatherName.setText(weatherName);
@@ -88,6 +94,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.imageView.setImageResource(Utility.getArtResourceForWeatherCondition(
                 dataCursor.getInt(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID))));
 //        Utility.picassoLoader(context, holder.imageView, image);
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.d("RECYCLER", "CLICK");
+                context.startService(new Intent(context, WeatherIntentService.class).putExtra("cityId", cityId));
+                context.startActivity(new Intent(context, DistrictWeatherActivity.class).putExtra("districtWeatherIntent", district));
+            }
+        });
     }
     @Override
     public int getItemCount() {

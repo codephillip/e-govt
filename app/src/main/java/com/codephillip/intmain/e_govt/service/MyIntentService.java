@@ -1,8 +1,10 @@
-package com.codephillip.intmain.e_govt;
+package com.codephillip.intmain.e_govt.service;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
+
+import com.codephillip.intmain.e_govt.Utility;
 
 import java.io.IOException;
 

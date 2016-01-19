@@ -29,7 +29,12 @@
         </activity>
 
         <service
-            android:name=".MyIntentService"
+            android:name=".service.MyIntentService"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name=".service.WeatherIntentService"
             android:exported="false">
         </service>
 
