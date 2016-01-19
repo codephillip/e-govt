@@ -37,6 +37,7 @@
                 android:id="@+id/district"
                 android:layout_width="wrap_content"
                 android:text="Kampala"
+                android:textSize="20sp"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"/>

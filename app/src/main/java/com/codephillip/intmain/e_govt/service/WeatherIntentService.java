@@ -2,10 +2,16 @@ package com.codephillip.intmain.e_govt.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.support.v4.content.CursorLoader;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 import com.codephillip.intmain.e_govt.provider.weather.WeatherContentValues;
 
 import org.json.JSONArray;
@@ -18,6 +24,10 @@ import okhttp3.Response;
 
 public class WeatherIntentService extends IntentService {
 
+    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 12;
+    //    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
+    String district = "Jinja";
+
     public WeatherIntentService() {
         super("WeatherIntentService");
     }
@@ -26,18 +36,43 @@ public class WeatherIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d("WEATHER_INTENT_SERVICE", "ONHANDLE_INTENT");
 
-        double cityId = intent.getIntExtra("cityId", 233114);
+        int cityId = intent.getIntExtra("cityId", 233114);
+        district = intent.getStringExtra("districtWeatherIntent");
         Log.d("WEATHER_INTENT_SERVICE", "city Id#"+cityId);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String lastNotificationKey = this.getString(R.string.pref_last_notification);
+        long lastSync;
 
-        try {
-            getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/forecast?id="+ cityId +"&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
-//            getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/forecast?id=233114&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("URL BUG", e.toString());
+        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
+                new String[] {district.concat("%")}, null);
+//        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME},null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+        if (cursor.moveToFirst()){
+            lastSync = prefs.getLong(lastNotificationKey, 0);
+        } else {
+            lastSync = 0;
         }
 
+        if (System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
+
+            long deleted = getContentResolver().delete(WeatherColumns.CONTENT_URI, null, null);
+            Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+
+            try {
+                final String url = "http://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
+                Log.d("WEATHER_INTENT_SERVICE", "URL#" + url);
+                getTodayWeatherFromJson(connectToServer(url));
+//            getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/forecast?id=232422&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("URL BUG", e.toString());
+            }
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong(lastNotificationKey, System.currentTimeMillis());
+            editor.commit();
+        }
     }
 
     private void getTodayWeatherFromJson(String jsonStr) throws JSONException {

@@ -15,10 +15,13 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
+import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
 
 import org.json.JSONArray;
@@ -37,7 +40,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
     public static final int SYNC_INTERVAL = 60 * 720;
-//    public static final int SYNC_INTERVAL = 60 * 180;
+    //    public static final int SYNC_INTERVAL = 60 * 180;
 //    public static final int SYNC_INTERVAL = 15 * 1;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
@@ -53,17 +56,23 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //        notifyWeather();
 
         try {
+            deleteTables();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
             int k;
-            for (k=0; k<5 ; k++){
+            for (k=0; k<4 ; k++){
                 if (k == 0){
                     getMinistriesDataFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/ministries?transform=1"));
                 } else if (k == 1){
                     getChaptersFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/chapters?transform=1"));
                 } else if (k == 2){
                     getEventsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/events?transform=1"));
+//                } else if (k == 3){
+//                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
                 } else if (k == 3){
-                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
-                } else if (k == 4){
                     getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,225835,225858,225964,226823,226853,227592,227812,227904,228227,228853,228971,229059,229139,229268,229911,230299,230617,230893,231139,231696,232066,232371,232422,233070,233275,233312,233346,233476,233730,233886,234077,234092,234178,234565,235039,235489,226267226361,226600,226866,228418,229112,229292,229361,229599,230256,230584,230993,231250,231426,231550,231617,232235,232287,232397,232713,232834,233725,233738,234578,235130,448227,448232&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
                 }
             }
@@ -541,5 +550,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 ////                editor.commit();
 //        }
 //    }
+
+    public void deleteTables(){
+        long deleted;
+        deleted = getContext().getContentResolver().delete(ChaptersColumns.CONTENT_URI, null, null);
+        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+        deleted = getContext().getContentResolver().delete(EventsColumns.CONTENT_URI, null, null);
+        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+        deleted = getContext().getContentResolver().delete(TodayweatherColumns.CONTENT_URI, null, null);
+        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+    }
 }
 
