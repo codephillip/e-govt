@@ -89,6 +89,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("URL BUG", e.toString());
+            /////TODO used for degugging [ REMOVE ON RELEASE ]
+            try {
+                getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,225835,225858,225964,226823,226853,227592,227812,227904,228227,228853,228971,229059,229139,229268,229911,230299,230617,230893,231139,231696,232066,232371,232422,233070,233275,233312,233346,233476,233730,233886,234077,234092,234178,234565,235039,235489,226267226361,226600,226866,228418,229112,229292,229361,229599,230256,230584,230993,231250,231426,231550,231617,232235,232287,232397,232713,232834,233725,233738,234578,235130,448227,448232&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
