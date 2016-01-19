@@ -11,15 +11,13 @@ import com.squareup.picasso.Picasso;
  */
 public class Utility {
     public static String returnJson( String date,String topic, String message){
-        String retString = "{\"date\":\""+ date +"\",\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
-//        String retString = "{\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
-        return retString;
+        //        String retString = "{\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
+        return "{\"date\":\""+ date +"\",\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
     }
 
     public static String returnJson(String topic, String message){
 //        String retString = "{\"date\":\""+ date +"\",\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
-        String retString = "{\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
-        return retString;
+        return "{\"topic\":\"" + topic+ "\",\"message\":\""+ message+"\"}";
     }
 
     public static void picassoCircleLoader(Context context, ImageView imageView, String url){

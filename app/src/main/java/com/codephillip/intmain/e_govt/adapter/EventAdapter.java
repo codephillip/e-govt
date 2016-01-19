@@ -46,7 +46,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
     }
     public EventAdapter(Context context, Cursor cursor) {
-        this.context = context;
+        EventAdapter.context = context;
         dataCursor = cursor;
     }
     @Override

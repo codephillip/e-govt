@@ -32,8 +32,7 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public Integer getDate() {
-        Integer res = getIntegerOrNull(TodayweatherColumns.DATE);
-        return res;
+        return getIntegerOrNull(TodayweatherColumns.DATE);
     }
 
     /**
@@ -52,8 +51,7 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public String getName() {
-        String res = getStringOrNull(TodayweatherColumns.NAME);
-        return res;
+        return getStringOrNull(TodayweatherColumns.NAME);
     }
 
     /**
@@ -62,8 +60,7 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public String getMain() {
-        String res = getStringOrNull(TodayweatherColumns.MAIN);
-        return res;
+        return getStringOrNull(TodayweatherColumns.MAIN);
     }
 
     /**
@@ -72,8 +69,7 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public Float getMaxTemp() {
-        Float res = getFloatOrNull(TodayweatherColumns.MAX_TEMP);
-        return res;
+        return getFloatOrNull(TodayweatherColumns.MAX_TEMP);
     }
 
     /**
@@ -82,7 +78,6 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      */
     @Nullable
     public Float getMinTemp() {
-        Float res = getFloatOrNull(TodayweatherColumns.MIN_TEMP);
-        return res;
+        return getFloatOrNull(TodayweatherColumns.MIN_TEMP);
     }
 }

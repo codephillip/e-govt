@@ -46,7 +46,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         }
     }
     public WeatherAdapter(Context context, Cursor cursor) {
-        this.context = context;
+        WeatherAdapter.context = context;
         dataCursor = cursor;
     }
     @Override

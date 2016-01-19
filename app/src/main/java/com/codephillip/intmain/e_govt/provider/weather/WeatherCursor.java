@@ -1,9 +1,6 @@
 package com.codephillip.intmain.e_govt.provider.weather;
 
-import java.util.Date;
-
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.codephillip.intmain.e_govt.provider.base.AbstractCursor;
@@ -32,8 +29,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Integer getDate() {
-        Integer res = getIntegerOrNull(WeatherColumns.DATE);
-        return res;
+        return getIntegerOrNull(WeatherColumns.DATE);
     }
 
     /**
@@ -52,8 +48,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public String getName() {
-        String res = getStringOrNull(WeatherColumns.NAME);
-        return res;
+        return getStringOrNull(WeatherColumns.NAME);
     }
 
     /**
@@ -62,8 +57,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public String getMain() {
-        String res = getStringOrNull(WeatherColumns.MAIN);
-        return res;
+        return getStringOrNull(WeatherColumns.MAIN);
     }
 
     /**
@@ -72,8 +66,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Float getHumidity() {
-        Float res = getFloatOrNull(WeatherColumns.HUMIDITY);
-        return res;
+        return getFloatOrNull(WeatherColumns.HUMIDITY);
     }
 
     /**
@@ -82,8 +75,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Float getWindSpeed() {
-        Float res = getFloatOrNull(WeatherColumns.WIND_SPEED);
-        return res;
+        return getFloatOrNull(WeatherColumns.WIND_SPEED);
     }
 
     /**
@@ -92,8 +84,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Float getMaxTemp() {
-        Float res = getFloatOrNull(WeatherColumns.MAX_TEMP);
-        return res;
+        return getFloatOrNull(WeatherColumns.MAX_TEMP);
     }
 
     /**
@@ -102,8 +93,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Float getMinTemp() {
-        Float res = getFloatOrNull(WeatherColumns.MIN_TEMP);
-        return res;
+        return getFloatOrNull(WeatherColumns.MIN_TEMP);
     }
 
     /**
@@ -112,8 +102,7 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Float getPressure() {
-        Float res = getFloatOrNull(WeatherColumns.PRESSURE);
-        return res;
+        return getFloatOrNull(WeatherColumns.PRESSURE);
     }
 
     /**
@@ -122,7 +111,6 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      */
     @Nullable
     public Float getDeg() {
-        Float res = getFloatOrNull(WeatherColumns.DEG);
-        return res;
+        return getFloatOrNull(WeatherColumns.DEG);
     }
 }

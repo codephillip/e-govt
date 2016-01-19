@@ -72,30 +72,15 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
             }
             Log.d("PREF#", String.valueOf(loaderPosition));
 
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            String lastKey = "Details";
-//            String detailsPref = prefs.getString(lastKey, intentString);
-//            intentString = detailsPref;
-//            Log.d("PREF#", intentString);
             getLoaderManager().initLoader(LOADER_ID, null, this);
         } catch (Exception e){
             e.printStackTrace();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             String lastKey = "Details";
-            String detailsPref = prefs.getString(lastKey, intentString);
-            intentString = detailsPref;
+            intentString = prefs.getString(lastKey, intentString);
             Log.d("PREF#", intentString);
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
-//        finally {
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            String lastKey = "Details";
-//            String detailsPref = prefs.getString(lastKey, intentString);
-//            intentString = detailsPref;
-//            intentString = "Kampala";
-//            Log.d("PREF#", intentString);
-//            getLoaderManager().initLoader(LOADER_ID, null, this);
-//        }
     }
 
     @Override

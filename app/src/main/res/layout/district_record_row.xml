@@ -25,13 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
-    <!--<TextView-->
-        <!--android:id="@+id/time"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="02:35"-->
-        <!--android:textColor="@color/colorAccent"-->
-        <!--android:textAppearance="?android:textAppearanceLarge"/>-->
 
     <TextView
         android:id="@+id/textview"
@@ -41,25 +34,5 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:text="Ministry of Health"/>
 
-    <!--<TextView-->
-        <!--android:id="@+id/distance"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="3.7 Km"-->
-        <!--android:textSize="40sp"-->
-        <!--android:fontFamily="sans-serif-condensed"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textAppearance="?android:textAppearanceMedium"/>-->
-
     </LinearLayout>
-
-    <!--<TextView-->
-        <!--android:id="@+id/distance"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="3.7 Km"-->
-        <!--android:textSize="35sp"-->
-        <!--android:layout_marginRight="@dimen/activity_vertical_margin"-->
-        <!--android:fontFamily="sans-serif-thin"-->
-        <!--android:textAppearance="?android:textAppearanceMedium"/>-->
 </LinearLayout>

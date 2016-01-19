@@ -63,8 +63,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
 
                 String tableName = prefs.getString(tableKey, "events");
 
-                if (tableName.equals("events")) eventBoolean = true;
-                else eventBoolean = false;
+                eventBoolean = tableName.equals("events");
             }
 
         }

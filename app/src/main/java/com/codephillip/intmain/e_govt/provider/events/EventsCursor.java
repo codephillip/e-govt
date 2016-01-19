@@ -32,8 +32,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public Integer getIdEvents() {
-        Integer res = getIntegerOrNull(EventsColumns.ID_EVENTS);
-        return res;
+        return getIntegerOrNull(EventsColumns.ID_EVENTS);
     }
 
     /**
@@ -42,8 +41,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getDate() {
-        String res = getStringOrNull(EventsColumns.DATE);
-        return res;
+        return getStringOrNull(EventsColumns.DATE);
     }
 
     /**
@@ -52,8 +50,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getTitle() {
-        String res = getStringOrNull(EventsColumns.TITLE);
-        return res;
+        return getStringOrNull(EventsColumns.TITLE);
     }
 
     /**
@@ -62,8 +59,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getStory() {
-        String res = getStringOrNull(EventsColumns.STORY);
-        return res;
+        return getStringOrNull(EventsColumns.STORY);
     }
 
     /**
@@ -72,8 +68,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getImage() {
-        String res = getStringOrNull(EventsColumns.IMAGE);
-        return res;
+        return getStringOrNull(EventsColumns.IMAGE);
     }
 
     /**
@@ -82,8 +77,7 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getMinistry() {
-        String res = getStringOrNull(EventsColumns.MINISTRY);
-        return res;
+        return getStringOrNull(EventsColumns.MINISTRY);
     }
 
     /**
@@ -92,7 +86,6 @@ public class EventsCursor extends AbstractCursor implements EventsModel {
      */
     @Nullable
     public String getLocation() {
-        String res = getStringOrNull(EventsColumns.LOCATION);
-        return res;
+        return getStringOrNull(EventsColumns.LOCATION);
     }
 }

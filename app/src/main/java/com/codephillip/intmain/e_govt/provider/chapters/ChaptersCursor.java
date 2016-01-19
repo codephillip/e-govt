@@ -1,9 +1,6 @@
 package com.codephillip.intmain.e_govt.provider.chapters;
 
-import java.util.Date;
-
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.codephillip.intmain.e_govt.provider.base.AbstractCursor;
@@ -32,8 +29,7 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public Integer getIdChapters() {
-        Integer res = getIntegerOrNull(ChaptersColumns.ID_CHAPTERS);
-        return res;
+        return getIntegerOrNull(ChaptersColumns.ID_CHAPTERS);
     }
 
     /**
@@ -42,8 +38,7 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public String getDate() {
-        String res = getStringOrNull(ChaptersColumns.DATE);
-        return res;
+        return getStringOrNull(ChaptersColumns.DATE);
     }
 
     /**
@@ -52,8 +47,7 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public String getTitle() {
-        String res = getStringOrNull(ChaptersColumns.TITLE);
-        return res;
+        return getStringOrNull(ChaptersColumns.TITLE);
     }
 
     /**
@@ -62,8 +56,7 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public String getStory() {
-        String res = getStringOrNull(ChaptersColumns.STORY);
-        return res;
+        return getStringOrNull(ChaptersColumns.STORY);
     }
 
     /**
@@ -72,8 +65,7 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public String getImage() {
-        String res = getStringOrNull(ChaptersColumns.IMAGE);
-        return res;
+        return getStringOrNull(ChaptersColumns.IMAGE);
     }
 
     /**
@@ -82,8 +74,7 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public String getMinistry() {
-        String res = getStringOrNull(ChaptersColumns.MINISTRY);
-        return res;
+        return getStringOrNull(ChaptersColumns.MINISTRY);
     }
 
     /**
@@ -92,7 +83,6 @@ public class ChaptersCursor extends AbstractCursor implements ChaptersModel {
      */
     @Nullable
     public String getDistrict() {
-        String res = getStringOrNull(ChaptersColumns.DISTRICT);
-        return res;
+        return getStringOrNull(ChaptersColumns.DISTRICT);
     }
 }
