@@ -102,6 +102,7 @@ public class FeedBackActivityFragment extends Fragment {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("login", false);
+                editor.putBoolean("firstStart", true);
                 editor.apply();
 
                 editTopic.setText("");

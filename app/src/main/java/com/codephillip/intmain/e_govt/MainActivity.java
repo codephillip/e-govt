@@ -1,5 +1,6 @@
 package com.codephillip.intmain.e_govt;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,15 +11,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    final String TAG = MainActivity.class.getSimpleName();
 
     int currentFragmentId = R.id.nav_ministries;
 
@@ -28,67 +30,54 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //TESTING DATA INSERTION
-//        ChaptersContentValues values = new ChaptersContentValues();
-//        values.putDate("3-4-2016");
-//        values.putDistrict("Kampala");
-//        final Uri uri = values.insert(getContentResolver());
-//        Log.d("CONTENT#", uri.toString());
-//
-//        TodayweatherContentValues values = new TodayweatherContentValues();
-//        values.putName("Jinja");
-//        values.putDate("Monday");
-//        final Uri uri = values.insert(getContentResolver());
-//        Log.d("CONTENT#", uri.toString());
 
-        //TESTING DATA QUERYING
-//        CursorLoader cursorLoader = new CursorLoader(this, ChaptersColumns.CONTENT_URI, null, null, null, null);
-//        Cursor cursor = cursorLoader.loadInBackground();
-
-//        CursorLoader cursorLoader = new CursorLoader(this, TodayweatherColumns.CONTENT_URI, null, null, null, null);
-//        Cursor cursor = cursorLoader.loadInBackground();
-//
-
-        //TESTING SYNC_ADAPTER
         SyncAdapter.initializeSyncAdapter(this);
 
-        //TODO checking notification shared preferences [ REMOVE ON RELEASE ]
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        String lastNotificationKey = this.getString(R.string.pref_last_notification);
-//        long lastSync = prefs.getLong(lastNotificationKey, 0);
-//        Log.d("PREF_CHECK", "notification" + lastSync);
-        //1453265801165
+        //  Declare a new thread to do a preference check
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //  Initialize SharedPreferences
+                SharedPreferences getPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+
+                //  Create a new boolean and preference and set it to true
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+
+                //  If the activity has never started before...
+//                if (true) {
+                if (isFirstStart) {
+
+                    //  Launch app intro
+                    Intent i = new Intent(MainActivity.this, DefaultIntro.class);
+                    startActivity(i);
+
+                    //  Make a new preferences editor
+                    SharedPreferences.Editor e = getPrefs.edit();
+
+                    //  Edit preference to make it false because we don't want this to run again
+                    e.putBoolean("firstStart", false);
+
+                    //  Apply changes
+                    e.apply();
+                }
+            }
+        });
+
+        // Start the thread
+        t.start();
 
         boolean loginBoolean;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         loginBoolean = preferences.getBoolean("login", false);
 
         if (loginBoolean){
-            Toast.makeText(MainActivity.this, "You are successfully logged in", Toast.LENGTH_LONG).show();
+//            Toast.makeText(MainActivity.this, "You are successfully logged in", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "onCreate: logged in successfully");
         }
-
-//        if (cursor.moveToFirst()){
-//            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT)));
-//        }
-
-//        if (cursor.moveToFirst()){
-//            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(TodayweatherColumns.NAME)));
-//        }
-//
-//        long deleted = getContentResolver().delete(TodayweatherColumns.CONTENT_URI, null, null);
-//        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
-
-
-//        startService(new Intent(MainActivity.this, MyIntentService.class));
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        else {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
