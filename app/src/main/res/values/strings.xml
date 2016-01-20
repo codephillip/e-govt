@@ -147,5 +147,9 @@
         completions."
     </string>
 
+    <!--login staff-->
+    <string name="key">655129237961799</string>
+
+
 
 </resources>

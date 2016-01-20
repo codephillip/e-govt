@@ -87,8 +87,9 @@ public class FeedBackActivityFragment extends Fragment {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTopic.setText("");
-                editMessage.setText("");
+//                editTopic.setText("");
+//                editMessage.setText("");
+                getActivity().startActivity(new Intent(getContext(), LoginActivity.class));
             }
         });
 

@@ -63,15 +63,14 @@ public class WeatherIntentService extends IntentService {
                 final String url = "http://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
                 Log.d("WEATHER_INTENT_SERVICE", "URL#" + url);
                 getTodayWeatherFromJson(connectToServer(url));
-//            getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/forecast?id=232422&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
+
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong(lastNotificationKey, System.currentTimeMillis());
+                editor.apply();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("URL BUG", e.toString());
             }
-
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putLong(lastNotificationKey, System.currentTimeMillis());
-            editor.apply();
         }
     }
 
