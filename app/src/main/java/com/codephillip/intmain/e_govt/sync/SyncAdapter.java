@@ -13,9 +13,12 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.database.Cursor;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -496,15 +499,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
 
 //                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//                Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
-//                Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-//                r.play();
-//
-//                if (prefs.getBoolean("notifications_new_message_vibrate", true)){
-//                    Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-//                    // Vibrate for 500 milliseconds
-//                    v.vibrate(500);
-//                }
+                Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
+                Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
+                r.play();
+
+                if (prefs.getBoolean("notifications_new_message_vibrate", true)){
+                    Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    // Vibrate for 500 milliseconds
+                    v.vibrate(500);
+                }
 
                     //refreshing last sync
                     SharedPreferences.Editor editor = prefs.edit();
