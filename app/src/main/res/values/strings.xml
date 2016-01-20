@@ -82,7 +82,9 @@
     <string name="tomorrow">Tomorrow</string>
 
     <!-- Date format [CHAR LIMIT=NONE] -->
-    <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g></string>
+    <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>,
+        <xliff:g id="day">%2$s</xliff:g>
+    </string>
 
     <!-- Strings for formatting weather-related data -->
     <!-- Temperature format [CHAR LIMIT=5 -->
@@ -90,26 +92,60 @@
 
     <!-- Windspeed formats -->
     <!-- Wind in mph [CHAR LIMIT=25] -->
-    <string name="format_wind_mph">Wind: <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="format_wind_mph">Wind:
+        <xliff:g id="speed">%1$1.0f</xliff:g>
+        mph
+        <xliff:g id="direction">%2$s</xliff:g>
+    </string>
     <!-- Wind in kph [CHAR LIMIT=25] -->
-    <string name="format_wind_kmh">Wind: <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="format_wind_kmh">Wind:
+        <xliff:g id="speed">%1$1.0f</xliff:g>
+        km/h
+        <xliff:g id="direction">%2$s</xliff:g>
+    </string>
 
     <!-- Pressure format CHAR LIMIT=25] -->
-    <string name="format_pressure">Pressure: <xliff:g id="pressure">%1.0f</xliff:g> hPa</string>
+    <string name="format_pressure">Pressure:
+        <xliff:g id="pressure">%1.0f</xliff:g>
+        hPa
+    </string>
 
     <!-- Humidity format CHAR LIMIT=25]-->
-    <string name="format_humidity">Humidity: <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+    <string name="format_humidity">Humidity:
+        <xliff:g id="humidity">%1.0f</xliff:g>
+        %%
+    </string>
 
     <!-- SyncAdapter related -->
     <!--<string name="sync_account_type">sunshine.example.com</string>-->
     <!--<string name="content_authority">com.example.android.sunshine.app</string>-->
 
     <!-- Notification Format -->
-    <string name="format_notification">Forecast: <xliff:g id="condition">%1$s</xliff:g> High: <xliff:g id="high">%2$s</xliff:g> Low: <xliff:g id="low">%3$s</xliff:g></string>
+    <string name="format_notification">Forecast:
+        <xliff:g id="condition">%1$s</xliff:g>
+        High:
+        <xliff:g id="high">%2$s</xliff:g>
+        Low:
+        <xliff:g id="low">%3$s</xliff:g>
+    </string>
 
     <!-- Strings related to Notification preference -->
     <string name="pref_last_notification">last_notification</string>
     <string name="pref_last_notification2">last_notification2</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 
 </resources>
