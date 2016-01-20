@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("login", true);
                 editor.apply();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
         });

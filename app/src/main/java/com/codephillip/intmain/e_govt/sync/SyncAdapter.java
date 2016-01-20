@@ -49,7 +49,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
-    public static final int SYNC_INTERVAL = 60 * 720;
+    public static int SYNC_INTERVAL = 60;
+    public static int SYNC_MINUTE = 60;
+    //    public static final int SYNC_INTERVAL = 60 * 720;
     //    public static final int SYNC_INTERVAL = 60 * 180;
 //    public static final int SYNC_INTERVAL = 15 * 1;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
@@ -434,65 +436,81 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String lastNotificationKey = context.getString(R.string.pref_last_notification2);
         long lastSync = prefs.getLong(lastNotificationKey, 0);
+        boolean displayNotifications = prefs.getBoolean("notifications_new_message", true);
 
-        if (System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
-            // Last sync was more than 1 day ago, let's send a notification with the weather.
+        if (displayNotifications) {
+
+            if (System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
+                // Last sync was more than 1 day ago, let's send a notification with the weather.
 //            String locationQuery = Utility.getPreferredLocation(context);
 
 //            Uri weatherUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationQuery, System.currentTimeMillis());
 
-            // we'll query our contentProvider, as always
-            Cursor cursor = context.getContentResolver().query(TodayweatherColumns.CONTENT_URI, null, null, null, null);
+                // we'll query our contentProvider, as always
+                Cursor cursor = context.getContentResolver().query(TodayweatherColumns.CONTENT_URI, null, null, null, null);
 //            TodayweatherCursor cursor1 = new TodayweatherCursor();
 
-            if (cursor.moveToFirst()) {
-                int weatherId = cursor.getInt(cursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
-                double high = cursor.getDouble(cursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
-                double low = cursor.getDouble(cursor.getColumnIndex(TodayweatherColumns.MIN_TEMP));
-                String desc = cursor.getString(cursor.getColumnIndex(TodayweatherColumns.MAIN));
+                if (cursor.moveToFirst()) {
+                    int weatherId = cursor.getInt(cursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
+                    double high = cursor.getDouble(cursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));
+                    double low = cursor.getDouble(cursor.getColumnIndex(TodayweatherColumns.MIN_TEMP));
+                    String desc = cursor.getString(cursor.getColumnIndex(TodayweatherColumns.MAIN));
 
-                int iconId = Utility.getArtResourceForWeatherCondition(weatherId);
-                String title = context.getString(R.string.app_name);
+                    int iconId = Utility.getArtResourceForWeatherCondition(weatherId);
+                    String title = context.getString(R.string.app_name);
 
-                // Define the text of the forecast.
-                String contentText = String.format(context.getString(R.string.format_notification),
-                        desc,
-                        Utility.formatTemperature(context, high),
-                        Utility.formatTemperature(context, low));
+                    // Define the text of the forecast.
+                    String contentText = String.format(context.getString(R.string.format_notification),
+                            desc,
+                            Utility.formatTemperature(context, high),
+                            Utility.formatTemperature(context, low));
 
-                // NotificationCompatBuilder is a very convenient way to build backward-compatible
-                // notifications.  Just throw in some data.
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(getContext())
-                                .setSmallIcon(iconId)
-                                .setContentTitle(title)
-                                .setContentText(contentText);
+                    // NotificationCompatBuilder is a very convenient way to build backward-compatible
+                    // notifications.  Just throw in some data.
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(getContext())
+                                    .setSmallIcon(iconId)
+                                    .setContentTitle(title)
+                                    .setContentText(contentText);
 
-                // Make something interesting happen when the user clicks on the notification.
-                // In this case, opening the app is sufficient.
-                Intent resultIntent = new Intent(context, MainActivity.class);
+                    // Make something interesting happen when the user clicks on the notification.
+                    // In this case, opening the app is sufficient.
+                    Intent resultIntent = new Intent(context, MainActivity.class);
 
-                // The stack builder object will contain an artificial back stack for the
-                // started Activity.
-                // This ensures that navigating backward from the Activity leads out of
-                // your application to the Home screen.
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-                stackBuilder.addNextIntent(resultIntent);
-                PendingIntent resultPendingIntent =
-                        stackBuilder.getPendingIntent(
-                                0,
-                                PendingIntent.FLAG_UPDATE_CURRENT
-                        );
-                mBuilder.setContentIntent(resultPendingIntent);
+                    // The stack builder object will contain an artificial back stack for the
+                    // started Activity.
+                    // This ensures that navigating backward from the Activity leads out of
+                    // your application to the Home screen.
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
 
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                // WEATHER_NOTIFICATION_ID allows you to update the notification later on.
-                mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
-//refreshing last sync
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putLong(lastNotificationKey, System.currentTimeMillis());
-                editor.apply();
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    // WEATHER_NOTIFICATION_ID allows you to update the notification later on.
+                    mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
+
+//                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
+//                Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
+//                r.play();
+//
+//                if (prefs.getBoolean("notifications_new_message_vibrate", true)){
+//                    Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+//                    // Vibrate for 500 milliseconds
+//                    v.vibrate(500);
+//                }
+
+                    //refreshing last sync
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putLong(lastNotificationKey, System.currentTimeMillis());
+                    editor.apply();
+                }
             }
         }
     }

@@ -31,6 +31,27 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+//        r.play();
+//
+//        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//        // Vibrate for 500 milliseconds
+//        v.vibrate(500);
+
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if (prefs.getBoolean("notifications_new_message",true)){
+//            Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
+//            Ringtone r = RingtoneManager.getRingtone(this, notification);
+//            r.play();
+//        }
+//
+//        if (prefs.getBoolean("notifications_new_message_vibrate", true)){
+//            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//            // Vibrate for 500 milliseconds
+//            v.vibrate(500);
+//        }
+
         SyncAdapter.initializeSyncAdapter(this);
 
         //  Declare a new thread to do a preference check
@@ -122,6 +143,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 

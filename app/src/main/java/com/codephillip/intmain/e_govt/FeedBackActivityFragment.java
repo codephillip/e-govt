@@ -99,11 +99,11 @@ public class FeedBackActivityFragment extends Fragment {
             public void onClick(View v) {
 
 //                //TODO testing sharedprefs [ REMOVE ON RELEASE ]
-//                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//                SharedPreferences.Editor editor = prefs.edit();
-//                editor.putBoolean("login", false);
-//                editor.putBoolean("firstStart", true);
-//                editor.apply();
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("login", false);
+                editor.putBoolean("firstStart", true);
+                editor.apply();
 
                 editTopic.setText("");
                 editMessage.setText("");
