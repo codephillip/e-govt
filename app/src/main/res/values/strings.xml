@@ -149,7 +149,7 @@
 
     <!--login staff-->
     <string name="key">655129237961799</string>
-
+    <string name="login">Debug Login</string>
 
 
 </resources>

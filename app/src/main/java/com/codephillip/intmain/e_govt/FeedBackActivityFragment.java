@@ -65,31 +65,47 @@ public class FeedBackActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Send: ", "Sending ..");
+                boolean loginBoolean;
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                loginBoolean = preferences.getBoolean("login", false);
 
-                if (editTopic.getText().length() <= 0 || editMessage.getText().length() <= 0){
-                    editTextError();
-                }
-                else {
-                    if (isConnectedToInternet()){
-                        getActivity().startService(new Intent(getContext(), MyIntentService.class)
-                                .putExtra("Date", getTime())
-                                .putExtra("Topic", String.valueOf(editTopic.getText()))
-                                .putExtra("Message", String.valueOf(editMessage.getText())));
-                        Snackbar.make(v, "Thank you for your feedback", Snackbar.LENGTH_SHORT).show();
+                if (loginBoolean){
+
+                    if (editTopic.getText().length() <= 0 || editMessage.getText().length() <= 0){
+                        editTextError();
                     }
                     else {
-                        Snackbar.make(v, "Please check your Internet connection", Snackbar.LENGTH_LONG).show();
+                        if (isConnectedToInternet()){
+                            getActivity().startService(new Intent(getContext(), MyIntentService.class)
+                                    .putExtra("Date", getTime())
+                                    .putExtra("Topic", String.valueOf(editTopic.getText()))
+                                    .putExtra("Message", String.valueOf(editMessage.getText())));
+                            Snackbar.make(v, "Thank you for your feedback", Snackbar.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Snackbar.make(v, "Please check your Internet connection", Snackbar.LENGTH_LONG).show();
+                        }
                     }
+                } else {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
                 }
+
+
             }
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editTopic.setText("");
-//                editMessage.setText("");
-                getActivity().startActivity(new Intent(getContext(), LoginActivity.class));
+
+                //TODO testing sharedprefs [ REMOVE ON RELEASE ]
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("login", false);
+                editor.apply();
+
+                editTopic.setText("");
+                editMessage.setText("");
             }
         });
 
