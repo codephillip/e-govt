@@ -1,6 +1,8 @@
 package com.codephillip.intmain.e_govt;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -8,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -48,6 +51,13 @@ public class MainActivity extends AppCompatActivity
 
         //TESTING SYNC_ADAPTER
         SyncAdapter.initializeSyncAdapter(this);
+
+        //TODO checking notification shared preferences [ REMOVE ON RELEASE ]
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String lastNotificationKey = this.getString(R.string.pref_last_notification);
+        long lastSync = prefs.getLong(lastNotificationKey, 0);
+        Log.d("PREF_CHECK", "notification" + lastSync);
+        //1453265801165
 
 //        if (cursor.moveToFirst()){
 //            Log.d("CONTENT_QUERY#", cursor.getString(cursor.getColumnIndex(ChaptersColumns.DISTRICT)));

@@ -64,6 +64,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.d("SYNCADAPTER", "ONPERFORMSYNC");
 
+        //TODO debug notification [ REMOVE ON RELEASE ]
+        notifyWeather();
+
         try {
             deleteTables();
         } catch (Exception e){
@@ -486,11 +489,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                         (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 // WEATHER_NOTIFICATION_ID allows you to update the notification later on.
                 mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
-
-                //refreshing last sync
+//refreshing last sync
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putLong(lastNotificationKey, System.currentTimeMillis());
-                editor.commit();
+                editor.apply();
             }
         }
     }

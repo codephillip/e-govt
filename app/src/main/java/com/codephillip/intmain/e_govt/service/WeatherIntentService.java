@@ -10,7 +10,6 @@ import android.support.v4.content.CursorLoader;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 import com.codephillip.intmain.e_govt.provider.weather.WeatherContentValues;
 
@@ -41,7 +40,8 @@ public class WeatherIntentService extends IntentService {
         Log.d("WEATHER_INTENT_SERVICE", "city Id#"+cityId);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String lastNotificationKey = this.getString(R.string.pref_last_notification);
+        String lastNotificationKey = district;
+//        String lastNotificationKey = this.getString(R.string.pref_last_notification);
         long lastSync;
 
         CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
@@ -71,7 +71,7 @@ public class WeatherIntentService extends IntentService {
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putLong(lastNotificationKey, System.currentTimeMillis());
-            editor.commit();
+            editor.apply();
         }
     }
 
