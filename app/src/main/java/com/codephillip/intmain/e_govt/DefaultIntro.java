@@ -24,10 +24,11 @@ public class DefaultIntro extends AppIntro {
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest
-        addSlide(AppIntroFragment.newInstance("Welcome", "To E-gov't, your guide to Government projects", R.mipmap.ic_launcher, Color.parseColor("#00B0FF")));
-        addSlide(AppIntroFragment.newInstance("Ministries", "Get on going Ministry projects", R.drawable.ic_business_black_24dp, Color.parseColor("#FFC400")));
-        addSlide(AppIntroFragment.newInstance("Events", "Found out about Government events", R.drawable.ic_event_black_24dp, Color.parseColor("#FF1744")));
-        addSlide(AppIntroFragment.newInstance("Weather", "And be the first to know the weather", R.drawable.art_rain, Color.parseColor("#FF1744")));
+        addSlide(AppIntroFragment.newInstance("Welcome", "To E-gov't, your guide to Government projects", R.drawable.uganda_map, Color.parseColor("#00B0FF")));
+        addSlide(AppIntroFragment.newInstance("Ministries", "Follow-up on Ministry projects", R.drawable.ic_business_white_48dp, Color.parseColor("#424242")));
+        addSlide(AppIntroFragment.newInstance("Events", "Found out about Government events", R.drawable.ic_event_white_48dp, Color.parseColor("#F9A825")));
+        addSlide(AppIntroFragment.newInstance("Feedback", "Give feedback about Government's performance", R.drawable.ic_feedback_white_48dp, Color.parseColor("#C62828")));
+        addSlide(AppIntroFragment.newInstance("Weather", "And be the first to know the weather", R.drawable.art_rain, Color.parseColor("#424242")));
 //        addSlide(AppIntroFragment.newInstance(title, description, image, background_colour));
 //
         // OPTIONAL METHODS

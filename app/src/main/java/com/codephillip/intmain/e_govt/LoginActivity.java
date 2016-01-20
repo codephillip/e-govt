@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         debugButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "Sorry but the app will restart after login", Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoginActivity.this, "Sorry but the app will restart after login", Toast.LENGTH_LONG).show();
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean("login", true);
