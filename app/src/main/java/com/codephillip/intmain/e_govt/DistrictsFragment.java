@@ -25,7 +25,6 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
     DistrictAdapter adapter;
     private int LOADER_ID = 1;
     SwipeRefreshLayout swipeRefreshLayout;
-    Thread timer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,19 +62,17 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter.swapCursor(data);
         swipeRefreshLayout.setRefreshing(false);
-//        timer.stop();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
-//        swipeRefreshLayout.setRefreshing(false);
-//        timer.stop();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        swipeRefreshLayout.setRefreshing(false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String FragString = "FragNo";
         SharedPreferences.Editor editor = prefs.edit();

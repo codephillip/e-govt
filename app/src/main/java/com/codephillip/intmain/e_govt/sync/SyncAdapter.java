@@ -22,7 +22,6 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.content.CursorLoader;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -34,7 +33,6 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
-import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
@@ -309,9 +307,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_IMAGE = "image";
         final String TAG_TITLE = "ministries";
 
-        CursorLoader cursorLoader = new CursorLoader(getContext(), MinistriesColumns.CONTENT_URI, null, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-        if (cursor.moveToFirst()){
+//        CursorLoader cursorLoader = new CursorLoader(getContext(), MinistriesColumns.CONTENT_URI, null, null, null, null);
+//        Cursor cursor = cursorLoader.loadInBackground();
+        if (true){
+//        if (cursor.moveToFirst()){
             Log.d("MINISTRIES", "getMinistriesDataFromJson: #Contains data");
         }
         else {

@@ -21,7 +21,7 @@ import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 public class MinistriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private RecyclerView recyclerView;
     RecordAdapter adapter;
-    private int LOADER_ID = 1;
+    private int LOADER_ID = 4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
