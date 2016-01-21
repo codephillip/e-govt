@@ -181,6 +181,10 @@
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
+        <!--debug TODO REMOVE ON RELEASE-->
+        <item>10 min REMOVE ME</item>
+        <!--debug-->
+
         <item>1 hour</item>
         <item>3 hours</item>
         <item>6 hours</item>
@@ -188,6 +192,10 @@
         <item>Never</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
+        <!--debug TODO REMOVE ON RELEASE-->
+        <item>10</item>
+        <!--debug-->
+
         <item>60</item>
         <item>180</item>
         <item>360</item>

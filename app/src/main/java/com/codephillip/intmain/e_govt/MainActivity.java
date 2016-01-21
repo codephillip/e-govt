@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity
 //            // Vibrate for 500 milliseconds
 //            v.vibrate(500);
 //        }
-
-        String syncFrequency = preferences.getString("sync_frequency", "360");
-        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
-        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
-        SyncAdapter.configurePeriodicSync(this, SYNC_INTERVAL, SYNC_FLEXTIME);
+//
+//        String syncFrequency = preferences.getString("sync_frequency", "360");
+//        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
+//        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
+//        SyncAdapter.configurePeriodicSync(this, SYNC_INTERVAL, SYNC_FLEXTIME);
 
         Log.d(TAG, "onCreate: STARTING SYNCADAPTER");
         SyncAdapter.initializeSyncAdapter(this);

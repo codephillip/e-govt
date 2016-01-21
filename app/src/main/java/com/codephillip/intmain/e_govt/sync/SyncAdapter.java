@@ -58,8 +58,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     //    public static final int SYNC_INTERVAL = 60 * 180;
 //    public static final int SYNC_INTERVAL = 15 * 1;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
-    private static final long DAY_IN_MILLIS = 60 * 3;
-//    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
+//    private static final long DAY_IN_MILLIS = 60 * 3;
+    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
     public SyncAdapter(Context context, boolean autoInitialize) {
@@ -435,10 +435,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static void initializeSyncAdapter(Context context) {
         Log.d("SYNCADAPTER", "initializeSyncAdapter: STARTED");
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String syncFrequency = preferences.getString("sync_frequency", "360");
-        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
-        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        String syncFrequency = preferences.getString("sync_frequency", "360");
+//        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
+//        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
         getSyncAccount(context);
     }
 
