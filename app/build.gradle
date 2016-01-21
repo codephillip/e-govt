@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.codephillip.intmain.e_govt"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -34,4 +34,5 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.facebook.android:facebook-android-sdk:4.1.0'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.github.jd-alexander:LikeButton:0.1.7'
 }
