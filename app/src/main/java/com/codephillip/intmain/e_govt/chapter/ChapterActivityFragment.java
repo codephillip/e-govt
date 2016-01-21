@@ -52,6 +52,7 @@ public class ChapterActivityFragment extends Fragment implements LoaderManager.L
 
         adapter = new CardAdapter(getContext(), null);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_stretch);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
