@@ -22,6 +22,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.CursorLoader;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -33,6 +34,7 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
+import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
@@ -80,8 +82,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
 //        String baseUrl = "10.10.9.245";
-//        String baseUrl = "192.168.43.243";
-        String baseUrl = "192.168.56.1";
+        String baseUrl = "192.168.43.243";
+//        String baseUrl = "192.168.56.1";
         try {
             int k;
             for (k=0; k<4 ; k++){
@@ -307,21 +309,28 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_IMAGE = "image";
         final String TAG_TITLE = "ministries";
 
-        JSONObject forecastJson = new JSONObject(jsonStr);
-        JSONArray nutriArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
-        int jsonLength = nutriArray.length();//get lenght of the jsonArray
+        CursorLoader cursorLoader = new CursorLoader(getContext(), MinistriesColumns.CONTENT_URI, null, null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+        if (cursor.moveToFirst()){
+            Log.d("MINISTRIES", "getMinistriesDataFromJson: #Contains data");
+        }
+        else {
+            JSONObject forecastJson = new JSONObject(jsonStr);
+            JSONArray nutriArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
+            int jsonLength = nutriArray.length();//get lenght of the jsonArray
 
-        for(int i = 0; i < jsonLength; i++) {
+            for(int i = 0; i < jsonLength; i++) {
 
-            // Get the JSON object representing the day
-            JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
-            //extract individual items from the json object
-            String id = c.getString(TAG_ID);
-            String image = c.getString(TAG_IMAGE);
-            String ministry = c.getString(TAG_MINISTRY_NAME);
+                // Get the JSON object representing the day
+                JSONObject c = nutriArray.getJSONObject(i);//point to a single row in the jsonArray
+                //extract individual items from the json object
+                String id = c.getString(TAG_ID);
+                String image = c.getString(TAG_IMAGE);
+                String ministry = c.getString(TAG_MINISTRY_NAME);
 
-            Log.d("SYNC_DATA", id+" "+image+ " "+ministry);
-            storeInMinistriesTable(id, ministry, image);
+                Log.d("SYNC_DATA", id+" "+image+ " "+ministry);
+                storeInMinistriesTable(id, ministry, image);
+            }
         }
     }
 

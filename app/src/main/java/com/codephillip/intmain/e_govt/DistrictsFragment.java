@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,20 +18,33 @@ import android.view.ViewGroup;
 
 import com.codephillip.intmain.e_govt.adapter.DistrictAdapter;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 
 public class DistrictsFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView recyclerView;
     DistrictAdapter adapter;
     private int LOADER_ID = 1;
+    SwipeRefreshLayout swipeRefreshLayout;
+    Thread timer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.districts_layout, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_record);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new DistrictAdapter(getActivity(), null);
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(true);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                SyncAdapter.syncImmediately(getContext());
+            }
+        });
         return rootView;
     }
 
@@ -48,11 +62,15 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter.swapCursor(data);
+        swipeRefreshLayout.setRefreshing(false);
+//        timer.stop();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
+//        swipeRefreshLayout.setRefreshing(false);
+//        timer.stop();
     }
 
     @Override
