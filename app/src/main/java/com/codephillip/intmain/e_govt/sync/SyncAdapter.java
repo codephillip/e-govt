@@ -52,13 +52,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
-    public static int SYNC_INTERVAL = 60;
+    public static int SYNC_INTERVAL = 60 * 360;
     public static int SYNC_MINUTE = 60;
     //    public static final int SYNC_INTERVAL = 60 * 720;
     //    public static final int SYNC_INTERVAL = 60 * 180;
 //    public static final int SYNC_INTERVAL = 15 * 1;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
-    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
+    private static final long DAY_IN_MILLIS = 60 * 3;
+//    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
     public SyncAdapter(Context context, boolean autoInitialize) {
@@ -78,15 +79,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             e.printStackTrace();
         }
 
+        String baseUrl = "10.10.9.245";
+//        String baseUrl = "192.168.43.243";
+//        String baseUrl = "192.168.56.1";
         try {
             int k;
             for (k=0; k<4 ; k++){
                 if (k == 0){
-                    getMinistriesDataFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/ministries?transform=1"));
+                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/lynda-php/egovtapi.php/ministries?transform=1"));
                 } else if (k == 1){
-                    getChaptersFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/chapters?transform=1"));
+                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/lynda-php/egovtapi.php/chapters?transform=1"));
                 } else if (k == 2){
-                    getEventsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/events?transform=1"));
+                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/lynda-php/egovtapi.php/events?transform=1"));
 //                } else if (k == 3){
 //                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
                 } else if (k == 3){
@@ -426,10 +430,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         /*
          * Finally, let's do a sync to get things started
          */
-//        syncImmediately(context);
+        syncImmediately(context);
     }
 
     public static void initializeSyncAdapter(Context context) {
+        Log.d("SYNCADAPTER", "initializeSyncAdapter: STARTED");
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String syncFrequency = preferences.getString("sync_frequency", "360");
+        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
+        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
         getSyncAccount(context);
     }
 

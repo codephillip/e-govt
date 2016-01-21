@@ -20,6 +20,8 @@ import com.codephillip.intmain.e_govt.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static int SYNC_INTERVAL = 60 * 360;
+    public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     final String TAG = MainActivity.class.getSimpleName();
 
     int currentFragmentId = R.id.nav_ministries;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 //        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
@@ -52,6 +56,12 @@ public class MainActivity extends AppCompatActivity
 //            v.vibrate(500);
 //        }
 
+        String syncFrequency = preferences.getString("sync_frequency", "360");
+        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
+        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
+        SyncAdapter.configurePeriodicSync(this, SYNC_INTERVAL, SYNC_FLEXTIME);
+
+        Log.d(TAG, "onCreate: STARTING SYNCADAPTER");
         SyncAdapter.initializeSyncAdapter(this);
 
         //  Declare a new thread to do a preference check
@@ -89,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         t.start();
 
         boolean loginBoolean;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         loginBoolean = preferences.getBoolean("login", false);
 
         if (loginBoolean){
