@@ -60,7 +60,7 @@ public class WeatherIntentService extends IntentService {
             Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
 
             try {
-                final String url = "http://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
+                final String url = "http://api.openweathermap.org/data/2.5/forecast/daily?id=" + cityId + "&mode=json&units=metric&cnt=14&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
                 Log.d("WEATHER_INTENT_SERVICE", "URL#" + url);
                 getTodayWeatherFromJson(connectToServer(url));
 
@@ -122,8 +122,8 @@ public class WeatherIntentService extends IntentService {
             String main = weatherObject.getString(TAG_MAIN);
             int weatherId = weatherObject.getInt(TAG_ID);
 
-//            long dateTime = dayTime.setJulianDay(julianStartDay + i - 1);
             long dateTime = dayTime.setJulianDay(julianStartDay + i);
+//            long dateTime = dayTime.setJulianDay(julianStartDay + i);
 
             JSONObject windObject = c.getJSONObject(TAG_WIND);
             double windSpeed = windObject.getDouble(TAG_WIND_SPEED);
