@@ -33,6 +33,7 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
+import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
@@ -79,8 +80,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             e.printStackTrace();
         }
 
-//        String baseUrl = "10.10.9.245";
-        String baseUrl = "192.168.43.243";
+        String baseUrl = "10.10.9.245";
+//        String baseUrl = "192.168.43.243";
 //        String baseUrl = "192.168.56.1";
         try {
             int k;
@@ -163,6 +164,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId, int cityId) {
         Log.d("INSERT: ", "starting");
+//        CursorLoader cursorLoader = new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,ChaptersColumns.DISTRICT + " LIKE ?",
+//                new String[] {name.concat("%")}, null);
+//        Cursor cursor = cursorLoader.loadInBackground();
+//        if (cursor.moveToFirst()){
+//            int count = cursor.getColumnCount();
+//            Log.d("TABLE COUNT", "storeInTodayWeatherTable: "+count);
+//        }
+
         TodayweatherContentValues values = new TodayweatherContentValues();
         values.putDate((int) date);
         values.putName(name);
@@ -309,7 +318,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
 //        CursorLoader cursorLoader = new CursorLoader(getContext(), MinistriesColumns.CONTENT_URI, null, null, null, null);
 //        Cursor cursor = cursorLoader.loadInBackground();
-        if (true){
+        if (false){
 //        if (cursor.moveToFirst()){
             Log.d("MINISTRIES", "getMinistriesDataFromJson: #Contains data");
         }
@@ -537,6 +546,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     public void deleteTables(){
         long deleted;
+        deleted = getContext().getContentResolver().delete(MinistriesColumns.CONTENT_URI, null, null);
+        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
         deleted = getContext().getContentResolver().delete(ChaptersColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
         deleted = getContext().getContentResolver().delete(EventsColumns.CONTENT_URI, null, null);

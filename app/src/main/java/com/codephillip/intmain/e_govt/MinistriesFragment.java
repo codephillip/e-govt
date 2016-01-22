@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,22 +18,32 @@ import android.view.ViewGroup;
 
 import com.codephillip.intmain.e_govt.adapter.RecordAdapter;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 
 public class MinistriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private RecyclerView recyclerView;
     RecordAdapter adapter;
     private int LOADER_ID = 4;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.ministries_layout, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_record);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         adapter = new RecordAdapter(getActivity(), null);
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                SyncAdapter.syncImmediately(getContext());
+            }
+        });
 
         return rootView;
     }
@@ -51,6 +62,7 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter.swapCursor(data);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -62,6 +74,7 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onPause() {
         super.onPause();
+        swipeRefreshLayout.setRefreshing(false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String FragString = "FragNo";
         SharedPreferences.Editor editor = prefs.edit();

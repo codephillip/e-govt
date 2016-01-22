@@ -98,17 +98,17 @@ public class MainActivity extends AppCompatActivity
         // Start the thread
         t.start();
 
-        boolean loginBoolean;
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        loginBoolean = preferences.getBoolean("login", false);
-
-        if (loginBoolean){
-//            Toast.makeText(MainActivity.this, "You are successfully logged in", Toast.LENGTH_LONG).show();
-            Log.d(TAG, "onCreate: logged in successfully");
-        }
-        else {
-            startActivity(new Intent(this, LoginActivity.class));
-        }
+//        boolean loginBoolean;
+////        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        loginBoolean = preferences.getBoolean("login", false);
+//
+//        if (loginBoolean){
+////            Toast.makeText(MainActivity.this, "You are successfully logged in", Toast.LENGTH_LONG).show();
+//            Log.d(TAG, "onCreate: logged in successfully");
+//        }
+//        else {
+//            startActivity(new Intent(this, LoginActivity.class));
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
