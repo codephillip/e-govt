@@ -122,6 +122,7 @@ public class WeatherIntentService extends IntentService {
             String main = weatherObject.getString(TAG_MAIN);
             int weatherId = weatherObject.getInt(TAG_ID);
 
+//            long dateTime = dayTime.setJulianDay(julianStartDay + i - 1);
             long dateTime = dayTime.setJulianDay(julianStartDay + i);
 
             JSONObject windObject = c.getJSONObject(TAG_WIND);
@@ -135,6 +136,7 @@ public class WeatherIntentService extends IntentService {
             double pressure = temperatureObject.getDouble(TAG_PRESSURE);
 
             Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId + " " + windSpeed + " " + deg + " " + humidity + " " + pressure);
+//            storeInTodayWeatherTable(Long.parseLong(date), name, main, high, low, weatherId, windSpeed, deg, humidity, pressure);
             storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId, windSpeed, deg, humidity, pressure);
         }
     }

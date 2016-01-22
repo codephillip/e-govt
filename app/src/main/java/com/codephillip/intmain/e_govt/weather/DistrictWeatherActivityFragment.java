@@ -30,6 +30,7 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
     private boolean mUseTodayLayout;
     private static final String SELECTED_KEY = "selected_position";
     private static final int FORECAST_LOADER = 0;
+    private Cursor cursor;
 
     public DistrictWeatherActivityFragment() {
     }
@@ -40,17 +41,17 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
         View rootView = inflater.inflate(R.layout.fragment_district_weather, container, false);
 
 //        try {
-//            intentString = getActivity().getIntent().getStringExtra("districtWeatherIntent");
-//            Log.d("INTENT", intentString);
+//            intentInt = getActivity().getIntent().getStringExtra("districtWeatherIntent");
+//            Log.d("INTENT", intentInt);
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 //            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString(districtString, intentString);
+//            editor.putString(districtString, intentInt);
 //            editor.apply();
 //        } catch (Exception e){
 //            e.printStackTrace();
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            intentString = prefs.getString(districtString,"Kampala");
-//            Log.d("PREF#", intentString);
+//            intentInt = prefs.getString(districtString,"Kampala");
+//            Log.d("PREF#", intentInt);
 //        }
 //
 //        getContext().getSupportActionBar().setTitle("Ministries");
@@ -59,11 +60,11 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
 
 //        Button button = (Button) rootView.findViewById(R.id.button1);
-//        button.setText(intentString);
+//        button.setText(intentInt);
 //        button.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("dateIntent", intentString));
+//                startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("dateIntent", intentInt));
 //            }
 //        });
 
@@ -84,7 +85,10 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
 //                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
 //                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
 //                            ));
-                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", "Jinja"));
+                    cursor.moveToPosition(position);
+
+                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", cursor.getInt(cursor.getColumnIndex(WeatherColumns.DATE))));
+//                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", "Jinja"));
 //                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("date", view.getId()));
 
                 }
@@ -149,6 +153,8 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
             // to, do so now.
             mListView.smoothScrollToPosition(mPosition);
         }
+        cursor = data;
+
     }
 
     @Override

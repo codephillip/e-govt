@@ -29,7 +29,7 @@ public class DistrictWeatherActivity extends AppCompatActivity {
             Log.d("INTENT", intentString);
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 //            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString(districtString, intentString);
+//            editor.putString(districtString, intentInt);
 //            editor.apply();
         } catch (Exception e){
             e.printStackTrace();

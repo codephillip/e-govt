@@ -33,7 +33,7 @@ public class DetailedWeatherActivityFragment extends Fragment implements LoaderM
     private TextView mPressureView;
     private static final int DETAIL_LOADER = 0;
     private String mForecast;
-    String intentString;
+    int intentInt;
 
     public DetailedWeatherActivityFragment() {
     }
@@ -56,10 +56,10 @@ public class DetailedWeatherActivityFragment extends Fragment implements LoaderM
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-//        return new CursorLoader(getContext(), WeatherColumns.CONTENT_URI, null, WeatherColumns.MAIN + " LIKE ?",
-//                new String[] {intentString.concat("%")}, null);
-        return new CursorLoader(getContext(), WeatherColumns.CONTENT_URI, null, null,
-                null, null);
+        return new CursorLoader(getContext(), WeatherColumns.CONTENT_URI, null, WeatherColumns.DATE + " LIKE ?",
+                new String[] {String.valueOf(intentInt).concat("%")}, null);
+//        return new CursorLoader(getContext(), WeatherColumns.CONTENT_URI, null, null,
+//                null, null);
     }
 
     @Override
@@ -131,17 +131,17 @@ public class DetailedWeatherActivityFragment extends Fragment implements LoaderM
     public void onActivityCreated(Bundle savedInstanceState) {
 
         try {
-            intentString = getActivity().getIntent().getStringExtra("currentDate");
-            Log.d("INTENT", intentString);
+            intentInt = getActivity().getIntent().getIntExtra("currentDate", 0);
+            Log.d("INTENT", "DATE_VALUE " + intentInt);
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 //            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString(districtString, intentString);
+//            editor.putString(districtString, intentInt);
 //            editor.apply();
         } catch (Exception e){
             e.printStackTrace();
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            intentString = prefs.getString(districtString,"Kampala");
-//            Log.d("PREF#", intentString);
+//            intentInt = prefs.getString(districtString,"Kampala");
+//            Log.d("PREF#", intentInt);
         }
         getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
