@@ -86,8 +86,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
 //        String baseUrl = "10.10.9.245";
-        String baseUrl = "192.168.43.243";
-//        String baseUrl = "192.168.56.1";
+//        String baseUrl = "192.168.43.243";
+        String baseUrl = "192.168.56.1";
         try {
             int k;
             for (k=0; k<4 ; k++){

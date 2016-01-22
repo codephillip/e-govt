@@ -72,6 +72,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         TextView chapterText = (TextView) findViewById(R.id.chapter_text);
         TextView bodyText = (TextView) findViewById(R.id.body_text);
         TextView dateText = (TextView) findViewById(R.id.dateText);
+        TextView locationText = (TextView) findViewById(R.id.locationText);
 
         CursorLoader cursorLoader;
         if (eventBoolean) cursorLoader = new CursorLoader(this, EventsColumns.CONTENT_URI, null, null, null, null);
@@ -102,6 +103,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                         chapterText.setText(chapterTitleString);
                         bodyText.setText(bodyTextString);
                         dateText.setText(dateTextString);
+                        locationText.setText(location);
                         Utility.picassoLoader(this, toolbarImage, imageUrl);
                         break;
                     }
@@ -126,6 +128,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
                         chapterText.setText(chapterTitleString);
                         bodyText.setText(bodyTextString);
                         dateText.setText(dateTextString);
+                        locationText.setVisibility(View.GONE);
                         Utility.picassoLoader(this, toolbarImage, imageUrl);
                         break;
                     }

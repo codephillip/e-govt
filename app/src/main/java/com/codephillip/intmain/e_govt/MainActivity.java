@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
 //        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
 //        r.play();
@@ -193,10 +191,12 @@ public class MainActivity extends AppCompatActivity
             currentFragmentId = R.id.nav_feedback;
             getSupportActionBar().setTitle("Feedback");
         }
+        else if (id == R.id.nav_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
 //
-// else if (id == R.id.nav_settings) {
-//
-//        } else if (id == R.id.nav_about) {
+// else if (id == R.id.nav_about) {
 //
 //        }
         else {
