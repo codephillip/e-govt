@@ -82,7 +82,12 @@ public class WeatherIntentService extends IntentService {
         final String TAG_MAIN = "main";
         final String TAG_MAX_TEMP = "temp_max";
         final String TAG_MIN_TEMP = "temp_min";
+        final String TAG_HUMIDITY = "humidity";
+        final String TAG_WIND_SPEED = "speed";
+        final String TAG_PRESSURE = "pressure";
+        final String TAG_DEG = "deg";
         final String TAG_CITY = "city";
+        final String TAG_WIND = "wind";
 
         final String TAG_LIST = "list";
         final String TAG_WEATHER = "weather";
@@ -119,16 +124,22 @@ public class WeatherIntentService extends IntentService {
 
             long dateTime = dayTime.setJulianDay(julianStartDay + i);
 
+            JSONObject windObject = c.getJSONObject(TAG_WIND);
+            double windSpeed = windObject.getDouble(TAG_WIND_SPEED);
+            double deg = windObject.getDouble(TAG_DEG);
+
             JSONObject temperatureObject = c.getJSONObject(TAG_MAIN);
             double high = temperatureObject.getDouble(TAG_MAX_TEMP);
             double low = temperatureObject.getDouble(TAG_MIN_TEMP);
+            double humidity = temperatureObject.getDouble(TAG_HUMIDITY);
+            double pressure = temperatureObject.getDouble(TAG_PRESSURE);
 
-            Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId);
-            storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId);
+            Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId + " " + windSpeed + " " + deg + " " + humidity + " " + pressure);
+            storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId, windSpeed, deg, humidity, pressure);
         }
     }
 
-    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId) {
+    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId, double windSpeed, double deg, double humidity, double pressure) {
         Log.d("INSERT: ", "starting");
         WeatherContentValues values = new WeatherContentValues();
         values.putDate((int) date);
@@ -137,6 +148,10 @@ public class WeatherIntentService extends IntentService {
         values.putWeatherId(weatherId);
         values.putMaxTemp((float) high);
         values.putMinTemp((float) low);
+        values.putWindSpeed((float) windSpeed);
+        values.putDeg((float) deg);
+        values.putHumidity((float) humidity);
+        values.putPressure((float) pressure);
         Uri uri = values.insert(getContentResolver());
         Log.d("INSERT: ", uri.toString());
     }

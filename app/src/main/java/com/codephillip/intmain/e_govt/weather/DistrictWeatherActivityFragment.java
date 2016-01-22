@@ -84,7 +84,7 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
 //                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
 //                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
 //                            ));
-                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", "monday"));
+                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", "Jinja"));
 //                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("date", view.getId()));
 
                 }
@@ -163,3 +163,6 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
         }
     }
 }
+
+//    String date = ((TextView) view.findViewById(R.id.list_item_date_textview)).getText().toString();
+//    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra(Intent.EXTRA_TEXT, date));}
