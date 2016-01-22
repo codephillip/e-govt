@@ -118,6 +118,11 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
         </activity>
+
+        <activity
+            android:name=".LicenceActivity"
+            android:label="@string/licences">
+        </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

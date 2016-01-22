@@ -18,6 +18,28 @@ import android.view.MenuItem;
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
 
+import de.psdev.licensesdialog.LicensesDialog;
+import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
+import de.psdev.licensesdialog.licenses.MITLicense;
+import de.psdev.licensesdialog.model.Notice;
+import de.psdev.licensesdialog.model.Notices;
+
+/**
+        * Copyright 2016 Kigenyi Phillip
+        *
+        *    Licensed under the Apache License, Version 2.0 (the "License");
+        *    you may not use this file except in compliance with the License.
+        *    You may obtain a copy of the License at
+        *
+        *        http://www.apache.org/licenses/LICENSE-2.0
+        *
+        *    Unless required by applicable law or agreed to in writing, software
+        *    distributed under the License is distributed on an "AS IS" BASIS,
+        *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        *    See the License for the specific language governing permissions and
+        *    limitations under the License.
+        */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static int SYNC_INTERVAL = 60 * 360;
@@ -196,9 +218,21 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 //
-// else if (id == R.id.nav_about) {
-//
-//        }
+        else if (id == R.id.nav_about) {
+            final Notices notices = new Notices();
+            notices.addNotice(new Notice("E-govt", "http://www.codephillip.com", "Copyright 2016 Kigenyi Phillip codephillip@gmail.com", new ApacheSoftwareLicense20()));
+            notices.addNotice(new Notice("okhttp",  "http://github.com/square/okhttp","Copyright 2016 Square, Inc.", new ApacheSoftwareLicense20()));
+            notices.addNotice(new Notice("picasso", "http://github.com/square/picasso","Copyright 2013 Square, Inc.", new ApacheSoftwareLicense20()));
+            notices.addNotice(new Notice("Paolo Rotolo", "https://github.com/PaoloRotolo/AppIntro","Copyright 2015 Paolo Rotolo", new ApacheSoftwareLicense20()));
+            notices.addNotice(new Notice("TextDrawable", "https://github.com/amulyakhare/TextDrawable/","Copyright (c) 2014 Amulya Khare", new MITLicense()));
+
+            new LicensesDialog.Builder(this)
+                    .setNotices(notices)
+                    .setIncludeOwnLicense(true)
+                    .build()
+                    .show();
+            return true;
+        }
         else {
             return true;
         }
