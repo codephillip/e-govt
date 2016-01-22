@@ -61,6 +61,8 @@ public class FeedBackActivityFragment extends Fragment {
         textInputLayoutTopic.setErrorEnabled(true);
         textInputLayoutMessage.setErrorEnabled(true);
 
+        editTopic.setText(intentString);
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
