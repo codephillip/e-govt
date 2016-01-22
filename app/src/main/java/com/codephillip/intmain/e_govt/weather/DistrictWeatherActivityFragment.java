@@ -39,19 +39,22 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_district_weather, container, false);
 
-        try {
-            intentString = getActivity().getIntent().getStringExtra("districtWeatherIntent");
-            Log.d("INTENT", intentString);
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString(districtString, intentString);
-            editor.apply();
-        } catch (Exception e){
-            e.printStackTrace();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            intentString = prefs.getString(districtString,"Kampala");
-            Log.d("PREF#", intentString);
-        }
+//        try {
+//            intentString = getActivity().getIntent().getStringExtra("districtWeatherIntent");
+//            Log.d("INTENT", intentString);
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putString(districtString, intentString);
+//            editor.apply();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+//            intentString = prefs.getString(districtString,"Kampala");
+//            Log.d("PREF#", intentString);
+//        }
+//
+//        getContext().getSupportActionBar().setTitle("Ministries");
+
 
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
 
@@ -113,6 +116,20 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        try {
+            intentString = getActivity().getIntent().getStringExtra("districtWeatherIntent");
+            Log.d("INTENT", intentString);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(districtString, intentString);
+            editor.apply();
+        } catch (Exception e){
+            e.printStackTrace();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            intentString = prefs.getString(districtString,"Kampala");
+            Log.d("PREF#", intentString);
+        }
+
         getLoaderManager().initLoader(FORECAST_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }

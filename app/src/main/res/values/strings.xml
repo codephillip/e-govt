@@ -24,7 +24,7 @@
     <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0
     </string>
     <string name="title_activity_district_weather">DistrictWeatherActivity</string>
-    <string name="title_activity_detailed_weather">DetailedWeatherActivity</string>
+    <string name="title_activity_detailed_weather">Weather Details</string>
 
     <!--sunshine-->
 
