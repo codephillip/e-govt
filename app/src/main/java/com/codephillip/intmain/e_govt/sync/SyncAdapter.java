@@ -37,6 +37,7 @@ import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +72,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.d("SYNCADAPTER", "ONPERFORMSYNC");
 
+        /////////////////////////////////////////////////
+        //TODO # TURN ON THE NETWORK
+        ////////////////////////////////////////////////
+
         //TODO debug notification [ REMOVE ON RELEASE ]
         notifyWeather();
 
@@ -80,8 +85,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             e.printStackTrace();
         }
 
-        String baseUrl = "10.10.9.245";
-//        String baseUrl = "192.168.43.243";
+//        String baseUrl = "10.10.9.245";
+        String baseUrl = "192.168.43.243";
 //        String baseUrl = "192.168.56.1";
         try {
             int k;
@@ -387,6 +392,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
      * @param context The context used to access the account service
      */
     public static void syncImmediately(Context context) {
+        Log.d("SYNC_IMMEDIATELY", "syncImmediately: STARTED");
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
@@ -553,6 +559,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         deleted = getContext().getContentResolver().delete(EventsColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
         deleted = getContext().getContentResolver().delete(TodayweatherColumns.CONTENT_URI, null, null);
+        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+        deleted = getContext().getContentResolver().delete(WeatherColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
     }
 }

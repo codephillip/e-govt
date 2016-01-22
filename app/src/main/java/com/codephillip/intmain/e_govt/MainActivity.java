@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onCreate: STARTING SYNCADAPTER");
         SyncAdapter.initializeSyncAdapter(this);
+//        SyncAdapter.syncImmediately(this);
 
         //  Declare a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
