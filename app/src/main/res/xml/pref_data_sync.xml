@@ -3,6 +3,13 @@
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
          dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="pref_sync"
+        android:summary="@string/pref_title_sync_start_summary"
+        android:title="@string/pref_title_sync_start"/>
+
     <ListPreference
         android:defaultValue="360"
         android:entries="@array/pref_sync_frequency_titles"

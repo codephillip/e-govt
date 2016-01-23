@@ -86,8 +86,12 @@ public class MainActivity extends AppCompatActivity
         SyncAdapter.initializeSyncAdapter(this);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("switch_onstart_switch",true)) {
+        if (prefs.getBoolean("pref_sync",false)) {
             SyncAdapter.syncImmediately(this);
+            Log.d("SHARED_SWITCH_MAIN", "onCreate: ON");
+        }
+        else {
+            Log.d("SHARED_SWITCH_MAIN", "onCreate: OFF");
         }
 
         //  Declare a new thread to do a preference check

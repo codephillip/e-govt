@@ -33,6 +33,7 @@ import android.preference.RingtonePreference;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -286,6 +287,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+
+            PreferenceManager preferenceManager = getPreferenceManager();
+            if (preferenceManager.getSharedPreferences().getBoolean("pref_sync", true)){
+                // Your switch is on
+                Log.d("SHARED_SWITCH", "onCreate: ON");
+            } else {
+                // Your switch is off
+                Log.d("SHARED_SWITCH", "onCreate: OFF");
+
+            }
         }
 
         @Override
