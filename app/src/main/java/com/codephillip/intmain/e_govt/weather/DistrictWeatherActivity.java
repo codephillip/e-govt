@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.codephillip.intmain.e_govt.AnalyticsApplication;
 import com.codephillip.intmain.e_govt.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class DistrictWeatherActivity extends AppCompatActivity {
 
-
+    private Tracker mTracker;
     String intentString = "Jinja";
     String districtString = "districtString";
 
@@ -21,6 +24,15 @@ public class DistrictWeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_district_weather);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        String name = "CODEPHILLIP";
+        Log.i("districtWeather", "Setting screen name: " + name);
+        mTracker.setScreenName("ACTIVITY# " + "DistrictWeather");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

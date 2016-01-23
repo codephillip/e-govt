@@ -18,11 +18,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codephillip.intmain.e_govt.AnalyticsApplication;
 import com.codephillip.intmain.e_govt.FeedBackActivity;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class ChapterDetailsActivity extends AppCompatActivity {
     public CollapsingToolbarLayout ctb;
@@ -33,6 +36,7 @@ public class ChapterDetailsActivity extends AppCompatActivity {
     String location = "Serena Hotel";
     String intentString;
     public boolean eventBoolean = false;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,12 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chapter_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        mTracker.setScreenName("ACTIVITY# " + "ChapterDetailsActivity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         ctb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
