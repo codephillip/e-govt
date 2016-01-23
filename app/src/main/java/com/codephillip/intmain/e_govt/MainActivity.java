@@ -26,20 +26,20 @@ import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
 
 /**
-        * Copyright 2016 Kigenyi Phillip
-        *
-        *    Licensed under the Apache License, Version 2.0 (the "License");
-        *    you may not use this file except in compliance with the License.
-        *    You may obtain a copy of the License at
-        *
-        *        http://www.apache.org/licenses/LICENSE-2.0
-        *
-        *    Unless required by applicable law or agreed to in writing, software
-        *    distributed under the License is distributed on an "AS IS" BASIS,
-        *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        *    See the License for the specific language governing permissions and
-        *    limitations under the License.
-        */
+ * Copyright 2016 Kigenyi Phillip
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -84,7 +84,11 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onCreate: STARTING SYNCADAPTER");
         SyncAdapter.initializeSyncAdapter(this);
-//        SyncAdapter.syncImmediately(this);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("switch_onstart_switch",true)) {
+            SyncAdapter.syncImmediately(this);
+        }
 
         //  Declare a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
@@ -227,6 +231,7 @@ public class MainActivity extends AppCompatActivity
             notices.addNotice(new Notice("Paolo Rotolo", "https://github.com/PaoloRotolo/AppIntro","Copyright 2015 Paolo Rotolo.", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("TextDrawable", "https://github.com/amulyakhare/TextDrawable/","Copyright (c) 2014 Amulya Khare.", new MITLicense()));
             notices.addNotice(new Notice("OpenWeatherMap", "http://openweathermap.org/","Copyright (c) 2012-2016 OpenWeatherMap, Inc.", new CreativeCommonsAttributionNoDerivs30Unported()));
+            notices.addNotice(new Notice("Udacity", "https://www.udacity.com/course/viewer#!/c-ud853/l-1395568821/m-1643858568","Copyright (C) 2014 The Android Open Source Project.", new ApacheSoftwareLicense20()));
 
             new LicensesDialog.Builder(this)
                     .setNotices(notices)

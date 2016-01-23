@@ -83,7 +83,8 @@ public class LicenceActivity extends FragmentActivity {
                 .setNotices(notices)
                 .setIncludeOwnLicense(true)
                 .build()
-                .show();
+                .showAppCompat();
+//                .show();
     }
 
     public void onSingleFragmentClick(final View view) {

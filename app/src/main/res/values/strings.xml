@@ -229,5 +229,10 @@
     <string name="custom_theme">Custom theme</string>
     <string name="custom_theme_fragment">Custom theme (Fragment)</string>
     <string name="licences">Licences</string>
+    <string name="summary">Terms of use and open source licenses</string>
+    <string name="pref_title_sync_start">Refresh on start</string>
+    <string name="pref_title_sync_start_summary">Refresh the information each time the app is
+        opened
+    </string>
 
 </resources>

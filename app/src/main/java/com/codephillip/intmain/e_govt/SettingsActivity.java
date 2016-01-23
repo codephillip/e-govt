@@ -37,6 +37,13 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import de.psdev.licensesdialog.LicensesDialog;
+import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
+import de.psdev.licensesdialog.licenses.CreativeCommonsAttributionNoDerivs30Unported;
+import de.psdev.licensesdialog.licenses.MITLicense;
+import de.psdev.licensesdialog.model.Notice;
+import de.psdev.licensesdialog.model.Notices;
+
 public class SettingsActivity extends AppCompatPreferenceActivity {
     /**
      * A preference value change listener that updates the preference's summary
@@ -193,8 +200,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
+//            bindPreferenceSummaryToValue(findPreference("example_text"));
             bindPreferenceSummaryToValue(findPreference(this.getString(R.string.pref_units_key)));
+
+            Preference pref = findPreference("test_pref");
+            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    final Notices notices = new Notices();
+                    notices.addNotice(new Notice("E-govt", "http://www.codephillip.com", "Copyright 2016 Kigenyi Phillip codephillip@gmail.com", new ApacheSoftwareLicense20()));
+                    notices.addNotice(new Notice("okhttp",  "http://github.com/square/okhttp","Copyright 2016 Square, Inc.", new ApacheSoftwareLicense20()));
+                    notices.addNotice(new Notice("picasso", "http://github.com/square/picasso","Copyright 2013 Square, Inc.", new ApacheSoftwareLicense20()));
+                    notices.addNotice(new Notice("Paolo Rotolo", "https://github.com/PaoloRotolo/AppIntro","Copyright 2015 Paolo Rotolo.", new ApacheSoftwareLicense20()));
+                    notices.addNotice(new Notice("TextDrawable", "https://github.com/amulyakhare/TextDrawable/","Copyright (c) 2014 Amulya Khare.", new MITLicense()));
+                    notices.addNotice(new Notice("OpenWeatherMap", "http://openweathermap.org/","Copyright (c) 2012-2016 OpenWeatherMap, Inc.", new CreativeCommonsAttributionNoDerivs30Unported()));
+                    notices.addNotice(new Notice("Udacity", "https://www.udacity.com/course/viewer#!/c-ud853/l-1395568821/m-1643858568","Copyright (C) 2014 The Android Open Source Project.", new ApacheSoftwareLicense20()));
+
+                    new LicensesDialog.Builder(getActivity())
+                            .setNotices(notices)
+                            .setIncludeOwnLicense(true)
+                            .build()
+                            .show();
+                    return true;
+                }
+            });
         }
 
         @Override
@@ -225,6 +255,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+//            bindPreferenceSummaryToValue(findPreference("test_sw"));
         }
 
         @Override
