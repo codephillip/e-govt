@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity
 //
         else if (id == R.id.nav_about) {
             final Notices notices = new Notices();
-            notices.addNotice(new Notice("E-govt Version 1.0", "http://www.codephillip.com", "Copyright 2016 Kigenyi Phillip codephillip@gmail.com", new ApacheSoftwareLicense20()));
+            notices.addNotice(new Notice("E-govt", "http://www.codephillip.com", "Copyright 2016 Kigenyi Phillip codephillip@gmail.com", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("okhttp",  "http://github.com/square/okhttp","Copyright 2016 Square, Inc.", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("picasso", "http://github.com/square/picasso","Copyright 2013 Square, Inc.", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("Paolo Rotolo", "https://github.com/PaoloRotolo/AppIntro","Copyright 2015 Paolo Rotolo.", new ApacheSoftwareLicense20()));

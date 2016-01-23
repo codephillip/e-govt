@@ -45,5 +45,11 @@
         android:title="Open Source Licenses" >
     </Preference>
 
+    <Preference
+        android:key="build_pref"
+        android:summary="@string/build_version"
+        android:title="Build version" >
+    </Preference>
+
 
 </PreferenceScreen>
