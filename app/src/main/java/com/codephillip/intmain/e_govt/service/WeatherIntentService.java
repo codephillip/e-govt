@@ -45,15 +45,33 @@ public class WeatherIntentService extends IntentService {
 //        String lastNotificationKey = this.getString(R.string.pref_last_notification);
         long lastSync;
 
-        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
-                new String[] {district.concat("%")}, null);
+//        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
+//                new String[] {district.concat("%")}, null);
 //        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME},null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-        if (cursor.moveToFirst()){
-            lastSync = prefs.getLong(lastNotificationKey, 0);
-        } else {
-            lastSync = 0;
+//        Cursor cursor = cursorLoader.loadInBackground();
+//        if (cursor.moveToFirst()){
+//            lastSync = prefs.getLong(lastNotificationKey, 0);
+//        } else {
+//            lastSync = 0;
+//        }
+        try {
+            CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
+                    new String[] {district.concat("%")}, null);
+//        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME},null, null, null);
+            Cursor cursor = cursorLoader.loadInBackground();
+            if (cursor.moveToFirst()){
+                lastSync = prefs.getLong(lastNotificationKey, 0);
+            } else {
+                throw new Exception("No Data");
+//                lastSync = 0;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.d("WEATHERINTENTSERVICE", e.toString());
         }
+
+
+        lastSync = 0;
 
         if (System.currentTimeMillis() - lastSync >= HALF_DAY_IN_MILLIS) {
 
