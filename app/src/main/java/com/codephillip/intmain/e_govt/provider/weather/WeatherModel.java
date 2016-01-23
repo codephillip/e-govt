@@ -20,6 +20,13 @@ public interface WeatherModel extends BaseModel {
     Integer getDate();
 
     /**
+     * Get the {@code date_txt} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getDateTxt();
+
+    /**
      * Get the {@code weather_id} value.
      */
     int getWeatherId();

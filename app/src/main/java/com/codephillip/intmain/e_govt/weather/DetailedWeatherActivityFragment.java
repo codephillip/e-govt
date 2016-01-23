@@ -75,7 +75,8 @@ public class DetailedWeatherActivityFragment extends Fragment implements LoaderM
             // Read date from cursor and update views for day of week and date
             long date = data.getLong(data.getColumnIndex(WeatherColumns.DATE));
             String friendlyDateText = Utility.getDayName(getActivity(), date);
-            String dateText = Utility.getFormattedMonthDay(getActivity(), date);
+            String dateText = data.getString(data.getColumnIndex(WeatherColumns.DATE_TXT));
+//            String dateText = Utility.getFormattedMonthDay(getActivity(), date);
             mFriendlyDateView.setText(friendlyDateText);
             mDateView.setText(dateText);
 

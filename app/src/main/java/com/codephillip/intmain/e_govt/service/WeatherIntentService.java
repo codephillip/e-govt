@@ -35,6 +35,7 @@ public class WeatherIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d("WEATHER_INTENT_SERVICE", "ONHANDLE_INTENT");
 
+        //
         int cityId = intent.getIntExtra("cityId", 233114);
         district = intent.getStringExtra("districtWeatherIntent");
         Log.d("WEATHER_INTENT_SERVICE", "city Id#"+cityId);
@@ -79,6 +80,7 @@ public class WeatherIntentService extends IntentService {
         // These are the names of the JSON objects that need to be extracted.
         final String TAG_ID = "id";
         final String TAG_DATE = "dt";
+        final String TAG_DATE_TXT = "dt_txt";
         final String TAG_NAME = "name";
         final String TAG_MAIN = "main";
         final String TAG_MAX_TEMP = "temp_max";
@@ -118,6 +120,7 @@ public class WeatherIntentService extends IntentService {
 //            String id = c.getString(TAG_ID);
 //            String name = c.getString(TAG_NAME);
             String date = c.getString(TAG_DATE);
+            String date_txt = c.getString(TAG_DATE_TXT);
 
             JSONObject weatherObject = c.getJSONArray(TAG_WEATHER).getJSONObject(0);
             String main = weatherObject.getString(TAG_MAIN);
@@ -136,16 +139,17 @@ public class WeatherIntentService extends IntentService {
             double humidity = temperatureObject.getDouble(TAG_HUMIDITY);
             double pressure = temperatureObject.getDouble(TAG_PRESSURE);
 
-            Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId + " " + windSpeed + " " + deg + " " + humidity + " " + pressure);
+            Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId + " " + windSpeed + " " + deg + " " + humidity + " " + pressure  + " " + date_txt);
 //            storeInTodayWeatherTable(Long.parseLong(date), name, main, high, low, weatherId, windSpeed, deg, humidity, pressure);
-            storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId, windSpeed, deg, humidity, pressure);
+            storeInTodayWeatherTable(dateTime, date_txt, name, main, high, low, weatherId, windSpeed, deg, humidity, pressure);
         }
     }
 
-    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId, double windSpeed, double deg, double humidity, double pressure) {
+    private void storeInTodayWeatherTable(long date, String date_txt, String name, String main, double high, double low, int weatherId, double windSpeed, double deg, double humidity, double pressure) {
         Log.d("INSERT: ", "starting");
         WeatherContentValues values = new WeatherContentValues();
         values.putDate((int) date);
+        values.putDateTxt(date_txt);
         values.putName(name);
         values.putMain(main);
         values.putWeatherId(weatherId);

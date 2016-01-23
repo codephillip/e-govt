@@ -25,6 +25,8 @@ public class WeatherColumns implements BaseColumns {
 
     public static final String DATE = "date";
 
+    public static final String DATE_TXT = "date_txt";
+
     public static final String WEATHER_ID = "weather_id";
 
     public static final String NAME = "name";
@@ -50,6 +52,7 @@ public class WeatherColumns implements BaseColumns {
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
             DATE,
+            DATE_TXT,
             WEATHER_ID,
             NAME,
             MAIN,
@@ -66,6 +69,7 @@ public class WeatherColumns implements BaseColumns {
         if (projection == null) return true;
         for (String c : projection) {
             if (c.equals(DATE) || c.contains("." + DATE)) return true;
+            if (c.equals(DATE_TXT) || c.contains("." + DATE_TXT)) return true;
             if (c.equals(WEATHER_ID) || c.contains("." + WEATHER_ID)) return true;
             if (c.equals(NAME) || c.contains("." + NAME)) return true;
             if (c.equals(MAIN) || c.contains("." + MAIN)) return true;

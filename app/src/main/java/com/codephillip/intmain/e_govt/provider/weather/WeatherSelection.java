@@ -82,6 +82,36 @@ public class WeatherSelection extends AbstractSelection<WeatherSelection> {
         return this;
     }
 
+    public WeatherSelection dateTxt(String... value) {
+        addEquals(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
+    public WeatherSelection dateTxtNot(String... value) {
+        addNotEquals(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
+    public WeatherSelection dateTxtLike(String... value) {
+        addLike(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
+    public WeatherSelection dateTxtContains(String... value) {
+        addContains(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
+    public WeatherSelection dateTxtStartsWith(String... value) {
+        addStartsWith(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
+    public WeatherSelection dateTxtEndsWith(String... value) {
+        addEndsWith(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
     public WeatherSelection weatherId(int... value) {
         addEquals(WeatherColumns.WEATHER_ID, toObjectArray(value));
         return this;

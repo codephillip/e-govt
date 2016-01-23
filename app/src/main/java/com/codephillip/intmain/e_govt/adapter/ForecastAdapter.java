@@ -100,8 +100,7 @@ public class ForecastAdapter extends CursorAdapter {
         long dateInMillis = cursor.getLong(cursor.getColumnIndex(WeatherColumns.DATE));
 //        long dateInMillis = cursor.getLong(ForecastFragment.COL_WEATHER_DATE);
         // Find TextView and set formatted date on it
-        viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis));
-
+        viewHolder.dateView.setText(cursor.getString(cursor.getColumnIndex(WeatherColumns.DATE_TXT)));
         // Read weather forecast from cursor
         String description = cursor.getString(cursor.getColumnIndex(WeatherColumns.MAIN));
 //        String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
@@ -132,6 +131,7 @@ public class ForecastAdapter extends CursorAdapter {
     @Override
     public int getItemViewType(int position) {
         return (position == 0) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
+//        return (position == 0) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
 //        return (position == 0 && mUseTodayLayout) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
     }
 

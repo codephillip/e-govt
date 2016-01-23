@@ -83,6 +83,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             + WeatherColumns.TABLE_NAME + " ( "
             + WeatherColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + WeatherColumns.DATE + " INTEGER, "
+            + WeatherColumns.DATE_TXT + " TEXT, "
             + WeatherColumns.WEATHER_ID + " INTEGER NOT NULL, "
             + WeatherColumns.NAME + " TEXT, "
             + WeatherColumns.MAIN + " TEXT, "

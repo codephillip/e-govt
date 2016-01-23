@@ -38,6 +38,16 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
+    public WeatherContentValues putDateTxt(@Nullable String value) {
+        mContentValues.put(WeatherColumns.DATE_TXT, value);
+        return this;
+    }
+
+    public WeatherContentValues putDateTxtNull() {
+        mContentValues.putNull(WeatherColumns.DATE_TXT);
+        return this;
+    }
+
     public WeatherContentValues putWeatherId(int value) {
         mContentValues.put(WeatherColumns.WEATHER_ID, value);
         return this;
