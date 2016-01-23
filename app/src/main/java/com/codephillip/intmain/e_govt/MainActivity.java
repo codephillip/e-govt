@@ -17,6 +17,8 @@ import android.view.MenuItem;
 
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     final String TAG = MainActivity.class.getSimpleName();
 
     int currentFragmentId = R.id.nav_ministries;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,21 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        String name = "CODEPHILLIP_ACTIVITY";
+        Log.i(TAG, "Setting screen name: " + name);
+        mTracker.setScreenName("MAIN_ACTIVITY" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        //////SEND EVENT
+//        mTracker.send(new HitBuilders.EventBuilder()
+//                .setCategory("Action")
+//                .setAction("Share")
+//                .build());
+
 
 //        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
@@ -146,6 +164,9 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+//        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+//        mTracker = application.getDefaultTracker();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -196,31 +217,52 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
+        String name;
 
         if (id == R.id.nav_ministries) {
             fragment = new MinistriesFragment();
             currentFragmentId = R.id.nav_ministries;
-            getSupportActionBar().setTitle("Ministries");
+            name = "Ministries";
+            getSupportActionBar().setTitle(name);
+            Log.i(TAG, "Setting screen name: " + name);
+            mTracker.setScreenName("FragmentName#" + name);
+            mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         }
         else if (id == R.id.nav_districts) {
             fragment = new DistrictsFragment();
             currentFragmentId = R.id.nav_districts;
-            getSupportActionBar().setTitle("Districts");
+            name = "District";
+            getSupportActionBar().setTitle(name);
+            Log.i(TAG, "Setting screen name: " + name);
+            mTracker.setScreenName("FragmentName#" + name);
+            mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         }
         else if (id == R.id.nav_events) {
             fragment = new EventsFragment();
             currentFragmentId = R.id.nav_events;
-            getSupportActionBar().setTitle("Events");
+            name = "Events";
+            getSupportActionBar().setTitle(name);
+            Log.i(TAG, "Setting screen name: " + name);
+            mTracker.setScreenName("FragmentName#" + name);
+            mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         }
         else if (id == R.id.nav_weather) {
             fragment = new WeatherFragment();
             currentFragmentId = R.id.nav_weather;
-            getSupportActionBar().setTitle("Weather");
+            name = "Weather";
+            getSupportActionBar().setTitle(name);
+            Log.i(TAG, "Setting screen name: " + name);
+            mTracker.setScreenName("FragmentName#" + name);
+            mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         }
         else if (id == R.id.nav_feedback) {
             fragment = new FeedBackActivityFragment();
             currentFragmentId = R.id.nav_feedback;
-            getSupportActionBar().setTitle("Feedback");
+            name = "Feedback";
+            getSupportActionBar().setTitle(name);
+            Log.i(TAG, "Setting screen name: " + name);
+            mTracker.setScreenName("FragmentName#" + name);
+            mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         }
         else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));

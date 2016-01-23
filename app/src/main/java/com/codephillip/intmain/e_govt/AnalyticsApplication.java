@@ -17,6 +17,7 @@
 package com.codephillip.intmain.e_govt;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -34,6 +35,7 @@ public class AnalyticsApplication extends Application {
      */
     synchronized public Tracker getDefaultTracker() {
         if (mTracker == null) {
+            Log.d("ANALYTICS#", "getDefaultTracker: STARTED");
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             mTracker = analytics.newTracker("UA-72794273-1");
