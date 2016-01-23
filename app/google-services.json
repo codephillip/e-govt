@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_id": "e-govt",
+    "project_number": "713798390209",
+    "name": "E-gov\u0027t"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713798390209:android:b84e1c0be164958b",
+        "client_id": "android:com.codephillip.intmain.e_govt",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.codephillip.intmain.e_govt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713798390209-1fttpdsganoj5ngjjgsrt8fro3o3q5b2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codephillip.intmain.e_govt",
+            "certificate_hash": "4A31F4138D135A9CEFD147C3A675BED6BED98D17"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-72794273-1"
+          }
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
