@@ -234,7 +234,7 @@
     <string name="pref_title_sync_start_summary">Refresh the information each time the app is
         opened
     </string>
-    <string name="build_version">Version 1.0</string>
+    <string name="build_version">Version 1.0 BETA</string>
 
     <!--admob-->
 
