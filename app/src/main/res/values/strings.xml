@@ -236,4 +236,9 @@
     </string>
     <string name="build_version">Version 1.0</string>
 
+    <!--admob-->
+
+    <string name="banner_ad_unit_MainActivity_id">ca-app-pub-1319732109388212/6990304681</string>
+    <string name="banner_ad_unit_Chapters_id">ca-app-pub-1319732109388212/2420504281</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

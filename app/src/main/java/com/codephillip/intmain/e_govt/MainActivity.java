@@ -17,6 +17,8 @@ import android.view.MenuItem;
 
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     int currentFragmentId = R.id.nav_ministries;
     private Tracker mTracker;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,28 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "Setting screen name: " + name);
         mTracker.setScreenName("ACTIVITY# " + name);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+
+        //ACTUAL ADVERT
+//        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+
+        //DUMMY ADVERT
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.adView);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
+
 
         //////SEND EVENT
 //        mTracker.send(new HitBuilders.EventBuilder()
@@ -349,4 +374,31 @@ public class MainActivity extends AppCompatActivity
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //        drawer.closeDrawer(GravityCompat.START);
 //    }
+
+
+    @Override
+    protected void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
 }
