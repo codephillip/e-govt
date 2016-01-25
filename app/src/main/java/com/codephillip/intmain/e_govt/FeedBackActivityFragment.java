@@ -67,11 +67,12 @@ public class FeedBackActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Send: ", "Sending ..");
-                boolean loginBoolean;
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                loginBoolean = preferences.getBoolean("login", false);
+//                boolean loginBoolean;
+//                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+//                loginBoolean = preferences.getBoolean("login", false);
 
-                if (loginBoolean){
+//                if (loginBoolean){
+                if (true){
 
                     if (editTopic.getText().length() <= 0 || editMessage.getText().length() <= 0){
                         editTextError();

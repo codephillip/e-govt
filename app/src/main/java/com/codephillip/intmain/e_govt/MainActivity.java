@@ -25,6 +25,7 @@ import com.google.android.gms.analytics.Tracker;
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
 import de.psdev.licensesdialog.licenses.CreativeCommonsAttributionNoDerivs30Unported;
+import de.psdev.licensesdialog.licenses.GnuGeneralPublicLicense30;
 import de.psdev.licensesdialog.licenses.MITLicense;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
@@ -306,6 +307,7 @@ public class MainActivity extends AppCompatActivity
             notices.addNotice(new Notice("E-govt", "http://www.codephillip.com", "Copyright 2016 Kigenyi Phillip codephillip@gmail.com", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("okhttp",  "http://github.com/square/okhttp","Copyright 2016 Square, Inc.", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("picasso", "http://github.com/square/picasso","Copyright 2013 Square, Inc.", new ApacheSoftwareLicense20()));
+            notices.addNotice(new Notice("android-contentprovider-generator", "https://github.com/BoD/android-contentprovider-generator","Copyright 2013 contentprovider-generator.", new GnuGeneralPublicLicense30()));
             notices.addNotice(new Notice("Paolo Rotolo", "https://github.com/PaoloRotolo/AppIntro","Copyright 2015 Paolo Rotolo.", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("TextDrawable", "https://github.com/amulyakhare/TextDrawable/","Copyright (c) 2014 Amulya Khare.", new MITLicense()));
             notices.addNotice(new Notice("OpenWeatherMap", "http://openweathermap.org/","Copyright (c) 2012-2016 OpenWeatherMap, Inc.", new CreativeCommonsAttributionNoDerivs30Unported()));
