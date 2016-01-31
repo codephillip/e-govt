@@ -85,18 +85,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             e.printStackTrace();
         }
 
-        String baseUrl = "10.10.9.245";
-//        String baseUrl = "192.168.43.243";
+//        String baseUrl = "10.10.9.245";
+        String baseUrl = "192.168.43.243";
 //        String baseUrl = "192.168.56.1";
         try {
             int k;
             for (k=0; k<4 ; k++){
                 if (k == 0){
-                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/lynda-php/egovtapi.php/ministries?transform=1"));
+                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/ministries?transform=1"));
                 } else if (k == 1){
-                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/lynda-php/egovtapi.php/chapters?transform=1"));
+                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/chapters?transform=1"));
                 } else if (k == 2){
-                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/lynda-php/egovtapi.php/events?transform=1"));
+                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/events?transform=1"));
 //                } else if (k == 3){
 //                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
                 } else if (k == 3){
