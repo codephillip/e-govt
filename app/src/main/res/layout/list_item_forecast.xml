@@ -56,28 +56,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="23"
-            android:textSize="35sp"
-            android:fontFamily="sans-serif-thin"
-            android:textAppearance="?android:textAppearanceMedium"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="-  "
-            android:textSize="35sp"
-            android:fontFamily="sans-serif-thin"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/list_item_low_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="16"
-            android:textSize="35sp"
-            android:fontFamily="sans-serif-thin"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceSmall"/>
     </LinearLayout>
 </LinearLayout>
