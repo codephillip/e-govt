@@ -92,11 +92,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             int k;
             for (k=0; k<4 ; k++){
                 if (k == 0){
-                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/ministries?transform=1"));
+//                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/ministries?transform=1"));
+                    getMinistriesDataFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/ministries?transform=1"));
                 } else if (k == 1){
-                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/chapters?transform=1"));
+//                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/chapters?transform=1"));
+                    getChaptersFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/chapters?transform=1"));
                 } else if (k == 2){
-                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/events?transform=1"));
+//                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/events?transform=1"));
+                    getEventsFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/events?transform=1"));
 //                } else if (k == 3){
 //                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
                 } else if (k == 3){

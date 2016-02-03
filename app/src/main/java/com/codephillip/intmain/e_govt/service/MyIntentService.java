@@ -42,7 +42,8 @@ public class MyIntentService extends IntentService {
             String jsonString = Utility.returnJson(intent.getStringExtra("Date"), intent.getStringExtra("Topic"), intent.getStringExtra("Message"));
 //            String jsonString = Utility.returnJson(intent.getStringExtra("Topic"), intent.getStringExtra("Message"));
             Log.d("JSON#", jsonString);
-            jsonString = post("http://192.168.56.1/lynda-php/egovtapi.php/feedback", jsonString);
+//            jsonString = post("http://192.168.56.1/lynda-php/egovtapi.php/feedback", jsonString);
+            jsonString = post("http://www.codephillip.com/egovtapi.php/feedback", jsonString);
             Log.d("JSON#", jsonString);
             mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory("SERVICE")
