@@ -137,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
         // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
     }
-
 }
 
 
