@@ -24,8 +24,8 @@
             android:id="@+id/detail_date_textview"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textColor="@color/grey_700"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <!-- Main content: high, low, art, weather state -->
         <LinearLayout
