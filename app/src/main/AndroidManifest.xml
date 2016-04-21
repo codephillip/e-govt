@@ -124,15 +124,15 @@
             android:name=".LicenceActivity"
             android:label="@string/licences">
         </activity>
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!--<activity-->
+            <!--android:name="com.facebook.FacebookActivity"-->
+            <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/key"/>
+        <!--<meta-data-->
+            <!--android:name="com.facebook.sdk.ApplicationId"-->
+            <!--android:value="@string/key"/>-->
 
         <activity
             android:name=".DefaultIntro"

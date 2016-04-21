@@ -90,7 +90,7 @@ public class FeedBackActivityFragment extends Fragment {
                         }
                     }
                 } else {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
+//                    startActivity(new Intent(getContext(), LoginActivity.class));
                 }
 
 
