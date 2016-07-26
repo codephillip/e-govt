@@ -44,7 +44,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         }
     }
     public CardAdapter(Context context, Cursor cursor) {
-        this.context = context;
+        CardAdapter.context = context;
         dataCursor = cursor;
     }
     @Override

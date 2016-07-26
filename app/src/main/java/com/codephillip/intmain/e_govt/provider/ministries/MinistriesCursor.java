@@ -1,9 +1,6 @@
 package com.codephillip.intmain.e_govt.provider.ministries;
 
-import java.util.Date;
-
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.codephillip.intmain.e_govt.provider.base.AbstractCursor;

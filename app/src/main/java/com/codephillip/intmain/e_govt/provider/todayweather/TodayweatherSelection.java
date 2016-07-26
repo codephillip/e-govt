@@ -1,7 +1,5 @@
 package com.codephillip.intmain.e_govt.provider.todayweather;
 
-import java.util.Date;
-
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;

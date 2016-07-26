@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
+        Fragment fragment;
         String name;
 
         if (id == R.id.nav_ministries) {

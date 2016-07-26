@@ -84,9 +84,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //            e.printStackTrace();
 //        }
 
-//        String baseUrl = "10.10.9.245";
         String baseUrl = "192.168.43.243";
-//        String baseUrl = "192.168.56.1";
         try {
             int k;
 //            for (k=0; k<4 ; k++){
@@ -111,12 +109,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("URL BUG", e.toString());
-            /////TODO used for degugging [ REMOVE ON RELEASE ]
-//            try {
-//                getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,225835,225858,225964,226823,226853,227592,227812,227904,228227,228853,228971,229059,229139,229268,229911,230299,230617,230893,231139,231696,232066,232371,232422,233070,233275,233312,233346,233476,233730,233886,234077,234092,234178,234565,235039,235489,226267226361,226600,226866,228418,229112,229292,229361,229599,230256,230584,230993,231250,231426,231550,231617,232235,232287,232397,232713,232834,233725,233738,234578,235130,448227,448232&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
-//            } catch (Exception e1) {
-//                e1.printStackTrace();
-//            }
         }
     }
 
@@ -309,20 +301,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void getMinistriesDataFromJson(String jsonStr)
             throws JSONException {
-
         // These are the names of the JSON objects that need to be extracted.
         final String TAG_ID = "id";
         final String TAG_MINISTRY_NAME = "ministry_name";
         final String TAG_IMAGE = "image";
         final String TAG_TITLE = "ministries";
 
-//        CursorLoader cursorLoader = new CursorLoader(getContext(), MinistriesColumns.CONTENT_URI, null, null, null, null);
-//        Cursor cursor = cursorLoader.loadInBackground();
-        if (false){
-//        if (cursor.moveToFirst()){
-            Log.d("MINISTRIES", "getMinistriesDataFromJson: #Contains data");
-        }
-        else {
             JSONObject forecastJson = new JSONObject(jsonStr);
             JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
             int jsonLength = jsonArray.length();//get lenght of the jsonArray
@@ -339,14 +323,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 Log.d("SYNC_DATA", id+" "+image+ " "+ministry);
                 storeInMinistriesTable(id, ministry, image);
             }
-        }
     }
 
     private String connectToServer(String urlConnection) throws Exception{
         Request request = new Request.Builder().url(urlConnection).build();
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
-
         String jsonData = response.body().string();
         Log.d("JSON STRING_DATA", jsonData);
         return jsonData;

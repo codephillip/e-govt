@@ -2,9 +2,6 @@ package com.codephillip.intmain.e_govt.provider.chapters;
 
 import com.codephillip.intmain.e_govt.provider.base.BaseModel;
 
-import java.util.Date;
-
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**

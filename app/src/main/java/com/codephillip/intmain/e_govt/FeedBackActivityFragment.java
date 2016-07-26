@@ -67,13 +67,6 @@ public class FeedBackActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Send: ", "Sending ..");
-//                boolean loginBoolean;
-//                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-//                loginBoolean = preferences.getBoolean("login", false);
-
-//                if (loginBoolean){
-                if (true){
-
                     if (editTopic.getText().length() <= 0 || editMessage.getText().length() <= 0){
                         editTextError();
                     }
@@ -89,10 +82,7 @@ public class FeedBackActivityFragment extends Fragment {
                             Snackbar.make(v, "Please check your Internet connection", Snackbar.LENGTH_LONG).show();
                         }
                     }
-                } else {
-//                    startActivity(new Intent(getContext(), LoginActivity.class));
                 }
-            }
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
