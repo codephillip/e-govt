@@ -39,35 +39,7 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_district_weather, container, false);
-
-//        try {
-//            intentInt = getActivity().getIntent().getStringExtra("districtWeatherIntent");
-//            Log.d("INTENT", intentInt);
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString(districtString, intentInt);
-//            editor.apply();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            intentInt = prefs.getString(districtString,"Kampala");
-//            Log.d("PREF#", intentInt);
-//        }
-//
-//        getContext().getSupportActionBar().setTitle("Ministries");
-
-
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
-
-//        Button button = (Button) rootView.findViewById(R.id.button1);
-//        button.setText(intentInt);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("dateIntent", intentInt));
-//            }
-//        });
-
         // Get a reference to the ListView, and attach this adapter to it.
         mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
         mListView.setAdapter(mForecastAdapter);
@@ -88,8 +60,6 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
                     cursor.moveToPosition(position);
 
                     startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", cursor.getInt(cursor.getColumnIndex(WeatherColumns.DATE))));
-//                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("currentDate", "Jinja"));
-//                    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra("date", view.getId()));
 
                 }
                 mPosition = position;
@@ -170,5 +140,3 @@ public class DistrictWeatherActivityFragment extends Fragment implements LoaderM
     }
 }
 
-//    String date = ((TextView) view.findViewById(R.id.list_item_date_textview)).getText().toString();
-//    startActivity(new Intent(getContext(), DetailedWeatherActivity.class).putExtra(Intent.EXTRA_TEXT, date));}

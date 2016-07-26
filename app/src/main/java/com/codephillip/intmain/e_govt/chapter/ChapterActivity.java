@@ -3,7 +3,6 @@ package com.codephillip.intmain.e_govt.chapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.codephillip.intmain.e_govt.AnalyticsApplication;
 import com.codephillip.intmain.e_govt.R;
@@ -26,15 +25,6 @@ public class ChapterActivity extends AppCompatActivity {
 
         mTracker.setScreenName("ACTIVITY# " + "ChapterActivity");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

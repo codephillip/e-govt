@@ -92,24 +92,12 @@ public class FeedBackActivityFragment extends Fragment {
                 } else {
 //                    startActivity(new Intent(getContext(), LoginActivity.class));
                 }
-
-
             }
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                //TODO testing sharedprefs [ REMOVE ON RELEASE ]
-//                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//                SharedPreferences.Editor editor = prefs.edit();
-//                editor.putBoolean("login", false);
-//                editor.putBoolean("firstStart", true);
-//                editor.apply();
-
-//                startActivity(new Intent(getContext(), LicenceActivity.class));
-
                 editTopic.setText("");
                 editMessage.setText("");
             }

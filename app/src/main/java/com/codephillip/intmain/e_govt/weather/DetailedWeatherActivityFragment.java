@@ -135,15 +135,8 @@ public class DetailedWeatherActivityFragment extends Fragment implements LoaderM
         try {
             intentInt = getActivity().getIntent().getIntExtra("currentDate", 0);
             Log.d("INTENT", "DATE_VALUE " + intentInt);
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString(districtString, intentInt);
-//            editor.apply();
         } catch (Exception e){
             e.printStackTrace();
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//            intentInt = prefs.getString(districtString,"Kampala");
-//            Log.d("PREF#", intentInt);
         }
         getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);

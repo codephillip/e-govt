@@ -42,18 +42,8 @@ public class WeatherIntentService extends IntentService {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String lastNotificationKey = district;
-//        String lastNotificationKey = this.getString(R.string.pref_last_notification);
         long lastSync;
 
-//        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
-//                new String[] {district.concat("%")}, null);
-//        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME},null, null, null);
-//        Cursor cursor = cursorLoader.loadInBackground();
-//        if (cursor.moveToFirst()){
-//            lastSync = prefs.getLong(lastNotificationKey, 0);
-//        } else {
-//            lastSync = 0;
-//        }
         try {
             CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
                     new String[] {district.concat("%")}, null);
@@ -135,8 +125,6 @@ public class WeatherIntentService extends IntentService {
             // Get the JSON object representing the day
             JSONObject c = LIST_ARRAY.getJSONObject(i);//point to a single row in the jsonArray
             //extract individual items from the json object
-//            String id = c.getString(TAG_ID);
-//            String name = c.getString(TAG_NAME);
             String date = c.getString(TAG_DATE);
             String date_txt = c.getString(TAG_DATE_TXT);
 

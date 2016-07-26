@@ -76,13 +76,6 @@ public class ChapterDetailsActivity extends AppCompatActivity {
         // Start loading the ad in the background.
         mAdView.loadAd(adRequest);
 
-
-        //////SEND EVENT
-//        mTracker.send(new HitBuilders.EventBuilder()
-//                .setCategory("Action")
-//                .setAction("Share")
-//                .build());
-
         ctb = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
         try {

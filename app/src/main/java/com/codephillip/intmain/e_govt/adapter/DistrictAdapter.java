@@ -48,7 +48,6 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
                     editor.putString(fragKey, "District");
                     editor.apply();
                     context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, textView.getText()));
-//                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
                 }
             });
         }
@@ -81,33 +80,17 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         dataCursor.moveToPosition(position);
-
         String textData = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
-//        String imageUrl = dataCursor.getString(dataCursor.getColumnIndex(DistrictsColumns.IMAGE));
-
-//        holder.time.setText(time);
-//        holder.date.setText(date);
         holder.textView.setText(textData);
-
         ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
-// generate random color
         int color1 = generator.getRandomColor();
-// generate color based on a key (same key returns the same color), useful for list/grid views
-//        int color2 = generator.getColor("user@gmail.com")
-
         TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
                 .width(140)  // width in px
                 .height(140) // height in px
                 .endConfig()
                 .buildRound(textData.substring(0,1), color1);
-//                .buildRound("A", Color.RED);
-//        TextDrawable drawable = TextDrawable.builder()
-//                .buildRect("A", R.color.colorAccent);
-//                .buildRound("A", Color.RED);
         holder.imageView.setImageDrawable(drawable);
-
-//        Utility.picassoCircleLoader(context, holder.imageView, R.drawable.uganda_flag);
     }
 
     @Override

@@ -83,9 +83,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
         String textData = dataCursor.getString(dataCursor.getColumnIndex(MinistriesColumns.MINISTRY_NAME));
         String imageUrl = dataCursor.getString(dataCursor.getColumnIndex(MinistriesColumns.IMAGE));
-
-//        holder.time.setText(time);
-//        holder.date.setText(date);
         holder.textView.setText(textData);
         Utility.picassoCircleLoader(context, holder.imageView, imageUrl);
     }

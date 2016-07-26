@@ -58,7 +58,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public static int SYNC_MINUTE = 60;
     //    public static final int SYNC_INTERVAL = 60 * 720;
     //    public static final int SYNC_INTERVAL = 60 * 180;
-//    public static final int SYNC_INTERVAL = 15 * 1;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
 //    private static final long DAY_IN_MILLIS = 60 * 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
@@ -172,14 +171,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId, int cityId) {
         Log.d("INSERT: ", "starting");
-//        CursorLoader cursorLoader = new CursorLoader(getContext(), ChaptersColumns.CONTENT_URI, null,ChaptersColumns.DISTRICT + " LIKE ?",
-//                new String[] {name.concat("%")}, null);
-//        Cursor cursor = cursorLoader.loadInBackground();
-//        if (cursor.moveToFirst()){
-//            int count = cursor.getColumnCount();
-//            Log.d("TABLE COUNT", "storeInTodayWeatherTable: "+count);
-//        }
-
         TodayweatherContentValues values = new TodayweatherContentValues();
         values.putDate((int) date);
         values.putName(name);
@@ -479,15 +470,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         if (displayNotifications) {
 
             if (System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
-                // Last sync was more than 1 day ago, let's send a notification with the weather.
-//            String locationQuery = Utility.getPreferredLocation(context);
-
-//            Uri weatherUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationQuery, System.currentTimeMillis());
-
-                // we'll query our contentProvider, as always
                 Cursor cursor = context.getContentResolver().query(TodayweatherColumns.CONTENT_URI, null, null, null, null);
-//            TodayweatherCursor cursor1 = new TodayweatherCursor();
-
                 if (cursor.moveToFirst()) {
                     int weatherId = cursor.getInt(cursor.getColumnIndex(TodayweatherColumns.WEATHER_ID));
                     double high = cursor.getDouble(cursor.getColumnIndex(TodayweatherColumns.MAX_TEMP));

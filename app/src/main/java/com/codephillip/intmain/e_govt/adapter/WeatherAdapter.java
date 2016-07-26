@@ -37,16 +37,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             weatherName = (TextView) v.findViewById(R.id.weather_name);
             temp = (TextView) v.findViewById(R.id.temp);
             imageView = (ImageView) v.findViewById(R.id.image);
-
-//            v.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    Log.d("RECYCLER", "CLICK");
-//                    context.startService(new Intent(context, WeatherIntentService.class).putExtra("cityId", ));
-//                    context.startActivity(new Intent(context, DistrictWeatherActivity.class).putExtra("districtWeatherIntent", district.getText()));
-//                }
-//            });
         }
     }
     public WeatherAdapter(Context context, Cursor cursor) {
@@ -86,13 +76,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
         holder.district.setText(district);
         holder.weatherName.setText(weatherName);
-//        int tempInt = (int) temp;
-//        Log.d("STRETCH_ADAPTER", district + "#" + weatherName + "#" + tempInt);
         holder.temp.setText(Utility.formatTemperature(context,temp));
         holder.imageView.setImageResource(Utility.getArtResourceForWeatherCondition(
                 dataCursor.getInt(dataCursor.getColumnIndex(TodayweatherColumns.WEATHER_ID))));
-//        Utility.picassoLoader(context, holder.imageView, image);
-
         holder.view.setOnClickListener(new View.OnClickListener() {
 
             @Override

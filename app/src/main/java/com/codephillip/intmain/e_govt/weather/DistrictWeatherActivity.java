@@ -39,10 +39,6 @@ public class DistrictWeatherActivity extends AppCompatActivity {
         try {
             intentString = getIntent().getStringExtra("districtWeatherIntent");
             Log.d("INTENT", intentString);
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString(districtString, intentInt);
-//            editor.apply();
         } catch (Exception e){
             e.printStackTrace();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
