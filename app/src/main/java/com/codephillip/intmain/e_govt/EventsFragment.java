@@ -45,8 +45,10 @@ public class EventsFragment extends Fragment implements LoaderManager.LoaderCall
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                SyncAdapter.syncImmediately(getContext());
+                if (Utility.dbCursor(getContext()) == null)
+                    SyncAdapter.syncImmediately(getContext());
+                else
+                    swipeRefreshLayout.setRefreshing(false);
             }
         });
 

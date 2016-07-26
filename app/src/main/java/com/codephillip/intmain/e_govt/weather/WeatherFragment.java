@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codephillip.intmain.e_govt.R;
+import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.adapter.WeatherAdapter;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
@@ -46,8 +47,10 @@ public class WeatherFragment extends Fragment implements LoaderManager.LoaderCal
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                SyncAdapter.syncImmediately(getContext());
+                if (Utility.dbCursor(getContext()) == null)
+                    SyncAdapter.syncImmediately(getContext());
+                else
+                    swipeRefreshLayout.setRefreshing(false);
             }
         });
 

@@ -41,8 +41,10 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                SyncAdapter.syncImmediately(getContext());
+                if (Utility.dbCursor(getContext()) == null)
+                    SyncAdapter.syncImmediately(getContext());
+                else
+                    swipeRefreshLayout.setRefreshing(false);
             }
         });
         return rootView;

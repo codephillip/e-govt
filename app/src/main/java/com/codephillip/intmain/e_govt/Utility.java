@@ -2,11 +2,14 @@ package com.codephillip.intmain.e_govt;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.support.v4.content.CursorLoader;
 import android.text.format.Time;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -228,4 +231,8 @@ public class Utility {
                 .equals(context.getString(R.string.pref_units_metric));
     }
 
+    public static Cursor dbCursor(Context context){
+        CursorLoader cursorLoader = new CursorLoader(context, DistrictsColumns.CONTENT_URI, null, null, null, null);
+        return cursorLoader.loadInBackground();
+    }
 }

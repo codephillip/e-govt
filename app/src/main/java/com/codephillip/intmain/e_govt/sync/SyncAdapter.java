@@ -30,6 +30,7 @@ import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
 import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
@@ -56,10 +57,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     // 60 seconds (1 minute) * 180 = 3 hours
     public static int SYNC_INTERVAL = 60 * 360;
     public static int SYNC_MINUTE = 60;
-    //    public static final int SYNC_INTERVAL = 60 * 720;
-    //    public static final int SYNC_INTERVAL = 60 * 180;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
-//    private static final long DAY_IN_MILLIS = 60 * 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
@@ -75,14 +73,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         //TODO # TURN ON THE NETWORK
         ////////////////////////////////////////////////
 
-        //TODO debug notification [ REMOVE ON RELEASE ]
-//        notifyWeather();
-//
-//        try {
-//            deleteTables();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
+        try {
+            deleteTables();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         String baseUrl = "192.168.43.243";
         try {
@@ -104,7 +99,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //                }
 //            }
 
+            //TODO activate the whole other apis
             getDistrictsFromJson(connectToServer("http://192.168.56.1/egovtapi.php/districts?transform=1"));
+
             notifyWeather();
         } catch (Exception e) {
             e.printStackTrace();
@@ -530,6 +527,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         deleted = getContext().getContentResolver().delete(TodayweatherColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
         deleted = getContext().getContentResolver().delete(WeatherColumns.CONTENT_URI, null, null);
+        Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+        deleted = getContext().getContentResolver().delete(DistrictsColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
     }
 }
