@@ -18,7 +18,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.codephillip.intmain.e_govt.R;
 import com.codephillip.intmain.e_govt.chapter.ChapterActivity;
-import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 
 
 /**
@@ -26,7 +26,6 @@ import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
  */
 public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHolder> {
     Cursor dataCursor;
-//    Context context;
     private static Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +79,7 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         dataCursor.moveToPosition(position);
-        String textData = dataCursor.getString(dataCursor.getColumnIndex(TodayweatherColumns.NAME));
+        String textData = dataCursor.getString(dataCursor.getColumnIndex(DistrictsColumns.DISTRICT_NAME));
         holder.textView.setText(textData);
         ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
         int color1 = generator.getRandomColor();
