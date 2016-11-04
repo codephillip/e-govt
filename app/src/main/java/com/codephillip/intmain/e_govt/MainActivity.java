@@ -17,7 +17,6 @@ import android.view.MenuItem;
 
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -58,11 +57,11 @@ public class MainActivity extends AppCompatActivity
 //        mAdView.loadAd(adRequest);
 
         //DUMMY ADVERT
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView.loadAd(adRequest);
+//        mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .build();
+//        mAdView.loadAd(adRequest);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getBoolean("pref_sync",false)) {

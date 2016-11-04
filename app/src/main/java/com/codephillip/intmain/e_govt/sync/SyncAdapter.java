@@ -52,7 +52,6 @@ import okhttp3.Response;
  * Created by codephillip on 11/9/15.
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
     public static int SYNC_INTERVAL = 60 * 360;
@@ -68,10 +67,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.d("SYNCADAPTER", "ONPERFORMSYNC");
-
-        /////////////////////////////////////////////////
-        //TODO # TURN ON THE NETWORK
-        ////////////////////////////////////////////////
 
         try {
             deleteTables();
@@ -122,8 +117,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_WEATHER = "weather";
 
         JSONObject forecastJson = new JSONObject(jsonStr);
-        JSONArray LIST_ARRAY = forecastJson.getJSONArray(TAG_LIST);//traverse down into the array
-        int jsonLength = LIST_ARRAY.length();//get length of the jsonArray
+        JSONArray LIST_ARRAY = forecastJson.getJSONArray(TAG_LIST);
+        int jsonLength = LIST_ARRAY.length();
 
         Time dayTime = new Time();
         dayTime.setToNow();
@@ -182,15 +177,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_TITLE = "districts";
 
         JSONObject forecastJson = new JSONObject(jsonStr);
-        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
+        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);
         int jsonLength = jsonArray.length();//get lenght of the jsonArray
 
         for (int i = 0; i < jsonLength; i++) {
-            // Get the JSON object representing the day
-            JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
-            //extract individual items from the json object
+            JSONObject c = jsonArray.getJSONObject(i);
             String id = c.getString(TAG_ID);
-//            String region = c.getString(TAG_REGION);
             String district = c.getString(TAG_DISTRICT);
 
             Log.d("SYNC_DATA", id + " " + district);
@@ -202,7 +194,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d("INSERT: ", "starting");
         DistrictsContentValues values = new DistrictsContentValues();
         values.putDistrictName(district);
-//        values.putImage(image);
         values.insert(getContext().getContentResolver());
     }
 
@@ -218,14 +209,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_LOCATION = "location";
 
         JSONObject forecastJson = new JSONObject(jsonStr);
-        JSONArray jsonArray = forecastJson.getJSONArray(TAG_EVENTS);//traverse down into the array
-        int jsonLength = jsonArray.length();//get length of the jsonArray
+        JSONArray jsonArray = forecastJson.getJSONArray(TAG_EVENTS);
+        int jsonLength = jsonArray.length();
 
         for (int i = 0; i < jsonLength; i++) {
 
-            // Get the JSON object representing the day
-            JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
-            //extract individual items from the json object
+            JSONObject c = jsonArray.getJSONObject(i);
             String id = c.getString(TAG_ID);
             String image = c.getString(TAG_IMAGE);
             String ministry = c.getString(TAG_MINISTRY);
@@ -262,14 +251,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_DISTRICT = "district";
 
         JSONObject forecastJson = new JSONObject(jsonStr);
-        JSONArray jsonArray = forecastJson.getJSONArray(TAG_CHAPTERS);//traverse down into the array
-        int jsonLength = jsonArray.length();//get length of the jsonArray
+        JSONArray jsonArray = forecastJson.getJSONArray(TAG_CHAPTERS);
+        int jsonLength = jsonArray.length();
 
         for (int i = 0; i < jsonLength; i++) {
 
-            // Get the JSON object representing the day
-            JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
-            //extract individual items from the json object
+            JSONObject c = jsonArray.getJSONObject(i);
             String id = c.getString(TAG_ID);
             String image = c.getString(TAG_IMAGE);
             String ministry = c.getString(TAG_MINISTRY);
@@ -305,14 +292,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_TITLE = "ministries";
 
         JSONObject forecastJson = new JSONObject(jsonStr);
-        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
+        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);
         int jsonLength = jsonArray.length();//get lenght of the jsonArray
 
         for (int i = 0; i < jsonLength; i++) {
 
-            // Get the JSON object representing the day
-            JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
-            //extract individual items from the json object
+            JSONObject c = jsonArray.getJSONObject(i);
             String id = c.getString(TAG_ID);
             String image = c.getString(TAG_IMAGE);
             String ministry = c.getString(TAG_MINISTRY_NAME);
@@ -340,10 +325,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d("INSERT: ", "inserting" + uri.toString());
     }
 
-
-    /**
-     * Helper method to schedule the sync adapter periodic execution
-     */
     public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
         Account account = getSyncAccount(context);
         String authority = context.getString(R.string.content_authority);
@@ -360,11 +341,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    /**
-     * Helper method to have the sync adapter sync immediately
-     *
-     * @param context The context used to access the account service
-     */
     public static void syncImmediately(Context context) {
         Log.d("SYNC_IMMEDIATELY", "syncImmediately: STARTED");
         Bundle bundle = new Bundle();
@@ -374,14 +350,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 context.getString(R.string.content_authority), bundle);
     }
 
-    /**
-     * Helper method to get the fake account to be used with SyncAdapter, or make a new one
-     * if the fake account doesn't exist yet.  If we make a new account, we call the
-     * onAccountCreated method so we can initialize things.
-     *
-     * @param context The context used to access the account service
-     * @return a fake account.
-     */
     public static Account getSyncAccount(Context context) {
         // Get an instance of the Android account manager
         AccountManager accountManager =
@@ -474,14 +442,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                                     .setContentTitle(title)
                                     .setContentText(contentText);
 
-                    // Make something interesting happen when the user clicks on the notification.
-                    // In this case, opening the app is sufficient.
                     Intent resultIntent = new Intent(context, MainActivity.class);
-
-                    // The stack builder object will contain an artificial back stack for the
-                    // started Activity.
-                    // This ensures that navigating backward from the Activity leads out of
-                    // your application to the Home screen.
                     TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
                     stackBuilder.addNextIntent(resultIntent);
                     PendingIntent resultPendingIntent =
@@ -493,10 +454,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
                     NotificationManager mNotificationManager =
                             (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                    // WEATHER_NOTIFICATION_ID allows you to update the notification later on.
                     mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
-
-//                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                     Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
                     Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
                     r.play();

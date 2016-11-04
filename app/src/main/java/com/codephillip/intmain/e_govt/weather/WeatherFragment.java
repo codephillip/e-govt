@@ -47,7 +47,7 @@ public class WeatherFragment extends Fragment implements LoaderManager.LoaderCal
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (Utility.dbCursor(getContext()) == null)
+                if (Utility.dbCursor(getContext()).getCount() <= 0)
                     SyncAdapter.syncImmediately(getContext());
                 else
                     swipeRefreshLayout.setRefreshing(false);

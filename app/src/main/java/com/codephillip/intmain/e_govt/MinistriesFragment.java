@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 
 public class MinistriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+    private static final String TAG = MinistriesFragment.class.getSimpleName();
     private RecyclerView recyclerView;
     RecordAdapter adapter;
     private int LOADER_ID = 4;
@@ -40,8 +42,8 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (Utility.dbCursor(getContext()) == null)
-//                if (true)
+                Log.d(TAG, "onRefresh: "+ Utility.dbCursor(getContext()).getCount());
+                if (Utility.dbCursor(getContext()).getCount() <= 0)
                     SyncAdapter.syncImmediately(getContext());
                 else
                     swipeRefreshLayout.setRefreshing(false);
