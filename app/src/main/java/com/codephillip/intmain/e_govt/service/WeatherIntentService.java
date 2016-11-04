@@ -35,33 +35,28 @@ public class WeatherIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d("WEATHER_INTENT_SERVICE", "ONHANDLE_INTENT");
 
-        //
         int cityId = intent.getIntExtra("cityId", 233114);
         district = intent.getStringExtra("districtWeatherIntent");
         Log.d("WEATHER_INTENT_SERVICE", "city Id#"+cityId);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String lastNotificationKey = district;
-        long lastSync;
+        long lastSync = 0;
 
         try {
             CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
                     new String[] {district.concat("%")}, null);
-//        CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME},null, null, null);
             Cursor cursor = cursorLoader.loadInBackground();
             if (cursor.moveToFirst()){
                 lastSync = prefs.getLong(lastNotificationKey, 0);
             } else {
                 throw new Exception("No Data");
-//                lastSync = 0;
             }
         } catch (Exception e){
             e.printStackTrace();
             Log.d("WEATHERINTENTSERVICE", e.toString());
         }
 
-
-        lastSync = 0;
 
         if (System.currentTimeMillis() - lastSync >= HALF_DAY_IN_MILLIS) {
 

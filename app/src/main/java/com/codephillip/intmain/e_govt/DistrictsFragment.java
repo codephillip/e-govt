@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (Utility.dbCursor(getContext()).getCount() <= 0)
+                if (Utility.dbCursor(DistrictsColumns.CONTENT_URI ,getContext()).getCount() <= 0)
                     SyncAdapter.syncImmediately(getContext());
                 else
                     swipeRefreshLayout.setRefreshing(false);

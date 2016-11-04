@@ -42,8 +42,8 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.d(TAG, "onRefresh: "+ Utility.dbCursor(getContext()).getCount());
-                if (Utility.dbCursor(getContext()).getCount() <= 0)
+                Log.d(TAG, "onRefresh: "+ Utility.dbCursor(MinistriesColumns.CONTENT_URI, getContext()).getCount());
+                if (Utility.dbCursor(MinistriesColumns.CONTENT_URI, getContext()).getCount() <= 0)
                     SyncAdapter.syncImmediately(getContext());
                 else
                     swipeRefreshLayout.setRefreshing(false);

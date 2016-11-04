@@ -45,7 +45,7 @@ public class EventsFragment extends Fragment implements LoaderManager.LoaderCall
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (Utility.dbCursor(getContext()).getCount() <= 0)
+                if (Utility.dbCursor(EventsColumns.CONTENT_URI, getContext()).getCount() <= 0)
                     SyncAdapter.syncImmediately(getContext());
                 else
                     swipeRefreshLayout.setRefreshing(false);
