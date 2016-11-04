@@ -41,6 +41,7 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
             @Override
             public void onRefresh() {
                 if (Utility.dbCursor(getContext()) == null)
+//                if (true)
                     SyncAdapter.syncImmediately(getContext());
                 else
                     swipeRefreshLayout.setRefreshing(false);

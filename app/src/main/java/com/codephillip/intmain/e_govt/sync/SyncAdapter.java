@@ -75,32 +75,32 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             deleteTables();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         String baseUrl = "192.168.43.243";
         try {
             int k;
-//            for (k=0; k<4 ; k++){
-//                if (k == 0){
-////                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/ministries?transform=1"));
-//                    getMinistriesDataFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/ministries?transform=1"));
-//                } else if (k == 1){
-////                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/chapters?transform=1"));
-//                    getChaptersFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/chapters?transform=1"));
-//                } else if (k == 2){
-////                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/events?transform=1"));
-//                    getEventsFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/events?transform=1"));
-//                } else if (k == 3){
-//                    getDistrictsFromJson(connectToServer("http://192.168.56.1/lynda-php/egovtapi.php/districts?transform=1"));
-//                } else if (k == 4){
-//                    getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,225835,225858,225964,226823,226853,227592,227812,227904,228227,228853,228971,229059,229139,229268,229911,230299,230617,230893,231139,231696,232066,232371,232422,233070,233275,233312,233346,233476,233730,233886,234077,234092,234178,234565,235039,235489,226267226361,226600,226866,228418,229112,229292,229361,229599,230256,230584,230993,231250,231426,231550,231617,232235,232287,232397,232713,232834,233725,233738,234578,235130,448227,448232&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
-//                }
-//            }
-
-            //TODO activate the whole other apis
-            getDistrictsFromJson(connectToServer("http://192.168.56.1/egovtapi.php/districts?transform=1"));
+            for (k = 0; k < 5; k++) {
+                if (k == 0) {
+//                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/ministries?transform=1"));
+                    getMinistriesDataFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/ministries?transform=1"));
+                } else if (k == 1) {
+//                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/chapters?transform=1"));
+                    getChaptersFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/chapters?transform=1"));
+                } else if (k == 2) {
+//                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/events?transform=1"));
+                    getEventsFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/events?transform=1"));
+                } else if (k == 3) {
+                    getDistrictsFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/districts?transform=1"));
+                } else if (k == 4) {
+                    getTodayWeatherFromJson(connectToServer("http://api.openweathermap.org/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,225835,225858,225964,226823,226853,227592,227812,227904,228227,228853,228971,229059,229139,229268,229911,230299,230617,230893,231139,231696,232066,232371,232422,233070,233275,233312,233346,233476,233730,233886,234077,234092,234178,234565,235039,235489,226267226361,226600,226866,228418,229112,229292,229361,229599,230256,230584,230993,231250,231426,231550,231617,232235,232287,232397,232713,232834,233725,233738,234578,235130,448227,448232&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb"));
+                }
+            }
+//
+//            //TODO activate the whole other apis
+//            getDistrictsFromJson(connectToServer("http://192.168.56.1/egovtapi.php/districts?transform=1"));
 
             notifyWeather();
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         // now we work exclusively in UTC
         dayTime = new Time();
 
-        for(int i = 0; i < jsonLength; i++) {
+        for (int i = 0; i < jsonLength; i++) {
 
             // Get the JSON object representing the day
             JSONObject c = LIST_ARRAY.getJSONObject(i);//point to a single row in the jsonArray
@@ -155,7 +155,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             double high = temperatureObject.getDouble(TAG_MAX_TEMP);
             double low = temperatureObject.getDouble(TAG_MIN_TEMP);
 
-            Log.d("SYNC_DATA", date+" "+name+ " "+main+ " "+high+ " "+low+ " "+weatherId+ " "+cityId);
+            Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId + " " + cityId);
             storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId, cityId);
         }
     }
@@ -185,7 +185,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
         int jsonLength = jsonArray.length();//get lenght of the jsonArray
 
-        for(int i = 0; i < jsonLength; i++) {
+        for (int i = 0; i < jsonLength; i++) {
             // Get the JSON object representing the day
             JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
             //extract individual items from the json object
@@ -193,7 +193,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //            String region = c.getString(TAG_REGION);
             String district = c.getString(TAG_DISTRICT);
 
-            Log.d("SYNC_DATA", id+" "+district);
+            Log.d("SYNC_DATA", id + " " + district);
             storeInDistrictTable(id, district);
         }
     }
@@ -221,7 +221,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         JSONArray jsonArray = forecastJson.getJSONArray(TAG_EVENTS);//traverse down into the array
         int jsonLength = jsonArray.length();//get length of the jsonArray
 
-        for(int i = 0; i < jsonLength; i++) {
+        for (int i = 0; i < jsonLength; i++) {
 
             // Get the JSON object representing the day
             JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
@@ -234,7 +234,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             String story = c.getString(TAG_STORY);
             String location = c.getString(TAG_LOCATION);
 
-            Log.d("SYNC_DATA", id+" "+image+ " "+ministry+ " "+date+ " "+story + " "+ location);
+            Log.d("SYNC_DATA", id + " " + image + " " + ministry + " " + date + " " + story + " " + location);
             storeInEventsTable(id, ministry, image, date, story, location, title);
         }
     }
@@ -265,7 +265,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         JSONArray jsonArray = forecastJson.getJSONArray(TAG_CHAPTERS);//traverse down into the array
         int jsonLength = jsonArray.length();//get length of the jsonArray
 
-        for(int i = 0; i < jsonLength; i++) {
+        for (int i = 0; i < jsonLength; i++) {
 
             // Get the JSON object representing the day
             JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
@@ -278,7 +278,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             String story = c.getString(TAG_STORY);
             String district = c.getString(TAG_DISTRICT);
 
-            Log.d("SYNC_DATA", id+" "+image+ " "+ministry+ " "+date+ " "+story+ " "+district );
+            Log.d("SYNC_DATA", id + " " + image + " " + ministry + " " + date + " " + story + " " + district);
             storeInChaptersTable(id, ministry, image, date, story, title, district);
         }
     }
@@ -304,25 +304,25 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         final String TAG_IMAGE = "image";
         final String TAG_TITLE = "ministries";
 
-            JSONObject forecastJson = new JSONObject(jsonStr);
-            JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
-            int jsonLength = jsonArray.length();//get lenght of the jsonArray
+        JSONObject forecastJson = new JSONObject(jsonStr);
+        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);//traverse down into the array
+        int jsonLength = jsonArray.length();//get lenght of the jsonArray
 
-            for(int i = 0; i < jsonLength; i++) {
+        for (int i = 0; i < jsonLength; i++) {
 
-                // Get the JSON object representing the day
-                JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
-                //extract individual items from the json object
-                String id = c.getString(TAG_ID);
-                String image = c.getString(TAG_IMAGE);
-                String ministry = c.getString(TAG_MINISTRY_NAME);
+            // Get the JSON object representing the day
+            JSONObject c = jsonArray.getJSONObject(i);//point to a single row in the jsonArray
+            //extract individual items from the json object
+            String id = c.getString(TAG_ID);
+            String image = c.getString(TAG_IMAGE);
+            String ministry = c.getString(TAG_MINISTRY_NAME);
 
-                Log.d("SYNC_DATA", id+" "+image+ " "+ministry);
-                storeInMinistriesTable(id, ministry, image);
-            }
+            Log.d("SYNC_DATA", id + " " + image + " " + ministry);
+            storeInMinistriesTable(id, ministry, image);
+        }
     }
 
-    private String connectToServer(String urlConnection) throws Exception{
+    private String connectToServer(String urlConnection) throws Exception {
         Request request = new Request.Builder().url(urlConnection).build();
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
@@ -331,13 +331,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         return jsonData;
     }
 
-    private void storeInMinistriesTable(String id, String ministry_name, String image){
+    private void storeInMinistriesTable(String id, String ministry_name, String image) {
         Log.d("INSERT: ", "starting");
         MinistriesContentValues values = new MinistriesContentValues();
         values.putMinistryName(ministry_name);
         values.putImage(image);
         final Uri uri = values.insert(getContext().getContentResolver());
-        Log.d("INSERT: ", "inserting"+uri.toString());
+        Log.d("INSERT: ", "inserting" + uri.toString());
     }
 
 
@@ -497,15 +497,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     mNotificationManager.notify(WEATHER_NOTIFICATION_ID, mBuilder.build());
 
 //                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
-                Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-                r.play();
+                    Uri notification = Uri.parse(prefs.getString("notifications_new_message_ringtone", "content://settings/system/notification_sound"));
+                    Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
+                    r.play();
 
-                if (prefs.getBoolean("notifications_new_message_vibrate", true)){
-                    Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                    // Vibrate for 500 milliseconds
-                    v.vibrate(500);
-                }
+                    if (prefs.getBoolean("notifications_new_message_vibrate", true)) {
+                        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        // Vibrate for 500 milliseconds
+                        v.vibrate(500);
+                    }
 
                     //refreshing last sync
                     SharedPreferences.Editor editor = prefs.edit();
@@ -516,7 +516,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    public void deleteTables(){
+    public void deleteTables() {
         long deleted;
         deleted = getContext().getContentResolver().delete(MinistriesColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));

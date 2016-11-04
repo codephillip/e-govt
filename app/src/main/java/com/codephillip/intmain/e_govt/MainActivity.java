@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
         mTracker.setScreenName("ACTIVITY# " + name);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
-
         //ACTUAL ADVERT
 //        AdView mAdView = (AdView) findViewById(R.id.adView);
 //        AdRequest adRequest = new AdRequest.Builder().build();
@@ -87,12 +86,15 @@ public class MainActivity extends AppCompatActivity
                 boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
                 if (isFirstStart) {
 
+                    SyncAdapter.syncImmediately(getBaseContext());
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory("FIRST LAUNCH")
                             .setAction("APP INTRO")
                             .build());
-                    Intent i = new Intent(MainActivity.this, DefaultIntro.class);
-                    startActivity(i);
+
+                    // TODO: fix bug and activate introActivity
+//                    Intent i = new Intent(MainActivity.this, DefaultIntro.class);
+//                    startActivity(i);
                     SharedPreferences.Editor e = getPrefs.edit();
                     e.putBoolean("firstStart", false);
                     e.apply();
@@ -228,7 +230,6 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
     }
 
-    /** Called when returning to the activity */
     @Override
     public void onResume() {
         super.onResume();
@@ -237,7 +238,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /** Called before the activity is destroyed */
     @Override
     public void onDestroy() {
         if (mAdView != null) {
