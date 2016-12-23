@@ -53,9 +53,8 @@ import okhttp3.Response;
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
     // Interval at which to sync with the weather, in seconds.
-    // 60 seconds (1 minute) * 180 = 3 hours
-    public static int SYNC_INTERVAL = 60 * 360;
-    public static int SYNC_MINUTE = 60;
+    // 60 seconds (1 minute) * 60 * 2 = 2 hour
+    public static int SYNC_INTERVAL = 60 * 60 * 24;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
@@ -166,6 +165,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId, cityId);
         }
     }
+
 
     private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId, int cityId) {
         Log.d("INSERT: ", "starting");
