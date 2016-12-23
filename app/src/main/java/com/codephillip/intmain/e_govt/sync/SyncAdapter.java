@@ -40,6 +40,7 @@ import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
+import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
@@ -132,7 +133,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             @Override
             public void onResponse(Call<Events> call, retrofit2.Response<Events> response) {
                 Events events = response.body();
-                saveEvents(events);
+                storeInEventsTable(events);
             }
 
             @Override
@@ -142,12 +143,20 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         });
     }
 
-    private void saveEvents(Events events) {
+    private void storeInEventsTable(Events events) {
         if (events == null)
             throw new NullPointerException("Events not found");
         List<Event> eventList = events.getEvents();
         for (Event event : eventList) {
             Log.d(TAG, "saveEvent: " + event.getId() + event.getTitle() + event.getLocation() + event.getMinistry().getName());
+            EventsContentValues values = new EventsContentValues();
+            values.putMinistry(event.getMinistry().getName());
+            values.putImage(event.getImage());
+            values.putDate(event.getDate());
+            values.putTitle(event.getTitle());
+            values.putStory(event.getStory());
+            values.putLocation(event.getLocation());
+            values.insert(getContext().getContentResolver());
         }
     }
 
@@ -169,7 +178,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void storeInMinistriesTable(Ministrys ministrys) {
         Log.d("INSERT: ", "starting");
-
         if (ministrys == null)
             throw new NullPointerException("Ministrys not found");
         List<Ministry> ministryList = ministrys.getMinistrys();
@@ -202,13 +210,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void storeInDistrictTable(Districts districts) {
         Log.d("INSERT: ", "starting");
-
         if (districts == null)
             throw new NullPointerException("Districts not found");
-
         Log.d(TAG, "saveDistrict: #" + districts);
         List<District> districtList = districts.getDistricts();
-
         for (District district : districtList) {
             Log.d(TAG, "saveDistrict: " + district.getId() + district.getName() + district.getRegion());
             DistrictsContentValues values = new DistrictsContentValues();
