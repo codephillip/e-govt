@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.codephillip.intmain.e_govt.adapter.RecordAdapter;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.retrofit.ApiInterface;
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 
 public class MinistriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -27,6 +28,7 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
     RecordAdapter adapter;
     private int LOADER_ID = 4;
     SwipeRefreshLayout swipeRefreshLayout;
+    private ApiInterface apiInterface;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,10 +45,13 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
             @Override
             public void onRefresh() {
                 Log.d(TAG, "onRefresh: "+ Utility.dbCursor(MinistriesColumns.CONTENT_URI, getContext()).getCount());
-                if (Utility.dbCursor(MinistriesColumns.CONTENT_URI, getContext()).getCount() <= 0)
-                    SyncAdapter.syncImmediately(getContext());
-                else
-                    swipeRefreshLayout.setRefreshing(false);
+                //todo remove when finished
+                SyncAdapter.syncImmediately(getContext());
+//                loadDistricts();
+//                if (Utility.dbCursor(MinistriesColumns.CONTENT_URI, getContext()).getCount() <= 0)
+//                    SyncAdapter.syncImmediately(getContext());
+//                else
+//                    swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -86,4 +91,5 @@ public class MinistriesFragment extends Fragment implements LoaderManager.Loader
         editor.putInt(FragString, 1);
         editor.apply();
     }
+
 }

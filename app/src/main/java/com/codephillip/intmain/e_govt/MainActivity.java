@@ -15,11 +15,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.codephillip.intmain.e_govt.sync.SyncAdapter;
+import com.codephillip.intmain.e_govt.mymodel.districts.District;
+import com.codephillip.intmain.e_govt.mymodel.districts.Districts;
+import com.codephillip.intmain.e_govt.retrofit.ApiInterface;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import java.util.List;
 
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
@@ -28,6 +32,8 @@ import de.psdev.licensesdialog.licenses.GnuGeneralPublicLicense30;
 import de.psdev.licensesdialog.licenses.MITLicense;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     int currentFragmentId = R.id.nav_ministries;
     private Tracker mTracker;
     private AdView mAdView;
+    private ApiInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +70,12 @@ public class MainActivity extends AppCompatActivity
 //                .build();
 //        mAdView.loadAd(adRequest);
 
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getBoolean("pref_sync",false)) {
             Log.d(TAG, "onCreate: STARTING SYNCADAPTER");
-            SyncAdapter.syncImmediately(this);
+            //todo reactivate
+//            SyncAdapter.syncImmediately(this);
             Log.d("SHARED_SWITCH_MAIN", "onCreate: ON");
         }
         else {
@@ -84,8 +93,8 @@ public class MainActivity extends AppCompatActivity
                 //  Create a new boolean and preference and set it to true
                 boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
                 if (isFirstStart) {
-
-                    SyncAdapter.syncImmediately(getBaseContext());
+                    //todo reactivate
+//                    SyncAdapter.syncImmediately(getBaseContext());
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory("FIRST LAUNCH")
                             .setAction("APP INTRO")
