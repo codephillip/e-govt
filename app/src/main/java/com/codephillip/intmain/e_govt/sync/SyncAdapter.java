@@ -36,6 +36,8 @@ import com.codephillip.intmain.e_govt.mymodel.events.Events;
 import com.codephillip.intmain.e_govt.mymodel.feedbacks.Feedback;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministry;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministrys;
+import com.codephillip.intmain.e_govt.mymodel.weatherdistricts.ListWeather;
+import com.codephillip.intmain.e_govt.mymodel.weatherdistricts.Weatherdistricts;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
@@ -53,13 +55,13 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by codephillip on 11/9/15.
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String TAG = SyncAdapter.class.getSimpleName();
-    private ApiInterface apiInterface;
 
     // Interval at which to sync with the server, in seconds.
     // 60 seconds (1 minute) * 60 * 2 = 2 hour
@@ -67,6 +69,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
+    private ApiInterface apiInterface, apiInterfaceWeather;
 
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -74,13 +77,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
-        Log.d("SYNCADAPTER", "ONPERFORMSYNC");
+        Log.d(TAG, "ONPERFORMSYNC");
 
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        loadDistricts();
-        loadMinistrys();
-        loadEvents();
-        loadChapters();
+//        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
+        apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
+
+        loadWeatherDistricts();
+//        loadDistricts();
+//        loadMinistrys();
+//        loadEvents();
+//        loadChapters();
 //        sendFeedback();
     }
 
@@ -228,6 +234,32 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             DistrictsContentValues values = new DistrictsContentValues();
             values.putDistrictName(district.getName());
             values.insert(getContext().getContentResolver());
+        }
+    }
+
+    private void loadWeatherDistricts() {
+        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts("233114,229278,229024", "1f846e7a0e00cf8c2f96dd5e768580fb");
+        call.enqueue(new Callback<Weatherdistricts>() {
+            @Override
+            public void onResponse(Call<Weatherdistricts> call, Response<Weatherdistricts> response) {
+                Weatherdistricts wd = response.body();
+                saveWeatherdistricts(wd);
+            }
+
+            @Override
+            public void onFailure(Call<Weatherdistricts> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                throw new UnsupportedOperationException("Failed to start");
+            }
+        });
+    }
+
+    private void saveWeatherdistricts(Weatherdistricts wd) {
+        if (wd == null)
+            throw new NullPointerException("Weatherdistricts not found");
+        java.util.List<ListWeather> listWeather = wd.getListWeather();
+        for (ListWeather weather : listWeather) {
+            Log.d(TAG, "saveWeatherdistricts: " + weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain());
         }
     }
 

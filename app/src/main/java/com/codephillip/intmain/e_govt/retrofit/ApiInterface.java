@@ -5,11 +5,13 @@ import com.codephillip.intmain.e_govt.mymodel.districts.Districts;
 import com.codephillip.intmain.e_govt.mymodel.events.Events;
 import com.codephillip.intmain.e_govt.mymodel.feedbacks.Feedback;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministrys;
+import com.codephillip.intmain.e_govt.mymodel.weatherdistricts.Weatherdistricts;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by codephillip on 22/12/16.
@@ -31,5 +33,8 @@ public interface ApiInterface {
 
     @POST("/api/v1/feedbacks/post")
     Call<Feedback> createFeedback(@Body Feedback feedback);
+
+    @GET("/data/2.5/group?&units=metric")
+    Call<Weatherdistricts> allWeatherDistricts(@Query("id") String value, @Query("appid") String appid);
 
 }
