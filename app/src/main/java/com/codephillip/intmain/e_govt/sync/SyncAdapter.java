@@ -37,6 +37,7 @@ import com.codephillip.intmain.e_govt.mymodel.feedbacks.Feedback;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministry;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministrys;
 import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
+import com.codephillip.intmain.e_govt.provider.chapters.ChaptersContentValues;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.provider.districts.DistrictsContentValues;
 import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
@@ -60,17 +61,17 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String TAG = SyncAdapter.class.getSimpleName();
     private ApiInterface apiInterface;
 
-    //    // Interval at which to sync with the weather, in seconds.
-//    // 60 seconds (1 minute) * 60 * 2 = 2 hour
+    // Interval at which to sync with the server, in seconds.
+    // 60 seconds (1 minute) * 60 * 2 = 2 hour
     public static int SYNC_INTERVAL = 60 * 60 * 24;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
-//
+
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
-//
+
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.d("SYNCADAPTER", "ONPERFORMSYNC");
@@ -124,6 +125,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         List<Chapter> chapterList = chapters.getChapters();
         for (Chapter chapter : chapterList) {
             Log.d(TAG, "saveChapter: " + chapter.getId() + chapter.getTitle() + chapter.getImage() + chapter.getMinistry().getName() + chapter.getDistrict().getName());
+            ChaptersContentValues values = new ChaptersContentValues();
+            values.putMinistry(chapter.getMinistry().getName());
+            values.putDate(chapter.getDate());
+            values.putImage(chapter.getImage());
+            values.putTitle(chapter.getTitle());
+            values.putStory(chapter.getStory());
+            values.putDistrict(chapter.getDistrict().getName());
+            values.insert(getContext().getContentResolver());
         }
     }
 
@@ -223,11 +232,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
 
-
-
-
-
-//
+    //
 //        try {
 //            deleteTables();
 //        } catch (Exception e) {
@@ -253,6 +258,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //                    //querying the serving with more than 10 districts cases a 504 server error
 //                    String weatherBaseUrl = "http://api.openweathermap.org/data/2.5/group?id=";
 //                    String EndweatherBaseUrl = "&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
+                        //todo remove this logical error
 //                    for (int i = 0; i < 8; i++) {
 //                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "233114,229278,229362,229380,229746,233508,229024,230166,226110,226234" + EndweatherBaseUrl));
 //                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "225835,225858,225964,226823,226853,227592,227812,227904,228227,228853" + EndweatherBaseUrl));
