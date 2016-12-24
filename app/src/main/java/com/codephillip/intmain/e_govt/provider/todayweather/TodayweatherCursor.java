@@ -78,8 +78,8 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      * Can be {@code null}.
      */
     @Nullable
-    public Float getMaxTemp() {
-        Float res = getFloatOrNull(TodayweatherColumns.MAX_TEMP);
+    public Double getMaxTemp() {
+        Double res = getDoubleOrNull(TodayweatherColumns.MAX_TEMP);
         return res;
     }
 
@@ -88,8 +88,8 @@ public class TodayweatherCursor extends AbstractCursor implements TodayweatherMo
      * Can be {@code null}.
      */
     @Nullable
-    public Float getMinTemp() {
-        Float res = getFloatOrNull(TodayweatherColumns.MIN_TEMP);
+    public Double getMinTemp() {
+        Double res = getDoubleOrNull(TodayweatherColumns.MIN_TEMP);
         return res;
     }
 }

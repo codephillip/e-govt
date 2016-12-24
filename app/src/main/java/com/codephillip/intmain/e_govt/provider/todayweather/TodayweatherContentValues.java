@@ -10,6 +10,7 @@ import com.codephillip.intmain.e_govt.provider.base.AbstractContentValues;
  * Content values wrapper for the {@code todayweather} table.
  */
 public class TodayweatherContentValues extends AbstractContentValues {
+
     @Override
     public Uri uri() {
         return TodayweatherColumns.CONTENT_URI;
@@ -67,7 +68,7 @@ public class TodayweatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public TodayweatherContentValues putMaxTemp(@Nullable Float value) {
+    public TodayweatherContentValues putMaxTemp(@Nullable Double value) {
         mContentValues.put(TodayweatherColumns.MAX_TEMP, value);
         return this;
     }
@@ -77,7 +78,7 @@ public class TodayweatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public TodayweatherContentValues putMinTemp(@Nullable Float value) {
+    public TodayweatherContentValues putMinTemp(@Nullable Double value) {
         mContentValues.put(TodayweatherColumns.MIN_TEMP, value);
         return this;
     }

@@ -1,8 +1,8 @@
 package com.codephillip.intmain.e_govt.provider.todayweather;
 
-import com.codephillip.intmain.e_govt.provider.base.BaseModel;
-
 import android.support.annotation.Nullable;
+
+import com.codephillip.intmain.e_govt.provider.base.BaseModel;
 
 /**
  * Data model for the {@code todayweather} table.
@@ -45,12 +45,12 @@ public interface TodayweatherModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    Float getMaxTemp();
+    Double getMaxTemp();
 
     /**
      * Get the {@code min_temp} value.
      * Can be {@code null}.
      */
     @Nullable
-    Float getMinTemp();
+    Double getMinTemp();
 }

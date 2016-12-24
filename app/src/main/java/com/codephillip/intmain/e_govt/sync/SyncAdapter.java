@@ -47,6 +47,7 @@ import com.codephillip.intmain.e_govt.provider.events.EventsContentValues;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
 import com.codephillip.intmain.e_govt.provider.ministries.MinistriesContentValues;
 import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherContentValues;
 import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 import com.codephillip.intmain.e_govt.retrofit.ApiClient;
 import com.codephillip.intmain.e_govt.retrofit.ApiInterface;
@@ -260,6 +261,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         java.util.List<ListWeather> listWeather = wd.getListWeather();
         for (ListWeather weather : listWeather) {
             Log.d(TAG, "saveWeatherdistricts: " + weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain());
+            //todayweather table is used by Weatherdistricts
+            //while weather table is used by WeatherToday
+            TodayweatherContentValues values = new TodayweatherContentValues();
+            values.putDate((int) weather.getDt());
+            values.putName(weather.getName());
+            values.putMain(weather.getWeather().get(0).getMain());
+            values.putWeatherId(weather.getWeather().get(0).getId());
+            values.putCityId(weather.getId());
+            values.putMaxTemp(weather.getMain().getTempMax());
+            values.putMinTemp(weather.getMain().getTempMin());
+            Uri uri = values.insert(getContext().getContentResolver());
+            Log.d("INSERT: ", uri.toString());
         }
     }
 
@@ -290,7 +303,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //                    //querying the serving with more than 10 districts cases a 504 server error
 //                    String weatherBaseUrl = "http://api.openweathermap.org/data/2.5/group?id=";
 //                    String EndweatherBaseUrl = "&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
-                        //todo remove this logical error
+    //todo remove this logical error
 //                    for (int i = 0; i < 8; i++) {
 //                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "233114,229278,229362,229380,229746,233508,229024,230166,226110,226234" + EndweatherBaseUrl));
 //                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "225835,225858,225964,226823,226853,227592,227812,227904,228227,228853" + EndweatherBaseUrl));
@@ -315,7 +328,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //    }
 //
 //    private void getTodayWeatherFromJson(String jsonStr) throws JSONException {
-//        // These are the names of the JSON objects that need to be extracted.
+        // These are the names of the JSON objects that need to be extracted.
 //        final String TAG_ID = "id";
 //        final String TAG_DATE = "dt";
 //        final String TAG_NAME = "name";
