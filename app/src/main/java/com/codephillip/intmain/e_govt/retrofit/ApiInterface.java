@@ -38,6 +38,6 @@ public interface ApiInterface {
     @GET("/data/2.5/group?&units=metric")
     Call<Weatherdistricts> allWeatherDistricts(@Query("id") String value, @Query("appid") String appid);
 
-    @GET("/data/2.5/forecast?&mode=json&units=metric&cnt=2")
+    @GET("/data/2.5/forecast?&mode=json&units=metric&cnt=7")
     Call<WeatherToday> allWeatherToday(@Query("id") String value, @Query("appid") String appid);
 }

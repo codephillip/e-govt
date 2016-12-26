@@ -80,15 +80,19 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.d(TAG, "ONPERFORMSYNC");
 
-//        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
+        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
 
-        loadWeatherDistricts();
-//        loadDistricts();
+        deleteTables();
+
+        loadDistricts();
 //        loadMinistrys();
 //        loadEvents();
 //        loadChapters();
 //        sendFeedback();
+//        for (String weatherDistrictId : Utility.weatherDistrictIds) {
+//            loadWeatherDistricts(weatherDistrictId);
+//        }
     }
 
 
@@ -226,6 +230,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void storeInDistrictTable(Districts districts) {
         Log.d("INSERT: ", "starting");
+        //todo bulk inserts
         if (districts == null)
             throw new NullPointerException("Districts not found");
         Log.d(TAG, "saveDistrict: #" + districts);
@@ -238,8 +243,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    private void loadWeatherDistricts() {
-        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts("233114,229278,229024", "1f846e7a0e00cf8c2f96dd5e768580fb");
+    private void loadWeatherDistricts(String weatherDistrictId) {
+        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts(weatherDistrictId, "1f846e7a0e00cf8c2f96dd5e768580fb");
         call.enqueue(new Callback<Weatherdistricts>() {
             @Override
             public void onResponse(Call<Weatherdistricts> call, Response<Weatherdistricts> response) {
@@ -264,7 +269,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             //todayweather table is used by Weatherdistricts
             //while weather table is used by WeatherToday
             TodayweatherContentValues values = new TodayweatherContentValues();
-            values.putDate((int) weather.getDt());
+            values.putDate(weather.getDt());
             values.putName(weather.getName());
             values.putMain(weather.getWeather().get(0).getMain());
             values.putWeatherId(weather.getWeather().get(0).getId());
@@ -276,278 +281,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    //
-//        try {
-//            deleteTables();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        String baseUrl = "192.168.43.243";
-//        try {
-//            int k;
-//            for (k = 0; k < 5; k++) {
-//                if (k == 0) {
-////                    getMinistriesDataFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/ministries?transform=1"));
-//                    getMinistriesDataFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/ministries?transform=1"));
-//                } else if (k == 1) {
-////                    getChaptersFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/chapters?transform=1"));
-//                    getChaptersFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/chapters?transform=1"));
-//                } else if (k == 2) {
-////                    getEventsFromJson(connectToServer("http://"+ baseUrl +"/egovt/egovtapi.php/events?transform=1"));
-//                    getEventsFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/events?transform=1"));
-//                } else if (k == 3) {
-//                    getDistrictsFromJson(connectToServer("http://www.codephillip.com/egovtapi.php/districts?transform=1"));
-//                } else if (k == 4) {
-//                    //querying the serving with more than 10 districts cases a 504 server error
-//                    String weatherBaseUrl = "http://api.openweathermap.org/data/2.5/group?id=";
-//                    String EndweatherBaseUrl = "&units=metric&appid=1f846e7a0e00cf8c2f96dd5e768580fb";
-    //todo remove this logical error
-//                    for (int i = 0; i < 8; i++) {
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "233114,229278,229362,229380,229746,233508,229024,230166,226110,226234" + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "225835,225858,225964,226823,226853,227592,227812,227904,228227,228853" + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "228971,229059,229139,229268,229911,230299,230617,230893,231139,231696," + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "232066,232371,232422,233070,233275,233312,233346,233476,233730,233886," + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "234077,234092,234178,234565,235039,235489,226267226361,226600,226866," + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "228418,229112,229292,229361,229599,230256,230584,230993,231250,231426," + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "231550,231617,232235,232287,232397,232713,232834,233725,233738,234578," + EndweatherBaseUrl));
-//                        getTodayWeatherFromJson(connectToServer(weatherBaseUrl + "235130,448227,448232"+ EndweatherBaseUrl));
-//                    }
-//                }
-//            }
-////
-////            //TODO activate the whole other apis
-////            getDistrictsFromJson(connectToServer("http://192.168.56.1/egovtapi.php/districts?transform=1"));
-//
-//            notifyWeather();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.d("URL BUG", e.toString());
-//        }
-//    }
-//
-//    private void getTodayWeatherFromJson(String jsonStr) throws JSONException {
-        // These are the names of the JSON objects that need to be extracted.
-//        final String TAG_ID = "id";
-//        final String TAG_DATE = "dt";
-//        final String TAG_NAME = "name";
-//        final String TAG_MAIN = "main";
-//        final String TAG_MAX_TEMP = "temp_max";
-//        final String TAG_MIN_TEMP = "temp_min";
-//
-//        final String TAG_LIST = "list";
-//        final String TAG_WEATHER = "weather";
-//
-//        JSONObject forecastJson = new JSONObject(jsonStr);
-//        JSONArray LIST_ARRAY = forecastJson.getJSONArray(TAG_LIST);
-//        int jsonLength = LIST_ARRAY.length();
-//
-//        Time dayTime = new Time();
-//        dayTime.setToNow();
-//
-//        // we start at the day returned by local time. Otherwise this is a mess.
-//        int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-//
-//        // now we work exclusively in UTC
-//        dayTime = new Time();
-//
-//        for (int i = 0; i < jsonLength; i++) {
-//
-//            // Get the JSON object representing the day
-//            JSONObject c = LIST_ARRAY.getJSONObject(i);//point to a single row in the jsonArray
-//            //extract individual items from the json object
-////            String id = c.getString(TAG_ID);
-//            String name = c.getString(TAG_NAME);
-//            String date = c.getString(TAG_DATE);
-//            int cityId = c.getInt(TAG_ID);
-//
-//
-//            JSONObject weatherObject = c.getJSONArray(TAG_WEATHER).getJSONObject(0);
-//            String main = weatherObject.getString(TAG_MAIN);
-//            int weatherId = weatherObject.getInt(TAG_ID);
-//
-//            long dateTime = dayTime.setJulianDay(julianStartDay + i);
-//
-//            JSONObject temperatureObject = c.getJSONObject(TAG_MAIN);
-//            double high = temperatureObject.getDouble(TAG_MAX_TEMP);
-//            double low = temperatureObject.getDouble(TAG_MIN_TEMP);
-//
-//            Log.d("SYNC_DATA", date + " " + name + " " + main + " " + high + " " + low + " " + weatherId + " " + cityId);
-//            storeInTodayWeatherTable(dateTime, name, main, high, low, weatherId, cityId);
-//        }
-//    }
-//
-//
-//    private void storeInTodayWeatherTable(long date, String name, String main, double high, double low, int weatherId, int cityId) {
-//        Log.d("INSERT: ", "starting");
-//        TodayweatherContentValues values = new TodayweatherContentValues();
-//        values.putDate((int) date);
-//        values.putName(name);
-//        values.putMain(main);
-//        values.putWeatherId(weatherId);
-//        values.putCityId(cityId);
-//        values.putMaxTemp((float) high);
-//        values.putMinTemp((float) low);
-//        Uri uri = values.insert(getContext().getContentResolver());
-//        Log.d("INSERT: ", uri.toString());
-//    }
-//
-//    private void getDistrictsFromJson(String jsonStr) throws JSONException {
-//        // These are the names of the JSON objects that need to be extracted.
-//        final String TAG_ID = "id";
-//        final String TAG_DISTRICT = "district";
-//        final String TAG_REGION = "region";
-//        final String TAG_TITLE = "districts";
-//
-//        JSONObject forecastJson = new JSONObject(jsonStr);
-//        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);
-//        int jsonLength = jsonArray.length();//get lenght of the jsonArray
-//
-//        for (int i = 0; i < jsonLength; i++) {
-//            JSONObject c = jsonArray.getJSONObject(i);
-//            String id = c.getString(TAG_ID);
-//            String district = c.getString(TAG_DISTRICT);
-//
-//            Log.d("SYNC_DATA", id + " " + district);
-//            storeInDistrictTable(id, district);
-//        }
-//    }
-//
-//    private void storeInDistrictTable(String id, String district) {
-//        Log.d("INSERT: ", "starting");
-//        DistrictsContentValues values = new DistrictsContentValues();
-//        values.putDistrictName(district);
-//        values.insert(getContext().getContentResolver());
-//    }
-//
-//    private void getEventsFromJson(String jsonStr) throws JSONException {
-//        // These are the names of the JSON objects that need to be extracted.
-//        final String TAG_ID = "id";
-//        final String TAG_DATE = "date";
-//        final String TAG_STORY = "story";
-//        final String TAG_TITLE = "title";
-//        final String TAG_EVENTS = "events";
-//        final String TAG_IMAGE = "image";
-//        final String TAG_MINISTRY = "ministry";
-//        final String TAG_LOCATION = "location";
-//
-//        JSONObject forecastJson = new JSONObject(jsonStr);
-//        JSONArray jsonArray = forecastJson.getJSONArray(TAG_EVENTS);
-//        int jsonLength = jsonArray.length();
-//
-//        for (int i = 0; i < jsonLength; i++) {
-//
-//            JSONObject c = jsonArray.getJSONObject(i);
-//            String id = c.getString(TAG_ID);
-//            String image = c.getString(TAG_IMAGE);
-//            String ministry = c.getString(TAG_MINISTRY);
-//            String date = c.getString(TAG_DATE);
-//            String title = c.getString(TAG_TITLE);
-//            String story = c.getString(TAG_STORY);
-//            String location = c.getString(TAG_LOCATION);
-//
-//            Log.d("SYNC_DATA", id + " " + image + " " + ministry + " " + date + " " + story + " " + location);
-//            storeInEventsTable(id, ministry, image, date, story, location, title);
-//        }
-//    }
-//
-//    private void storeInEventsTable(String id, String ministry, String image, String date, String story, String location, String title) {
-//        EventsContentValues values = new EventsContentValues();
-//        values.putMinistry(ministry);
-//        values.putImage(image);
-//        values.putDate(date);
-//        values.putTitle(title);
-//        values.putStory(story);
-//        values.putLocation(location);
-//        values.insert(getContext().getContentResolver());
-//    }
-//
-//    private void getChaptersFromJson(String jsonStr) throws JSONException {
-//        // These are the names of the JSON objects that need to be extracted.
-//        final String TAG_ID = "id";
-//        final String TAG_DATE = "date";
-//        final String TAG_STORY = "story";
-//        final String TAG_TITLE = "title";
-//        final String TAG_CHAPTERS = "chapters";
-//        final String TAG_IMAGE = "image";
-//        final String TAG_MINISTRY = "ministry";
-//        final String TAG_DISTRICT = "district";
-//
-//        JSONObject forecastJson = new JSONObject(jsonStr);
-//        JSONArray jsonArray = forecastJson.getJSONArray(TAG_CHAPTERS);
-//        int jsonLength = jsonArray.length();
-//
-//        for (int i = 0; i < jsonLength; i++) {
-//
-//            JSONObject c = jsonArray.getJSONObject(i);
-//            String id = c.getString(TAG_ID);
-//            String image = c.getString(TAG_IMAGE);
-//            String ministry = c.getString(TAG_MINISTRY);
-//            String title = c.getString(TAG_TITLE);
-//            String date = c.getString(TAG_DATE);
-//            String story = c.getString(TAG_STORY);
-//            String district = c.getString(TAG_DISTRICT);
-//
-//            Log.d("SYNC_DATA", id + " " + image + " " + ministry + " " + date + " " + story + " " + district);
-//            storeInChaptersTable(id, ministry, image, date, story, title, district);
-//        }
-//    }
-//
-//    private void storeInChaptersTable(String id, String ministry, String image, String date, String story, String title, String district) {
-//        Log.d("INSERT: ", "starting");
-//        ChaptersContentValues values = new ChaptersContentValues();
-//        values.putMinistry(ministry);
-//        values.putDate(date);
-//        values.putImage(image);
-//        values.putTitle(title);
-//        values.putStory(story);
-//        values.putDistrict(district);
-//        values.insert(getContext().getContentResolver());
-//    }
-//
-//
-//    private void getMinistriesDataFromJson(String jsonStr)
-//            throws JSONException {
-//        // These are the names of the JSON objects that need to be extracted.
-//        final String TAG_ID = "id";
-//        final String TAG_MINISTRY_NAME = "ministry_name";
-//        final String TAG_IMAGE = "image";
-//        final String TAG_TITLE = "ministries";
-//
-//        JSONObject forecastJson = new JSONObject(jsonStr);
-//        JSONArray jsonArray = forecastJson.getJSONArray(TAG_TITLE);
-//        int jsonLength = jsonArray.length();//get lenght of the jsonArray
-//
-//        for (int i = 0; i < jsonLength; i++) {
-//
-//            JSONObject c = jsonArray.getJSONObject(i);
-//            String id = c.getString(TAG_ID);
-//            String image = c.getString(TAG_IMAGE);
-//            String ministry = c.getString(TAG_MINISTRY_NAME);
-//
-//            Log.d("SYNC_DATA", id + " " + image + " " + ministry);
-//            storeInMinistriesTable(id, ministry, image);
-//        }
-//    }
-//
-//    private String connectToServer(String urlConnection) throws Exception {
-//        Request request = new Request.Builder().url(urlConnection).build();
-//        OkHttpClient client = new OkHttpClient();
-//        Response response = client.newCall(request).execute();
-//        String jsonData = response.body().string();
-//        Log.d("JSON STRING_DATA", jsonData);
-//        return jsonData;
-//    }
-//
-//    private void storeInMinistriesTable(String id, String ministry_name, String image) {
-//        Log.d("INSERT: ", "starting");
-//        MinistriesContentValues values = new MinistriesContentValues();
-//        values.putMinistryName(ministry_name);
-//        values.putImage(image);
-//        final Uri uri = values.insert(getContext().getContentResolver());
-//        Log.d("INSERT: ", "inserting" + uri.toString());
-//    }
-//
     public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
         Account account = getSyncAccount(context);
         String authority = context.getString(R.string.content_authority);

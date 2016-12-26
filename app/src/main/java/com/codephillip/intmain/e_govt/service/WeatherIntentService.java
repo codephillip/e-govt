@@ -2,12 +2,17 @@ package com.codephillip.intmain.e_govt.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.support.v4.content.CursorLoader;
 import android.util.Log;
 
 import com.codephillip.intmain.e_govt.mymodel.weathertoday.City;
 import com.codephillip.intmain.e_govt.mymodel.weathertoday.ListWeatherToday;
 import com.codephillip.intmain.e_govt.mymodel.weathertoday.WeatherToday;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 import com.codephillip.intmain.e_govt.provider.weather.WeatherContentValues;
 import com.codephillip.intmain.e_govt.retrofit.ApiClient;
 import com.codephillip.intmain.e_govt.retrofit.ApiInterface;
@@ -38,42 +43,40 @@ public class WeatherIntentService extends IntentService {
         district = intent.getStringExtra("districtWeatherIntent");
         Log.d(TAG, "city Id# "+cityId);
 
-        loadWeatherToday();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String lastNotificationKey = district;
+        long lastSync = 0;
 
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        String lastNotificationKey = district;
-//        long lastSync = 0;
-//
-//        try {
-//            CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
-//                    new String[] {district.concat("%")}, null);
-//            Cursor cursor = cursorLoader.loadInBackground();
-//            if (cursor.moveToFirst()){
-//                lastSync = prefs.getLong(lastNotificationKey, 0);
-//            } else {
-//                throw new Exception("No Data");
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            Log.d("WEATHERINTENTSERVICE", e.toString());
-//        }
-//
-//
-//        if (System.currentTimeMillis() - lastSync >= HALF_DAY_IN_MILLIS) {
-//
-//            long deleted = getContentResolver().delete(WeatherColumns.CONTENT_URI, null, null);
-//            Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
-//
-//            try {
-//                loadWeatherToday();
-//                SharedPreferences.Editor editor = prefs.edit();
-//                editor.putLong(lastNotificationKey, System.currentTimeMillis());
-//                editor.apply();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                Log.d("URL BUG", e.toString());
-//            }
-//        }
+        try {
+            CursorLoader cursorLoader = new CursorLoader(this, WeatherColumns.CONTENT_URI, new String[] {WeatherColumns.NAME}, WeatherColumns.NAME + " LIKE ?",
+                    new String[] {district.concat("%")}, null);
+            Cursor cursor = cursorLoader.loadInBackground();
+            if (cursor.moveToFirst()){
+                lastSync = prefs.getLong(lastNotificationKey, 0);
+            } else {
+                throw new Exception("No Data");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.d("WEATHERINTENTSERVICE", e.toString());
+        }
+
+
+        if (System.currentTimeMillis() - lastSync >= HALF_DAY_IN_MILLIS) {
+
+            long deleted = getContentResolver().delete(WeatherColumns.CONTENT_URI, null, null);
+            Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));
+
+            try {
+                loadWeatherToday();
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong(lastNotificationKey, System.currentTimeMillis());
+                editor.apply();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("URL BUG", e.toString());
+            }
+        }
     }
 
     private void loadWeatherToday() {

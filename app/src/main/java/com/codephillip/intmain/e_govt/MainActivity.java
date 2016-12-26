@@ -15,15 +15,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.codephillip.intmain.e_govt.mymodel.districts.District;
-import com.codephillip.intmain.e_govt.mymodel.districts.Districts;
+import com.codephillip.intmain.e_govt.provider.chapters.ChaptersColumns;
+import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
+import com.codephillip.intmain.e_govt.provider.events.EventsColumns;
+import com.codephillip.intmain.e_govt.provider.ministries.MinistriesColumns;
+import com.codephillip.intmain.e_govt.provider.todayweather.TodayweatherColumns;
+import com.codephillip.intmain.e_govt.provider.weather.WeatherColumns;
 import com.codephillip.intmain.e_govt.retrofit.ApiInterface;
 import com.codephillip.intmain.e_govt.weather.WeatherFragment;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-
-import java.util.List;
 
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
@@ -32,8 +34,8 @@ import de.psdev.licensesdialog.licenses.GnuGeneralPublicLicense30;
 import de.psdev.licensesdialog.licenses.MITLicense;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
-import retrofit2.Call;
-import retrofit2.Callback;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
