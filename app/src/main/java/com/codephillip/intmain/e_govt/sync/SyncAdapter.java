@@ -276,7 +276,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-
     //
 //        try {
 //            deleteTables();

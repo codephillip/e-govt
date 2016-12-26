@@ -1,8 +1,8 @@
 package com.codephillip.intmain.e_govt.provider.weather;
 
-import com.codephillip.intmain.e_govt.provider.base.BaseModel;
-
 import android.support.annotation.Nullable;
+
+import com.codephillip.intmain.e_govt.provider.base.BaseModel;
 
 /**
  * Data model for the {@code weather} table.
@@ -47,40 +47,40 @@ public interface WeatherModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    Float getHumidity();
+    Integer getHumidity();
 
     /**
      * Get the {@code wind_speed} value.
      * Can be {@code null}.
      */
     @Nullable
-    Float getWindSpeed();
+    Double getWindSpeed();
 
     /**
      * Get the {@code max_temp} value.
      * Can be {@code null}.
      */
     @Nullable
-    Float getMaxTemp();
+    Double getMaxTemp();
 
     /**
      * Get the {@code min_temp} value.
      * Can be {@code null}.
      */
     @Nullable
-    Float getMinTemp();
+    Double getMinTemp();
 
     /**
      * Get the {@code pressure} value.
      * Can be {@code null}.
      */
     @Nullable
-    Float getPressure();
+    Double getPressure();
 
     /**
      * Get the {@code deg} value.
      * Can be {@code null}.
      */
     @Nullable
-    Float getDeg();
+    Double getDeg();
 }

@@ -71,7 +71,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public WeatherContentValues putHumidity(@Nullable Float value) {
+    public WeatherContentValues putHumidity(@Nullable Integer value) {
         mContentValues.put(WeatherColumns.HUMIDITY, value);
         return this;
     }
@@ -81,7 +81,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public WeatherContentValues putWindSpeed(@Nullable Float value) {
+    public WeatherContentValues putWindSpeed(@Nullable Double value) {
         mContentValues.put(WeatherColumns.WIND_SPEED, value);
         return this;
     }
@@ -91,7 +91,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public WeatherContentValues putMaxTemp(@Nullable Float value) {
+    public WeatherContentValues putMaxTemp(@Nullable Double value) {
         mContentValues.put(WeatherColumns.MAX_TEMP, value);
         return this;
     }
@@ -101,7 +101,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public WeatherContentValues putMinTemp(@Nullable Float value) {
+    public WeatherContentValues putMinTemp(@Nullable Double value) {
         mContentValues.put(WeatherColumns.MIN_TEMP, value);
         return this;
     }
@@ -111,7 +111,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public WeatherContentValues putPressure(@Nullable Float value) {
+    public WeatherContentValues putPressure(@Nullable Double value) {
         mContentValues.put(WeatherColumns.PRESSURE, value);
         return this;
     }
@@ -121,7 +121,7 @@ public class WeatherContentValues extends AbstractContentValues {
         return this;
     }
 
-    public WeatherContentValues putDeg(@Nullable Float value) {
+    public WeatherContentValues putDeg(@Nullable Double value) {
         mContentValues.put(WeatherColumns.DEG, value);
         return this;
     }

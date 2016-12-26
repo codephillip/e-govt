@@ -84,7 +84,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Log.d("RECYCLER", "CLICK");
-                context.startService(new Intent(context, WeatherIntentService.class).putExtra("cityId", cityId).putExtra("districtWeatherIntent", district));
+                context.startService(new Intent(context, WeatherIntentService.class).putExtra("cityId", String.valueOf(cityId)).putExtra("districtWeatherIntent", district));
                 context.startActivity(new Intent(context, DistrictWeatherActivity.class).putExtra("districtWeatherIntent", district));
             }
         });

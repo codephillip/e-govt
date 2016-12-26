@@ -78,8 +78,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Float getHumidity() {
-        Float res = getFloatOrNull(WeatherColumns.HUMIDITY);
+    public Integer getHumidity() {
+        Integer res = getIntegerOrNull(WeatherColumns.HUMIDITY);
         return res;
     }
 
@@ -88,8 +88,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Float getWindSpeed() {
-        Float res = getFloatOrNull(WeatherColumns.WIND_SPEED);
+    public Double getWindSpeed() {
+        Double res = getDoubleOrNull(WeatherColumns.WIND_SPEED);
         return res;
     }
 
@@ -98,8 +98,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Float getMaxTemp() {
-        Float res = getFloatOrNull(WeatherColumns.MAX_TEMP);
+    public Double getMaxTemp() {
+        Double res = getDoubleOrNull(WeatherColumns.MAX_TEMP);
         return res;
     }
 
@@ -108,8 +108,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Float getMinTemp() {
-        Float res = getFloatOrNull(WeatherColumns.MIN_TEMP);
+    public Double getMinTemp() {
+        Double res = getDoubleOrNull(WeatherColumns.MIN_TEMP);
         return res;
     }
 
@@ -118,8 +118,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Float getPressure() {
-        Float res = getFloatOrNull(WeatherColumns.PRESSURE);
+    public Double getPressure() {
+        Double res = getDoubleOrNull(WeatherColumns.PRESSURE);
         return res;
     }
 
@@ -128,8 +128,8 @@ public class WeatherCursor extends AbstractCursor implements WeatherModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Float getDeg() {
-        Float res = getFloatOrNull(WeatherColumns.DEG);
+    public Double getDeg() {
+        Double res = getDoubleOrNull(WeatherColumns.DEG);
         return res;
     }
 }

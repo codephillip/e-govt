@@ -6,6 +6,7 @@ import com.codephillip.intmain.e_govt.mymodel.events.Events;
 import com.codephillip.intmain.e_govt.mymodel.feedbacks.Feedback;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministrys;
 import com.codephillip.intmain.e_govt.mymodel.weatherdistricts.Weatherdistricts;
+import com.codephillip.intmain.e_govt.mymodel.weathertoday.WeatherToday;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,4 +38,6 @@ public interface ApiInterface {
     @GET("/data/2.5/group?&units=metric")
     Call<Weatherdistricts> allWeatherDistricts(@Query("id") String value, @Query("appid") String appid);
 
+    @GET("/data/2.5/forecast?&mode=json&units=metric&cnt=2")
+    Call<WeatherToday> allWeatherToday(@Query("id") String value, @Query("appid") String appid);
 }
