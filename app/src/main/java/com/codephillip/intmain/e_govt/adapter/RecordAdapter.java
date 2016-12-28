@@ -27,6 +27,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     Cursor dataCursor;
 //    Context context;
     private static Context context;
+    private static String TAG = RecordAdapter.class.getSimpleName();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
@@ -46,6 +47,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString(fragKey, "Ministry");
                     editor.apply();
+                    Log.d(TAG, "onClick: intentstring" + textView.getText());
                     context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, textView.getText()));
 //                    context.startActivity(new Intent(context, ChapterActivity.class).putExtra(Intent.EXTRA_TEXT, workout.getText()));
                 }

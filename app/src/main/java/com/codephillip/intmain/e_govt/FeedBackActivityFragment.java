@@ -19,16 +19,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.codephillip.intmain.e_govt.service.MyIntentService;
+import com.codephillip.intmain.e_govt.service.FeedbackIntentService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class FeedBackActivityFragment extends Fragment {
 
+    private static final String TAG = FeedBackActivityFragment.class.getSimpleName();
     String intentString;
     boolean intentReceived = false;
     private TextInputLayout textInputLayoutTopic;
@@ -47,7 +46,7 @@ public class FeedBackActivityFragment extends Fragment {
             intentString = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
             intentReceived = true;
             Log.d("INTENT", intentString);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -67,22 +66,20 @@ public class FeedBackActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Send: ", "Sending ..");
-                    if (editTopic.getText().length() <= 0 || editMessage.getText().length() <= 0){
-                        editTextError();
-                    }
-                    else {
-                        if (isConnectedToInternet()){
-                            getActivity().startService(new Intent(getContext(), MyIntentService.class)
-                                    .putExtra("Date", getTime())
-                                    .putExtra("Topic", String.valueOf(editTopic.getText()))
-                                    .putExtra("Message", String.valueOf(editMessage.getText())));
-                            Snackbar.make(v, "Thank you for your feedback", Snackbar.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Snackbar.make(v, "Please check your Internet connection", Snackbar.LENGTH_LONG).show();
-                        }
+                if (editTopic.getText().length() <= 0 || editMessage.getText().length() <= 0) {
+                    editTextError();
+                } else {
+                    if (isConnectedToInternet()) {
+                        getActivity().startService(new Intent(getContext(), FeedbackIntentService.class)
+                                .putExtra("Date", getTime())
+                                .putExtra("Topic", String.valueOf(editTopic.getText()))
+                                .putExtra("Message", String.valueOf(editMessage.getText())));
+                        Snackbar.make(v, "Thank you for your feedback", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(v, "Please check your Internet connection", Snackbar.LENGTH_LONG).show();
                     }
                 }
+            }
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
@@ -96,11 +93,12 @@ public class FeedBackActivityFragment extends Fragment {
         return rootView;
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
 
-        if (intentReceived){
+        if (intentReceived) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             String chapterStrip = "Feedback";
             String tablename = "Feedback_tablename";
@@ -112,7 +110,7 @@ public class FeedBackActivityFragment extends Fragment {
         }
     }
 
-    private void editTextError(){
+    private void editTextError() {
         Resources res = getResources();
         textInputLayoutTopic.setError(res.getString(R.string.topic_required));
         textInputLayoutMessage.setError(res.getString(R.string.message_required));
@@ -125,18 +123,15 @@ public class FeedBackActivityFragment extends Fragment {
         return formatter.format(new Date());
     }
 
-    private boolean isConnectedToInternet(){
+    private boolean isConnectedToInternet() {
         ConnectivityManager connectivity = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
+        if (connectivity != null) {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null)
                 for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
-
         }
         return false;
     }

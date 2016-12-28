@@ -33,7 +33,6 @@ import com.codephillip.intmain.e_govt.mymodel.districts.District;
 import com.codephillip.intmain.e_govt.mymodel.districts.Districts;
 import com.codephillip.intmain.e_govt.mymodel.events.Event;
 import com.codephillip.intmain.e_govt.mymodel.events.Events;
-import com.codephillip.intmain.e_govt.mymodel.feedbacks.Feedback;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministry;
 import com.codephillip.intmain.e_govt.mymodel.ministrys.Ministrys;
 import com.codephillip.intmain.e_govt.mymodel.weatherdistricts.ListWeather;
@@ -66,8 +65,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     // Interval at which to sync with the server, in seconds.
     // 60 seconds (1 minute) * 60 * 2 = 2 hour
-    public static int SYNC_INTERVAL = 60 * 60 * 24;
-    public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
+    private static int SYNC_INTERVAL = 60 * 60 * 24;
+    private static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
     private static ApiInterface apiInterface, apiInterfaceWeather;
@@ -106,36 +105,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        sendFeedback();
+
         Log.d(TAG, "onPerformSync: started fetching weather");
-//        for (String weatherDistrictId : Utility.weatherDistrictIds) {
-//            Log.d(TAG, "onPerformSync: #weatherString" + weatherDistrictId);
-//            try {
-//                loadWeatherDistricts(weatherDistrictId);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        for (String weatherDistrictId : Utility.weatherDistrictIds) {
+            Log.d(TAG, "onPerformSync: #weatherString" + weatherDistrictId);
+            try {
+                loadWeatherDistricts(weatherDistrictId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-
-    private void sendFeedback() {
-        Feedback feedback = new Feedback("dummy title2", "dummy content, dummy content2");
-        Call<Feedback> call = apiInterface.createFeedback(feedback);
-        call.enqueue(new Callback<Feedback>() {
-            @Override
-            public void onResponse(Call<Feedback> call, retrofit2.Response<Feedback> response) {
-                int statusCode = response.code();
-                Feedback feedback1 = response.body();
-                Log.d(TAG, "onResponse: #" + feedback1.getTitle() + feedback1.getContent() + statusCode);
-            }
-
-            @Override
-            public void onFailure(Call<Feedback> call, Throwable t) {
-
-            }
-        });
-    }
 
     private void loadChapters() {
         Call<Chapters> call = apiInterface.allChapters();
@@ -307,7 +288,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         notifyWeather();
     }
 
-    public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
+    private static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
         Account account = getSyncAccount(context);
         String authority = context.getString(R.string.content_authority);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -382,10 +363,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static void initializeSyncAdapter(Context context) {
         Log.d("SYNCADAPTER", "initializeSyncAdapter: STARTED");
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-//        String syncFrequency = preferences.getString("sync_frequency", "360");
-//        Log.d("SYNCADAPTER", "SyncFrequency "+syncFrequency);
-//        SYNC_INTERVAL = 60 * Integer.parseInt(syncFrequency);
         getSyncAccount(context);
     }
 

@@ -11,7 +11,7 @@ import com.squareup.picasso.Transformation;
 /**
  * Created by codephillip on 1/15/16.
  */
-public class ImageTrans_CircleTransform implements Transformation {
+public class ImageTransCircleTransform implements Transformation {
     @Override
     public Bitmap transform(Bitmap source) {
         if (source == null || source.isRecycled()) {

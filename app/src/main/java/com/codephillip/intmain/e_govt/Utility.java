@@ -54,7 +54,7 @@ public class Utility {
                 .placeholder(R.drawable.nav_image)
                 .error(R.drawable.nav_image)
 //                .transform(new CircleTransform())
-                .transform(new ImageTrans_CircleTransform())
+                .transform(new ImageTransCircleTransform())
                 .into(imageView);
     }
 
@@ -67,7 +67,7 @@ public class Utility {
                 .placeholder(R.drawable.nav_image)
                 .error(R.drawable.nav_image)
 //                .transform(new CircleTransform())
-                .transform(new ImageTrans_CircleTransform())
+                .transform(new ImageTransCircleTransform())
                 .into(imageView);
     }
 
