@@ -21,7 +21,7 @@ import com.codephillip.intmain.e_govt.provider.districts.DistrictsColumns;
 import com.codephillip.intmain.e_govt.sync.SyncAdapter;
 
 
-public class DistrictsFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
+public class DistrictsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView recyclerView;
     DistrictAdapter adapter;
     private int LOADER_ID = 1;
@@ -41,10 +41,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (Utility.dbCursor(DistrictsColumns.CONTENT_URI ,getContext()).getCount() <= 0)
-                    SyncAdapter.syncImmediately(getContext());
-                else
-                    swipeRefreshLayout.setRefreshing(false);
+                SyncAdapter.syncImmediately(getContext());
             }
         });
         return rootView;
@@ -58,7 +55,7 @@ public class DistrictsFragment extends Fragment  implements LoaderManager.Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), DistrictsColumns.CONTENT_URI, null, null, null,  DistrictsColumns.DISTRICT_NAME + " ASC");
+        return new CursorLoader(getContext(), DistrictsColumns.CONTENT_URI, null, null, null, DistrictsColumns.DISTRICT_NAME + " ASC");
     }
 
     @Override

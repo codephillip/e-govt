@@ -70,7 +70,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
-    private ApiInterface apiInterface, apiInterfaceWeather;
+    private static ApiInterface apiInterface, apiInterfaceWeather;
 
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -81,17 +81,40 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d(TAG, "ONPERFORMSYNC");
 
         apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
-        apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
+        apiInterfaceWeather = ApiClient.getClient(Utility.WEATHER_BASE_URL).create(ApiInterface.class);
 
-        deleteTables();
+        try {
+            loadMinistrys();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        loadDistricts();
-//        loadMinistrys();
-//        loadEvents();
-//        loadChapters();
+        try {
+            loadDistricts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            loadEvents();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            loadChapters();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        sendFeedback();
+        Log.d(TAG, "onPerformSync: started fetching weather");
 //        for (String weatherDistrictId : Utility.weatherDistrictIds) {
-//            loadWeatherDistricts(weatherDistrictId);
+//            Log.d(TAG, "onPerformSync: #weatherString" + weatherDistrictId);
+//            try {
+//                loadWeatherDistricts(weatherDistrictId);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 //        }
     }
 
@@ -230,9 +253,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void storeInDistrictTable(Districts districts) {
         Log.d("INSERT: ", "starting");
-        //todo bulk inserts
         if (districts == null)
             throw new NullPointerException("Districts not found");
+        //if first request if successful then delete all the tables
+        deleteTables();
         Log.d(TAG, "saveDistrict: #" + districts);
         List<District> districtList = districts.getDistricts();
         for (District district : districtList) {
@@ -244,11 +268,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void loadWeatherDistricts(String weatherDistrictId) {
-        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts(weatherDistrictId, "1f846e7a0e00cf8c2f96dd5e768580fb");
+        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts(Utility.WEATHER_BASE_URL  + "/data/2.5/group?id=" + weatherDistrictId + "&units=metric&appid=" + "1f846e7a0e00cf8c2f96dd5e768580fb");
         call.enqueue(new Callback<Weatherdistricts>() {
             @Override
             public void onResponse(Call<Weatherdistricts> call, Response<Weatherdistricts> response) {
                 Weatherdistricts wd = response.body();
+                Log.d(TAG, "onResponse: " + wd);
                 saveWeatherdistricts(wd);
             }
 
@@ -279,6 +304,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             Uri uri = values.insert(getContext().getContentResolver());
             Log.d("INSERT: ", uri.toString());
         }
+        notifyWeather();
     }
 
     public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
@@ -415,6 +441,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
                     r.play();
 
+                    cursor.close();
+
                     if (prefs.getBoolean("notifications_new_message_vibrate", true)) {
                         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                         // Vibrate for 500 milliseconds
@@ -430,7 +458,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    public void deleteTables() {
+    private void deleteTables() {
         long deleted;
         deleted = getContext().getContentResolver().delete(MinistriesColumns.CONTENT_URI, null, null);
         Log.d("CONTENT_QUERY_deleted#", String.valueOf(deleted));

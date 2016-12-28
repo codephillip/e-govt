@@ -21,6 +21,8 @@ public class Utility {
 
     public static final String DATE_FORMAT = "yyyyMMdd";
 
+    public static final String WEATHER_BASE_URL = "http://api.openweathermap.org";
+
     public static final String[] weatherDistrictIds= {
             "233114,229278,229362,229380,229746,233508,229024,230166,226110,226234",
             "225835,225858,225964,226823,226853,227592,227812,227904,228227,228853",

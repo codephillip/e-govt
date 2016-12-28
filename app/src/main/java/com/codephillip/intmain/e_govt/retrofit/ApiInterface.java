@@ -12,7 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by codephillip on 22/12/16.
@@ -35,9 +35,9 @@ public interface ApiInterface {
     @POST("/api/v1/feedbacks/post")
     Call<Feedback> createFeedback(@Body Feedback feedback);
 
-    @GET("/data/2.5/group?&units=metric")
-    Call<Weatherdistricts> allWeatherDistricts(@Query("id") String value, @Query("appid") String appid);
+    @GET
+    Call<Weatherdistricts> allWeatherDistricts(@Url String url);
 
-    @GET("/data/2.5/forecast?&mode=json&units=metric&cnt=7")
-    Call<WeatherToday> allWeatherToday(@Query("id") String value, @Query("appid") String appid);
+    @GET
+    Call<WeatherToday> allWeatherToday(@Url String url);
 }

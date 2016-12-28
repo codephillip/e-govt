@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.CursorLoader;
 import android.util.Log;
 
+import com.codephillip.intmain.e_govt.Utility;
 import com.codephillip.intmain.e_govt.mymodel.weathertoday.City;
 import com.codephillip.intmain.e_govt.mymodel.weathertoday.ListWeatherToday;
 import com.codephillip.intmain.e_govt.mymodel.weathertoday.WeatherToday;
@@ -80,10 +81,10 @@ public class WeatherIntentService extends IntentService {
     }
 
     private void loadWeatherToday() {
-        apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
+        apiInterfaceWeather = ApiClient.getClient(Utility.WEATHER_BASE_URL).create(ApiInterface.class);
         Log.d(TAG, "loadWeatherToday: cityId " + cityId);
 
-        Call<WeatherToday> call = apiInterfaceWeather.allWeatherToday(cityId, "1f846e7a0e00cf8c2f96dd5e768580fb");
+        Call<WeatherToday> call = apiInterfaceWeather.allWeatherToday(Utility.WEATHER_BASE_URL + "/data/2.5/forecast?id=" + cityId + "&mode=json&units=metric&cnt=7&appid=1f846e7a0e00cf8c2f96dd5e768580fb");
         call.enqueue(new Callback<WeatherToday>() {
             @Override
             public void onResponse(Call<WeatherToday> call, retrofit2.Response<WeatherToday> response) {
